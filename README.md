@@ -22,5 +22,5 @@ npm install
 grunt
 ```
 
-![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/leaflet-panel-layers-layout.jpg)
+![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/images/leaflet-panel-layers-layout.jpg)
 
