@@ -1,5 +1,6 @@
 {
   "name": "leaflet-panel-layers",
+  "description": "Leaflet Control Layers extended for group of layers and icons legend",
   "version": "0.0.1",
   "main": [
   	"dist/leaflet-panel-layers.min.css",
@@ -9,6 +10,8 @@
     "**/.*",
     "node_modules",
     "components",
+    "images",
+    "src",
     "bower_components",
     "examples"
   ]
