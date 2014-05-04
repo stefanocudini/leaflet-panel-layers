@@ -11,6 +11,10 @@ Tested in Leaflet 0.7
 
 [labs.easyblog.it/maps/leaflet-panel-layers](http://labs.easyblog.it/maps/leaflet-panel-layers/)
 
+**Source code:**  
+[Github](https://github.com/stefanocudini/leaflet-panel-layers)   
+[NPM](https://npmjs.org/package/leaflet-panel-layers)  
+
 
 #Build
 
