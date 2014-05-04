@@ -21,3 +21,6 @@ After you've made sure to have npm working, run this in command line:
 npm install
 grunt
 ```
+
+![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/leaflet-panel-layers-layout.jpg)
+
