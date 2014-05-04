@@ -1,0 +1,33 @@
+{
+  "name": "leaflet-panel-layers",
+  "version": "0.0.1",
+  "description": "Leaflet Control Layers extended for group of layers and icons legend",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:stefanocudini/leaflet-panel-layers.git"
+  },
+  "homepage": "http://labs.easyblog.it/maps/leaflet-panel-layers/",
+  "author": {
+    "name": "Stefano Cudini",
+    "email": "stefano.cudini@gmail.com",
+    "url": "http://labs.easyblog.it/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "gis",
+    "map",
+    "panel",
+    "leaflet"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  	"grunt": "~0.4.2",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}

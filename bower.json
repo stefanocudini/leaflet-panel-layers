@@ -1,0 +1,15 @@
+{
+  "name": "leaflet-panel-layers",
+  "version": "0.0.1",
+  "main": [
+  	"dist/leaflet-panel-layers.min.css",
+  	"dist/leaflet-panel-layers.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components",
+    "examples"
+  ]
+}

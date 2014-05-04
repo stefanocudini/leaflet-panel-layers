@@ -1,0 +1,40 @@
+.icon {
+	display: inline-block;
+	line-height: 16px;
+	margin: 2px;
+	height: 16px;
+	width: 16px;
+	background-color: #ccc;
+}
+
+/* ICONS */
+.icon-bar {
+	background: url('../images/icons/bar.png') center center no-repeat;
+}
+.icon-fuel {
+	background: url('../images/icons/fuel.png') center center no-repeat;
+}
+.icon-parking {
+	background: url('../images/icons/parking.png') center center no-repeat;
+}
+.icon-drinking_water {
+	background: url('../images/icons/drinking_water.png') center center no-repeat;
+}
+
+/* MARKERS */
+.leaflet-marker-icon {
+	padding: 2px;
+	text-align: center;
+}
+.marker-bar {
+	background: url('../images/markers/bar.png') center center no-repeat;
+}
+.marker-fuel {
+	background: url('../images/markers/fuel.png') center center no-repeat;
+}
+.marker-parking {
+	background: url('../images/markers/parking.png') center center no-repeat;
+}
+.marker-drinking_water {
+	background: url('../images/markers/drinking_water.png') center center no-repeat;
+}

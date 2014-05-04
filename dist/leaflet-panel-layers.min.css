@@ -1,0 +1,18 @@
+/* 
+ * Leaflet Panel Layers v0.0.1 - 2014-05-04 
+ * 
+ * Copyright 2014 Stefano Cudini 
+ * stefano.cudini@gmail.com 
+ * http://labs.easyblog.it/ 
+ * 
+ * Licensed under the MIT license. 
+ * 
+ * Demos: 
+ * http://labs.easyblog.it/maps/leaflet-panel-layers/ 
+ * 
+ * Source: 
+ * git@github.com:stefanocudini/leaflet-panel-layers.git 
+ * 
+ */
+
+.leaflet-panel-layers .leaflet-panel-layers-list,.leaflet-panel-layers-expanded .leaflet-panel-layers-list,.leaflet-panel-layers-expanded .leaflet-panel-layers-toggle{display:block}.leaflet-top.leaflet-right .leaflet-panel-layers{margin:0}.leaflet-panel-layers{background:rgba(255,255,255,.6);box-shadow:-2px 0 8px rgba(0,0,0,.3);padding:4px;width:30px;overflow:hidden}.leaflet-panel-layers-expanded{overflow-y:auto;width:auto}.leaflet-panel-layers-sub-separator{margin:10px 2px 2px;padding-top:2px;border-top:1px solid rgba(0,0,0,.3);color:rgba(0,0,0,.5);font-weight:700}.leaflet-panel-layers-base label,.leaflet-panel-layers-overlays label{display:block;clear:both;float:none;line-height:20px;height:22px}.leaflet-panel-layers-overlays label{margin-bottom:4px;padding:2px;background:#fff;border:1px solid rgba(0,0,0,.3);border-radius:4px;white-space:nowrap;width:auto;overflow:hidden;font-weight:700}.leaflet-panel-layers-overlays label:hover{border:1px solid #888;cursor:pointer}.leaflet-panel-layers-icon{vertical-align:middle;text-align:center;height:22px;width:22px;background:#fff;display:inline-block;margin-right:4px}.leaflet-panel-layers-overlays span{display:inline-block;width:auto;overflow:hidden}.leaflet-panel-layers-overlays input{float:right;margin:4px}
