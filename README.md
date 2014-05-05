@@ -13,6 +13,7 @@ Tested in Leaflet 0.7
 
 **Source code:**  
 [Github](https://github.com/stefanocudini/leaflet-panel-layers)   
+[Bitbucket](https://bitbucket.org/zakis_/leaflet-panel-layers)
 [NPM](https://npmjs.org/package/leaflet-panel-layers)
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/images/leaflet-panel-layers-layout.jpg)
