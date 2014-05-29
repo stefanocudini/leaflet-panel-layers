@@ -28,6 +28,10 @@
 	color: rgba(0,0,0,0.5);
 	font-weight: bold;
 }
+.leaflet-panel-layers .leaflet-panel-layers-sub-separator:first-child {
+	border-top: none;
+	margin-top:2px;
+}
 .leaflet-panel-layers-base label,
 .leaflet-panel-layers-overlays label {
 	display: block;
