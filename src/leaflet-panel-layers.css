@@ -46,7 +46,11 @@
 	background: #fff;
 	border: 1px solid rgba(0,0,0,0.3);
 	border-radius: 4px;
-	white-space: nowrap;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
 	width: auto;
 	overflow: hidden;
 	font-weight: bold;
