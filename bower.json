@@ -1,7 +1,7 @@
 {
   "name": "leaflet-panel-layers",
+  "version": "0.0.2",
   "description": "Leaflet Control Layers extended for group of layers and icons legend",
-  "version": "0.0.1",
   "main": [
   	"dist/leaflet-panel-layers.min.css",
   	"dist/leaflet-panel-layers.min.js"

@@ -41,7 +41,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 		else
 		{
-			label = document.createElement('label');
+			label = L.DomUtil.create('label', className + '-item');
 			checked = this._map.hasLayer(obj.layer);
 			if (obj.overlay) {
 				input = document.createElement('input');
@@ -49,7 +49,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				input.className = 'leaflet-control-layers-selector';
 				input.defaultChecked = checked;
 				
-				icon = L.DomUtil.create('i',className+'-icon', label);
+				icon = L.DomUtil.create('i', className+'-icon', label);
 				icon.innerHTML = obj.icon || '';
 				label.appendChild(icon);
 

@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.0.1 - 2014-06-10 
+ * Leaflet Panel Layers v0.0.2 - 2014-11-03 
  * 
  * Copyright 2014 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -57,7 +57,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 		else
 		{
-			label = document.createElement('label');
+			label = L.DomUtil.create('label', className + '-item');
 			checked = this._map.hasLayer(obj.layer);
 			if (obj.overlay) {
 				input = document.createElement('input');
@@ -65,7 +65,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				input.className = 'leaflet-control-layers-selector';
 				input.defaultChecked = checked;
 				
-				icon = L.DomUtil.create('i',className+'-icon', label);
+				icon = L.DomUtil.create('i', className+'-icon', label);
 				icon.innerHTML = obj.icon || '';
 				label.appendChild(icon);
 

@@ -32,15 +32,21 @@
 	border-top: none;
 	margin-top:2px;
 }
-.leaflet-panel-layers-base label,
-.leaflet-panel-layers-overlays label {
+.leaflet-panel-layers-base .leaflet-panel-layers-item,
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item {
 	display: block;
 	clear: both;
 	float: none;
 	line-height: 20px;
-	height: 22px;	
+	height: 22px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-.leaflet-panel-layers-overlays label {
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item {
 	margin-bottom: 4px;
 	padding: 2px;
 	background: #fff;
@@ -55,13 +61,13 @@
 	overflow: hidden;
 	font-weight: bold;
 }
-.leaflet-panel-layers-overlays label:hover {
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item:hover {
 	border: 1px solid #888;
 	cursor: pointer;
 }
 .leaflet-panel-layers-icon {
-	vertical-align: middle;
 	text-align: center;
+	line-height: 22px;
 	height: 22px;
 	width: 22px;
 	background: #fff;
