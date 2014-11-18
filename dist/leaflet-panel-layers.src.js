@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.0.2 - 2014-11-03 
+ * Leaflet Panel Layers v0.0.3 - 2014-11-18 
  * 
  * Copyright 2014 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -53,7 +53,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		if(obj.sep)
 		{
-			label = L.DomUtil.create('div', className + '-sub-separator');
+			label = L.DomUtil.create('div', className + '-separator');
 		}
 		else
 		{

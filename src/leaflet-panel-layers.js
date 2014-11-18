@@ -37,7 +37,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		if(obj.sep)
 		{
-			label = L.DomUtil.create('div', className + '-sub-separator');
+			label = L.DomUtil.create('div', className + '-separator');
 		}
 		else
 		{

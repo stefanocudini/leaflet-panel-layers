@@ -21,14 +21,14 @@
 	overflow-y: auto;
 	width: auto;
 }
-.leaflet-panel-layers-sub-separator {
+.leaflet-panel-layers-separator {
 	margin: 10px 2px 2px 2px;
 	padding-top: 2px;
 	border-top: 1px solid rgba(0,0,0,0.3);
 	color: rgba(0,0,0,0.5);
 	font-weight: bold;
 }
-.leaflet-panel-layers .leaflet-panel-layers-sub-separator:first-child {
+.leaflet-panel-layers .leaflet-panel-layers-separator:first-child {
 	border-top: none;
 	margin-top:2px;
 }
