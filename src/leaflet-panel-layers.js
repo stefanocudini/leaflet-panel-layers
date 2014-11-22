@@ -13,15 +13,21 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._lastZIndex = 0;
 		this._handlingClick = false;
 
+		//TODO add support for json layers defintions
+		//fields: layerType: "tileLayer", layerUrl: "http://..."
+
 		for (var i in baseLayers)
 			this._addLayer(baseLayers[i]);
 
 		for (i in overlays)
 			this._addLayer(overlays[i], true);
 	},
+
 	_addLayer: function (obj, overlay) {
 		//var id = obj.layer ? L.stamp(obj.layer);
 		var id = L.stamp(obj);
+
+console.log(id, obj);
 
 		this._layers[id] = obj;
 		this._layers[id].overlay = overlay;
@@ -31,15 +37,16 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			obj.layer.setZIndex(this._lastZIndex);
 		}
 	},
-	_addItem: function (obj) {
+
+	_createItem: function(obj) {
 		var className = 'leaflet-panel-layers',
 			label, input, icon, checked;
-
+		
 		if(obj.sep)
 		{
 			label = L.DomUtil.create('div', className + '-separator');
 		}
-		else
+		else if(obj.layer)
 		{
 			label = L.DomUtil.create('label', className + '-item');
 			checked = this._map.hasLayer(obj.layer);
@@ -56,26 +63,45 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			} else {
 				input = this._createRadioElement('leaflet-base-layers', checked);
 			}
-			// if(obj.className)
-			// 	L.DomUtil.addClass(label, obj.className);
 
 			input.layerId = L.stamp(obj);
 
 			L.DomEvent.on(input, 'click', this._onInputClick, this);
 			label.appendChild(input);
-
-
 		}
 
 		var name = document.createElement('span');
 		name.innerHTML = ' ' + obj.name;
 		label.appendChild(name);
 
+		return label;
+	},
+
+	_addItem: function (obj) {
+		var className = 'leaflet-panel-layers',
+			label, input, icon, checked;
+
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
+
+		if(obj.layers) {
+			container = L.DomUtil.create('div', className + '-group', container);
+			label = L.DomUtil.create('label', className + '-group-label');
+			var name = document.createElement('span');
+			name.innerHTML = ' ' + obj.name;
+			label.appendChild(name);
+		}
+		else
+			label = this._createItem(obj);
+
 		container.appendChild(label);
+
+		if(obj.layers)
+			for(var i in obj.layers)
+				container.appendChild( this._createItem(obj.layers[i]) );
 
 		return label;
 	},
+
 	_onInputClick: function () {
 		var i, input, obj,
 		    inputs = this._form.getElementsByTagName('input'),
@@ -96,7 +122,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		this._handlingClick = false;
-	},	
+	},
+
 	_initLayout: function () {
 		var className = 'leaflet-panel-layers',
 		    container = this._container = L.DomUtil.create('div', className);
@@ -151,9 +178,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		container.appendChild(form);
 	},
+
 	_expand: function () {
 		L.DomUtil.addClass(this._container, 'leaflet-panel-layers-expanded');
 	},
+
 	_collapse: function () {
 		this._container.className = this._container.className.replace(' leaflet-panel-layers-expanded', '');
 	}	

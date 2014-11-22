@@ -7,6 +7,11 @@
 <link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
 <link rel="stylesheet" href="icons.css" />
 <link rel="stylesheet" href="../style.css" />
+<style type="text/css">
+#map {
+	height:300px;	
+}
+</style>
 </head>
 
 <body>
@@ -39,6 +44,18 @@ var map = L.map('map', {
 map.addLayer(osmLayer);
 
 var baseLayers = [
+	{
+		name: "OSM base",
+		layer: osmLayer
+	},
+	{
+		name: "Gray",
+		layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
+	},
+	// {
+	// 	name: "Groups",
+	// 	sep: true
+	// },	
 	{
 		name: 'Road Layers',		
 		layers: [
