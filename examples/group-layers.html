@@ -40,56 +40,59 @@ map.addLayer(osmLayer);
 
 var baseLayers = [
 	{
-		name: 'Road Layers',
-		sep: true		
-	},	
-	{
-		name: "OpenStreetMap",
-		layer: osmLayer
+		name: 'Road Layers',		
+		layers: [
+			{
+				name: "OpenStreetMap",
+				layer: osmLayer
+			},
+			{
+				name: "Transports",
+				layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
+			}
+		]
 	},
-	{
-		name: "Transports",
-		layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
-	},
-	{
-		name: 'Bike Layers',
-		sep: true		
-	},	
 	{	
 		name: "OpenCycleMap",
 		layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
 	},
 	{
 		name: 'Print Layers',
-		sep: true		
-	},
-	{
-		name: "Black &amp; White",
-		layer: L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png')
-	},
-	{
-		name: "Gray",
-		layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
+		layers: [
+			{
+				name: "Black &amp; White",
+				layer: L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Gray",
+				layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
+			}
+		]
 	},
 	{
 		name: 'Hiking Layers',
-		sep: true		
-	},
-	{
-		name: "Terrain",
-		layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
-	},	
-	{
-		name: "Landscape",
-		layer: L.tileLayer('http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png')
-	},
-	{
-		name: "Outdoor",
-		layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
-	},
-	{
-		name: "Hiking",
-		layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
+		layers: [
+			{
+				name: "Terrain",
+				layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Paths",
+				sep: true
+			},
+			{
+				name: "Landscape",
+				layer: L.tileLayer('http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Outdoor",
+				layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Hiking",
+				layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
+			}
+		]
 	}
 ];
 
