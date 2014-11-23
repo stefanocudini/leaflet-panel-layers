@@ -11,7 +11,7 @@
 
 <body>
 <h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
-<h4> Points Of Interest Example: list multiple base layers and overlays, POI group by category</h4>
+<h4> Points Of Interest Example: list multiple base layers and overlays with Custom icon</h4>
 <br />
 <div id="map"></div>
 
@@ -61,10 +61,6 @@ var baseLayers = [
 		name: "OpenStreetMap",
 		layer: osmLayer
 	},
-	{
-		name: 'Outdoor Layers',
-		sep: true		
-	},	
 	{	
 		name: "OpenCycleMap",
 		layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
@@ -72,18 +68,10 @@ var baseLayers = [
 	{
 		name: "Outdoors",
 		layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
-	},
-	{
-		name: "Terrain",
-		layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
 	}
 ];
 
 var overLayers = [
-	{
-		name: 'Bike POI',
-		sep: true		
-	},
 	{
 		name: "Bar",
 		icon: iconByName('bar'),
@@ -93,10 +81,6 @@ var overLayers = [
 		name: "Drinking Water",
 		icon: iconByName('drinking_water'),
 		layer: L.geoJson(Drinking_water, {pointToLayer: featureToMarker })
-	},
-	{
-		name: 'Car POI',
-		sep: true		
 	},
 	{
 		name: "Fuel",

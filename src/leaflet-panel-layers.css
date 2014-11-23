@@ -14,8 +14,12 @@
 	background: rgba(255,255,255,0.5);
 	box-shadow: -2px 0 8px rgba(0,0,0,0.3);
 	padding: 4px;
+	width: 30px;
 	min-width: 30px;
 	overflow: hidden;
+}
+.leaflet-panel-layers-expanded {
+	width: auto;
 }
 .leaflet-panel-layers-expanded:hover  {
 	overflow-y: auto;
@@ -27,8 +31,14 @@
 .leaflet-panel-layers-expanded:hover .leaflet-panel-layers-group {
 	margin-right: -10px
 }*/
+.leaflet-panel-layers-separator {
+	border-top:1px solid rgba(0,0,0,0.3);
+	height: 8px;
+	margin: 12px 4px 0 4px;
+	clear: both;
+}	
 .leaflet-panel-layers-group {
-	margin: 8px 2px;
+	margin: 4px;
 	padding: 2px 4px;
 	border: 1px solid rgba(0,0,0,0.3);
 	background: rgba(255,255,255,0.6);

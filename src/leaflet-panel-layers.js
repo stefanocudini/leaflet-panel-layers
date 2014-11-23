@@ -39,6 +39,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._layers[id] = {
 			layer: layer.layer,
 			name: layer.name,
+			icon: layer.icon,
 			overlay: overlay,
 			group: group
 		};

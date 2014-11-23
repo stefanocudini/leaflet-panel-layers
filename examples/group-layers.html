@@ -41,7 +41,7 @@ map.addLayer(osmLayer);
 
 var baseLayers = [
 	{
-		name: "OpenStreetMap",
+		name: "Open Street Map",
 		layer: osmLayer
 	},
 	{
@@ -52,25 +52,12 @@ var baseLayers = [
 		name: "Road Layers",
 		layers: [
 			{
-				name: "OpenCycleMap",
+				name: "Open Cycle Map",
 				layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
 			},
 			{
 				name: "Transports",
 				layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
-			}
-		]
-	},
-	{
-		name: "Print Layers",
-		layers: [
-			{
-				name: "Black &amp; White",
-				layer: L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png')
-			},
-			{
-				name: "Gray",
-				layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
 			}
 		]
 	}
@@ -93,7 +80,20 @@ var overLayers = [
 				layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
 			}
 		]
-	}
+	},
+	{
+		name: "Print Layers",
+		layers: [
+			{
+				name: "Black &amp; White",
+				layer: L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Gray",
+				layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
+			}
+		]
+	}	
 ];
 
 var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {collapsed: false});

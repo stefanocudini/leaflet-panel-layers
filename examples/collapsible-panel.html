@@ -56,12 +56,7 @@ function featureToMarker(feature, latlng) {
 	});
 }
 
-var panelLayers = new L.Control.PanelLayers(null,
-	[
-		{
-			name: 'POIs',
-			sep: true		
-		},
+var panelLayers = new L.Control.PanelLayers(null, [
 		{
 			name: "Bar",
 			icon: iconByName('bar'),
