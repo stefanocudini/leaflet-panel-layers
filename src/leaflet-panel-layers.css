@@ -17,19 +17,16 @@
 	min-width: 30px;
 	overflow: hidden;
 }
-.leaflet-panel-layers-expanded {
+.leaflet-panel-layers-expanded:hover  {
 	overflow-y: auto;
-	width: auto;
-	/*box-shadow: inset -5px -20px 20px #fff;*/
+	overflow-x: hidden;
 }
-.leaflet-panel-layers-separator,
-.leaflet-panel-layers-group-label {
-	color: rgba(0,0,0,0.5);
+/*.leaflet-panel-layers-expanded:hover .leaflet-panel-layers-list {
+	margin-right: 10px;
 }
-.leaflet-panel-layers-separator {
-	margin: 4px 2px 5px 2px;
-	border-top: 1px solid rgba(0,0,0,0.3);
-}
+.leaflet-panel-layers-expanded:hover .leaflet-panel-layers-group {
+	margin-right: -10px
+}*/
 .leaflet-panel-layers-group {
 	margin: 8px 2px;
 	padding: 2px 4px;
@@ -37,9 +34,8 @@
 	background: rgba(255,255,255,0.6);
 	border-radius: 3px;
 }
-.leaflet-panel-layers .leaflet-panel-layers-separator:first-child {
-	border-top: none;
-	margin-top:2px;
+.leaflet-panel-layers-grouplabel {
+	color: rgba(0,0,0,0.5);
 }
 .leaflet-panel-layers-base .leaflet-panel-layers-item,
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {

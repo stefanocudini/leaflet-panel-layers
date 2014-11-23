@@ -6,70 +6,74 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		position: 'topright',
 		autoZIndex: true
 	},
-	
+			//TODO add support for json layers defintions
+		//fields: layerType: "tileLayer", layerUrl: "http://..."
+
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);
 		this._layers = {};
+		this._groups = {};
 		this._lastZIndex = 0;
 		this._handlingClick = false;
 
-		//TODO add support for json layers defintions
-		//fields: layerType: "tileLayer", layerUrl: "http://..."
+		var i, n;
 
-		for (var i in baseLayers)
-			this._addLayer(baseLayers[i]);
+		for (i in baseLayers)
+			if(baseLayers[i].layers) 
+				for(n in baseLayers[i].layers)
+					this._addLayer(baseLayers[i].layers[n], n, false, i);
+			else
+				this._addLayer(baseLayers[i], i, false);
 
 		for (i in overlays)
-			this._addLayer(overlays[i], true);
+			if(overlays[i].layers) 
+				for(n in overlays[i].layers)
+					this._addLayer(overlays[i].layers[n], n, true, i);
+			else			
+				this._addLayer(overlays[i], i, true);
 	},
 
-	_addLayer: function (obj, overlay) {
-		//var id = obj.layer ? L.stamp(obj.layer);
-		var id = L.stamp(obj);
+	_addLayer: function (layer, name, overlay, group) {
+		var id = L.stamp(layer.layer);
 
-console.log(id, obj);
+		this._layers[id] = {
+			layer: layer.layer,
+			name: name,
+			overlay: overlay,
+			group: group
+		};
 
-		this._layers[id] = obj;
-		this._layers[id].overlay = overlay;
-
-		if (obj.layer && this.options.autoZIndex && obj.layer.setZIndex) {
+		if (this.options.autoZIndex && layer.layer.setZIndex) {
 			this._lastZIndex++;
-			obj.layer.setZIndex(this._lastZIndex);
+			layer.layer.setZIndex(this._lastZIndex);
 		}
 	},
 
 	_createItem: function(obj) {
 		var className = 'leaflet-panel-layers',
-			label, input, icon, checked;
+			label, input, checked;
 		
-		if(obj.sep)
-		{
-			label = L.DomUtil.create('div', className + '-separator');
-		}
-		else if(obj.layer)
-		{
-			label = L.DomUtil.create('label', className + '-item');
-			checked = this._map.hasLayer(obj.layer);
-			if (obj.overlay) {
-				input = document.createElement('input');
-				input.type = 'checkbox';
-				input.className = 'leaflet-control-layers-selector';
-				input.defaultChecked = checked;
-				
-				icon = L.DomUtil.create('i', className+'-icon', label);
-				icon.innerHTML = obj.icon || '';
-				label.appendChild(icon);
-
-			} else {
-				input = this._createRadioElement('leaflet-base-layers', checked);
-			}
-
-			input.layerId = L.stamp(obj);
-
-			L.DomEvent.on(input, 'click', this._onInputClick, this);
-			label.appendChild(input);
+		label = L.DomUtil.create('label', className + '-item');
+		checked = this._map.hasLayer(obj.layer);
+		if (obj.overlay) {
+			input = document.createElement('input');
+			input.type = 'checkbox';
+			input.className = 'leaflet-control-layers-selector';
+			input.defaultChecked = checked;
+		} else {
+			input = this._createRadioElement('leaflet-base-layers', checked);
 		}
 
+		input.layerId = L.stamp(obj.layer);
+
+		L.DomEvent.on(input, 'click', this._onInputClick, this);
+		label.appendChild(input);
+
+		if(obj.icon) {
+			var icon = L.DomUtil.create('i', className+'-icon');
+			icon.innerHTML = obj.icon || '';
+			label.appendChild(icon);
+		}
 		var name = document.createElement('span');
 		name.innerHTML = ' ' + obj.name;
 		label.appendChild(name);
@@ -83,21 +87,22 @@ console.log(id, obj);
 
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
 
-		if(obj.layers) {
-			container = L.DomUtil.create('div', className + '-group', container);
-			label = L.DomUtil.create('label', className + '-group-label');
-			var name = document.createElement('span');
-			name.innerHTML = ' ' + obj.name;
-			label.appendChild(name);
+		if(obj.group) {
+			if(!this._groups[obj.group])
+			{
+				this._groups[obj.group] = L.DomUtil.create('div', className + '-group', container);
+				label = L.DomUtil.create('label', className + '-grouplabel');
+				var name = document.createElement('span');
+				name.innerHTML = ' ' + obj.group;
+				label.appendChild(name);
+				this._groups[obj.group].appendChild(label);
+			}
+			container = this._groups[obj.group];
 		}
-		else
-			label = this._createItem(obj);
+		
+		label = this._createItem(obj);
 
 		container.appendChild(label);
-
-		if(obj.layers)
-			for(var i in obj.layers)
-				container.appendChild( this._createItem(obj.layers[i]) );
 
 		return label;
 	},
@@ -122,7 +127,10 @@ console.log(id, obj);
 		}
 
 		this._handlingClick = false;
+
+		this._refocusOnMap();
 	},
+
 
 	_initLayout: function () {
 		var className = 'leaflet-panel-layers',
