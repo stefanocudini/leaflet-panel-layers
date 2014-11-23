@@ -43,12 +43,9 @@ var map = L.map('map', {
 
 map.addLayer(osmLayer);
 
-var baseLayers = {
+/*var baseLayers = {
 	"OSM base": {
 		layer: osmLayer
-	},
-	"Gray": {
-		layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
 	},
 	"Road Layers": {
 		layers: {
@@ -89,7 +86,66 @@ var baseLayers = {
 			}
 		}
 	}
-};
+};*/
+
+
+var baseLayers = [
+	{
+		name:"OSM base",
+		layer: osmLayer
+	},
+	{
+		name: "Road Layers",
+		layers: [
+			{
+				name: "OpenStreetMap",
+				layer: osmLayer
+			},
+			{
+				name: "Transports",
+				layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
+			}
+		]
+	},
+	{
+		name: "OpenCycleMap",
+		layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+	},
+	{
+		name: "Print Layers",
+		layers: [
+			{
+				name: "Black &amp; White",
+				layer: L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Gray",
+				layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
+			}
+		]
+	},
+	{
+		name: "Hiking Layers",
+		layers: [
+			{
+				name:"Terrain",
+				layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
+			},
+			{
+				name:"Landscape",
+				layer: L.tileLayer('http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png')
+			},
+			{
+				name:"Outdoor",
+				layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
+			},
+			{
+				name:"Hiking",
+				layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
+			}
+		]
+	}
+];
 
 var panelLayers = new L.Control.PanelLayers(baseLayers, [], {collapsed: false});
 

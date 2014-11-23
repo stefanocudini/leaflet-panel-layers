@@ -21,24 +21,24 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		for (i in baseLayers)
 			if(baseLayers[i].layers) 
 				for(n in baseLayers[i].layers)
-					this._addLayer(baseLayers[i].layers[n], n, false, i);
+					this._addLayer(baseLayers[i].layers[n], false, baseLayers[i].name);
 			else
-				this._addLayer(baseLayers[i], i, false);
+				this._addLayer(baseLayers[i], false);
 
 		for (i in overlays)
 			if(overlays[i].layers) 
 				for(n in overlays[i].layers)
-					this._addLayer(overlays[i].layers[n], n, true, i);
+					this._addLayer(overlays[i].layers[n], true, overlays[i].name);
 			else			
-				this._addLayer(overlays[i], i, true);
+				this._addLayer(overlays[i], true);
 	},
 
-	_addLayer: function (layer, name, overlay, group) {
+	_addLayer: function (layer, overlay, group) {
 		var id = L.stamp(layer.layer);
 
 		this._layers[id] = {
 			layer: layer.layer,
-			name: name,
+			name: layer.name,
 			overlay: overlay,
 			group: group
 		};
