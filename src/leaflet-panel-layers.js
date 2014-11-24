@@ -6,13 +6,17 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		position: 'topright',
 		autoZIndex: true
 	},
-			//TODO add support for json layers defintions
-		//fields: layerType: "tileLayer", layerUrl: "http://..."
+		//TODO add support for json layers defintions
+		//fields:
+		//	layerType: "tileLayer",
+		//	layerUrl: "http://..."
+		//	layerAdd: true
 
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);
 		this._layers = {};
 		this._groups = {};
+		this._layerActive = null;
 		this._lastZIndex = 0;
 		this._handlingClick = false;
 
@@ -32,21 +36,43 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			else			
 				this._addLayer(overlays[i], true);
 	},
+	
+	onAdd: function (map) {
+		
+		if(this._layerActive)
+			map.addLayer(this._layerActive);
+
+		L.Control.Layers.prototype.onAdd.call(this, map);
+
+		return this._container;
+	},
+
+	_instanceLayer: function(layerDef) {
+		if(layerDef instanceof L.Class)
+			return layerDef;
+		else if(layerDef.type && layerDef.args)
+			return this._getPath(L, layerDef.type).apply(window, layerDef.args);
+	},
 
 	_addLayer: function (layer, overlay, group) {
-		var id = L.stamp(layer.layer);
+
+		var layerLayer = this._instanceLayer(layer.layer),
+			id = L.stamp(layerLayer);
+
+		if(layer.active)
+			this._layerActive = layerLayer;
 
 		this._layers[id] = {
-			layer: layer.layer,
+			layer: layerLayer,
 			name: layer.name,
 			icon: layer.icon,
 			overlay: overlay,
 			group: group
 		};
 
-		if (this.options.autoZIndex && layer.layer.setZIndex) {
+		if (this.options.autoZIndex && layerLayer.setZIndex) {
 			this._lastZIndex++;
-			layer.layer.setZIndex(this._lastZIndex);
+			layerLayer.setZIndex(this._lastZIndex);
 		}
 	},
 
@@ -194,8 +220,26 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_collapse: function () {
 		this._container.className = this._container.className.replace(' leaflet-panel-layers-expanded', '');
-	}	
+	},
+
+	_getPath: function(obj, prop) {
+		var parts = prop.split('.'),
+			last = parts.pop(),
+			len = parts.length,
+			cur = parts[0],
+			i = 1;
+
+		if(len > 0)
+			while((obj = obj[cur]) && i < len)
+				cur = parts[i++];
+
+		if(obj)
+			return obj[last];
+	}
 });
 
+L.control.panelLayers = function (baseLayers, overlays, options) {
+	return new L.Control.PanelLayers(baseLayers, overlays, options);
+};
 
 }).call(this);

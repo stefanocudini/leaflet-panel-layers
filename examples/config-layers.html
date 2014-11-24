@@ -12,9 +12,12 @@
 
 <body>
 <h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
-<h4> Groups Example: multiple groups of layers</h4>
+<h4> Configurable Example: load list of layers from JSON config</h4>
 <br />
 <div id="map"></div>
+<textarea id="config">
+
+</textarea>
 
 <div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
 
@@ -34,30 +37,26 @@ var map = L.map('map', {
 		center: L.latLng([42.4918,12.4992]),		
 		attributionControl: false,		
 		maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
-	}),
-	osmLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-
-map.addLayer(osmLayer);
+	});
 
 var baseLayers = [
 	{
-		name: "Open Street Map",
-		layer: osmLayer
-	},
-	{
-		name: "Hiking",
-		layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
-	},	
-	{
-		name: "Road Layers",
-		layers: [
+		"name": "Road Layers",
+		"layers": [
 			{
-				name: "Open Cycle Map",
-				layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+				"active": true,
+				"name": "Open Cycle Map",
+				"layer": {
+					"type": "tileLayer",
+					"args": ["http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"]
+				}
 			},
 			{
-				name: "Transports",
-				layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
+				"name": "Transports",
+				"layer": {
+					"type": "tileLayer",
+					"args": ["http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"]
+				}
 			}
 		]
 	}
@@ -65,32 +64,21 @@ var baseLayers = [
 
 var overLayers = [
 	{
-		name: "Hiking Layers",
-		layers: [
+		"name": "Hiking Layers",
+		"layers": [
 			{
-				name: "Terrain",
-				layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
-			},
+				"name": "Terrain",
+				"layer": {
+					"type": "tileLayer",
+					"args": ["http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png"]
+				}
+			},		
 			{
-				name: "Landscape",
-				layer: L.tileLayer('http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png')
-			},
-			{
-				name: "Outdoor",
-				layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
-			}
-		]
-	},
-	{
-		name: "Print Layers",
-		layers: [
-			{
-				name: "Black &amp; White",
-				layer: L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png')
-			},
-			{
-				name: "Gray",
-				layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
+				"name": "Landscape",
+				"layer": {
+					"type": "tileLayer",
+					"args": ["http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"]
+				}
 			}
 		]
 	}
