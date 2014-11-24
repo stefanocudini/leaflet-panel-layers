@@ -7,7 +7,14 @@
 <link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
 <link rel="stylesheet" href="icons.css" />
 <link rel="stylesheet" href="../style.css" />
-
+<style type="text/css">
+textarea {
+	margin: 0 10px;
+	height: 400px;
+	width: 400px;
+	box-shadow: inset 2px 2px 4px #aaa
+}
+</style>
 </head>
 
 <body>
@@ -15,9 +22,7 @@
 <h4> Configurable Example: load list of layers from JSON config</h4>
 <br />
 <div id="map"></div>
-<textarea id="config">
-
-</textarea>
+<textarea id="config"></textarea>
 
 <div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
 
@@ -39,7 +44,7 @@ var map = L.map('map', {
 		maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
 	});
 
-var baseLayers = [
+L.control.panelLayers([
 	{
 		"name": "Road Layers",
 		"layers": [
@@ -48,21 +53,24 @@ var baseLayers = [
 				"name": "Open Cycle Map",
 				"layer": {
 					"type": "tileLayer",
-					"args": ["http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"]
+					"args": [
+						"http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+					]
 				}
 			},
 			{
 				"name": "Transports",
 				"layer": {
 					"type": "tileLayer",
-					"args": ["http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"]
+					"args": [
+						"http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
+					]
 				}
 			}
 		]
 	}
-];
-
-var overLayers = [
+],
+[
 	{
 		"name": "Hiking Layers",
 		"layers": [
@@ -70,29 +78,30 @@ var overLayers = [
 				"name": "Terrain",
 				"layer": {
 					"type": "tileLayer",
-					"args": ["http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png", {
-							opacity: 0.5
-						}
-					]
-				}
-			},		
-			{
-				"name": "Landscape",
-				"layer": {
-					"type": "tileLayer",
-					"args": ["http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png", {
-							opacity: 0.5
+					"args": [
+						"http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png", {
+							"opacity": 0.5
 						}
 					]
 				}
 			}
+/*			,{
+				"name": "Weather",
+				"layer": {
+					"type": "tileLayer.wms",
+					"args": [
+						"http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+							"layers": 'nexrad-n0r-900913',
+							"format": 'image/png',
+							"transparent": true,
+							"attribution": "Weather data © 2012 IEM Nexrad"
+						}
+					]
+				}
+			}*/
 		]
 	}
-];
-
-var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {collapsed: false});
-
-map.addControl(panelLayers);
+]).addTo(map);
 
 </script>
 <script type="text/javascript" src="/labs-common.js"></script>

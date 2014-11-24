@@ -56,30 +56,30 @@ function featureToMarker(feature, latlng) {
 	});
 }
 
-var panelLayers = new L.Control.PanelLayers(null, [
-		{
-			name: "Bar",
-			icon: iconByName('bar'),
-			layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
-		},
-		{
-			name: "Drinking Water",
-			icon: iconByName('drinking_water'),
-			layer: L.geoJson(Drinking_water, {pointToLayer: featureToMarker })
-		},
-		{
-			name: "Fuel",
-			icon: iconByName('fuel'),
-			layer: L.geoJson(Fuel, {pointToLayer: featureToMarker })
-		},	
-		{
-			name: "Parking",
-			icon: iconByName('parking'),
-			layer: L.geoJson(Parking, {pointToLayer: featureToMarker })
-		}	
-	], {
-		collapsed: true
-});
+var overLayers = [
+	{
+		name: "Bar",
+		icon: iconByName('bar'),
+		layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
+	},
+	{
+		name: "Drinking Water",
+		icon: iconByName('drinking_water'),
+		layer: L.geoJson(Drinking_water, {pointToLayer: featureToMarker })
+	},
+	{
+		name: "Fuel",
+		icon: iconByName('fuel'),
+		layer: L.geoJson(Fuel, {pointToLayer: featureToMarker })
+	},	
+	{
+		name: "Parking",
+		icon: iconByName('parking'),
+		layer: L.geoJson(Parking, {pointToLayer: featureToMarker })
+	}	
+];
+
+var panelLayers = new L.Control.PanelLayers(null, overLayers, {collapsed: true});
 
 map.addControl(panelLayers);
 
