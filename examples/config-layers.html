@@ -70,14 +70,20 @@ var overLayers = [
 				"name": "Terrain",
 				"layer": {
 					"type": "tileLayer",
-					"args": ["http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png"]
+					"args": ["http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png", {
+							opacity: 0.5
+						}
+					]
 				}
 			},		
 			{
 				"name": "Landscape",
 				"layer": {
 					"type": "tileLayer",
-					"args": ["http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"]
+					"args": ["http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png", {
+							opacity: 0.5
+						}
+					]
 				}
 			}
 		]
