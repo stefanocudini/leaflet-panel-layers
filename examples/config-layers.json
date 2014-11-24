@@ -1,0 +1,52 @@
+{
+	"baselayers": [
+		{
+			"active": true,
+			"name": "Open Cycle Map",
+			"layer": {
+				"type": "tileLayer",
+				"args": [
+					"http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+				]
+			}
+		},
+		{
+			"name": "Transports",
+			"layer": {
+				"type": "tileLayer",
+				"args": [
+					"http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
+				]
+			}
+		}
+	],
+	"overlayers": [
+		{
+			"name": "Landscape",
+			"layer": {
+				"type": "tileLayer",
+				"args": [
+					"http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png", {
+						"opacity": 0.5
+					}
+				]
+			}
+		},
+		{
+			"name": "Hiking Layers",
+			"layers": [
+				{
+					"name": "Terrain",
+					"layer": {
+						"type": "tileLayer",
+						"args": [
+							"http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png", {
+								"opacity": 0.5
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}
