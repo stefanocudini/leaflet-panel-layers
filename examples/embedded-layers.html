@@ -26,7 +26,7 @@
 
 <body>
 <h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
-<h4> Configurable Example: build panel layers from JSON config</h4>
+<h4> Embedded Example: build panel and layers from GeoJSON</h4>
 <br />
 <div id="map"></div>
 <textarea id="config"></textarea>
@@ -38,11 +38,20 @@
 <script src="/maps/leaflet/dist/leaflet.js"></script>
 <script src="/js/jquery-2.1.1.min.js"></script>
 <script src="../src/leaflet-panel-layers.js"></script>
+<script src="data/bar.js"></script>
 <script>
 
-$.getJSON('config-layers.json', function(config, status, xhr) {
+$.when(
+	$.getJSON('config-layers.json'),
+	$.getJSON('data/river.json')
+)
+.then(function(args1, args2) {
 
-	$('#config').text(xhr.responseText);
+	var river = args2[0],
+		config = {
+			baselayers: args1[0].baselayers,
+			overlayers: args1[0].overlayers
+		};
 
 	var map = L.map('map', {
 			zoom: 11,
@@ -51,8 +60,25 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 			maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
 		});
 
-	L.control.panelLayers(config.baselayers, config.overlayers).addTo(map);
+	config.overlayers.push({
+		"name": "river.json",
+		"layer": {
+			"type": "geoJson",
+			"args": [ river ]
+		}
+	});
 
+	config.overlayers.push({
+		"name": "bar.js",
+		"layer": {
+			"type": "geoJson",
+			"args": [ Bar ]
+		}
+	});
+
+	$('#config').text(JSON.stringify(config));
+
+	L.control.panelLayers(config.baselayers, config.overlayers).addTo(map);
 });
 
 </script>
