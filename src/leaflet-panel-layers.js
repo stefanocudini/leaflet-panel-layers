@@ -16,7 +16,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		L.setOptions(this, options);
 		this._layers = {};
 		this._groups = {};
-		this._layerActive = null;
+		this._layersActives = [];
 		this._lastZIndex = 0;
 		this._handlingClick = false;
 
@@ -39,8 +39,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	
 	onAdd: function (map) {
 		
-		if(this._layerActive)
-			map.addLayer(this._layerActive);
+		for(var i in this._layersActives)
+			map.addLayer(this._layersActives[i]);
 
 		L.Control.Layers.prototype.onAdd.call(this, map);
 
@@ -60,7 +60,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			id = L.stamp(layerLayer);
 
 		if(layer.active)
-			this._layerActive = layerLayer;
+			this._layersActives.push(layerLayer);
 
 		this._layers[id] = {
 			layer: layerLayer,

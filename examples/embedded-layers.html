@@ -61,18 +61,19 @@ $.when(
 		});
 
 	config.overlayers.push({
-		"name": "river.json",
-		"layer": {
-			"type": "geoJson",
-			"args": [ river ]
+		active: true,
+		name: "river.json",
+		layer: {
+			type: "geoJson",
+			args: [ river ]
 		}
 	});
 
 	config.overlayers.push({
-		"name": "bar.js",
-		"layer": {
-			"type": "geoJson",
-			"args": [ Bar ]
+		name: "bar.js",
+		layer: {
+			type: "geoJson",
+			args: [ Bar ]
 		}
 	});
 
