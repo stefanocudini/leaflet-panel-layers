@@ -12,11 +12,14 @@
 	width: 500px;
 	height: 400px;
 }
-textarea {
+#config {
 	margin: 0 10px;
+	padding: 0;
 	height: 400px;
-	width: 400px;
-	box-shadow: inset 2px 2px 4px #aaa
+	width: 500px;
+	font-size: 10px;
+	box-shadow: inset 2px 2px 4px #ccc;
+	border: 2px solid #1978cf;
 }
 </style>
 </head>
@@ -44,7 +47,10 @@ var map = L.map('map', {
 		maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
 	});
 
-$.getJSON('config-layers.json', function(config) {
+$.getJSON('config-layers.json', function(config, status, xhr) {
+	
+	$('#config').text(xhr.responseText);
+
 	L.control.panelLayers(config.baselayers, config.overlayers).addTo(map);
 });
 
