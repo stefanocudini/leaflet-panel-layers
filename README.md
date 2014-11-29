@@ -3,9 +3,9 @@ Leaflet Panel Layers
 
 Leaflet Control Layers extended for group of layers and icon legends
 
-Copyright 2014 [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
+Author [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
 
-Tested in Leaflet 0.7
+Tested in Leaflet 0.7.3
 
 **demo:**
 
@@ -29,30 +29,14 @@ var baseLayers = [
 	{
 		name: 'Outdoor Layers',	//separator with label
 		sep: true		
-	},	
-	{	
-		name: "OpenCycleMap",
-		layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
-	},
-	{
-		name: "Outdoors",
-		layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
 	}
 ];
 
 var overLayers = [
 	{
-		name: 'Bike POI',	//separator with label
-		sep: true		
-	},
-	{
 		name: "Drinking Water",
 		icon: '<i class="icon icon-water"></i>',
 		layer: L.geoJson(WaterGeoJSON)
-	},
-	{
-		name: 'Car POI',	//separator with label
-		sep: true		
 	},
 	{
 		name: "Parking",
@@ -61,7 +45,7 @@ var overLayers = [
 	}	
 ];
 
-map.addControl( new L.Control.PanelLayers(baseLayers, overLayers, {collapsed: false}) );
+map.addControl( new L.Control.PanelLayers(baseLayers, overLayers) );
 ```
 
 
