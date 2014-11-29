@@ -1,14 +1,13 @@
 Leaflet Panel Layers
 ==============
 
-Leaflet Control Layers extended for group of layers and icon legends
+Leaflet Control Layers extended with support groups and icons
 
-Author [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
+Copyright [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
 
 Tested in Leaflet 0.7.3
 
 **demo:**
-
 [labs.easyblog.it/maps/leaflet-panel-layers](http://labs.easyblog.it/maps/leaflet-panel-layers/)
 
 **Source code:**  
@@ -20,18 +19,15 @@ Tested in Leaflet 0.7.3
 
 #Usage
 
+**multiple active layers with icons**
 ```javascript
 var baseLayers = [
 	{
+		active: true,
 		name: "OpenStreetMap",
 		layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-	},
-	{
-		name: 'Outdoor Layers',	//separator with label
-		sep: true		
 	}
 ];
-
 var overLayers = [
 	{
 		name: "Drinking Water",
@@ -39,13 +35,63 @@ var overLayers = [
 		layer: L.geoJson(WaterGeoJSON)
 	},
 	{
+		active: true,
 		name: "Parking",
 		icon: '<i class="icon icon-parking"></i>',
 		layer: L.geoJson(ParkingGeoJSON)
 	}	
 ];
-
 map.addControl( new L.Control.PanelLayers(baseLayers, overLayers) );
+```
+
+**build panel layers from JSON Config**
+```javascript
+var panelJsonConfig = {
+    "baselayers": [
+        {
+            "active": true,
+            "name": "Open Cycle Map",
+            "layer": {
+                "type": "tileLayer",
+                "args": [
+                    "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+                ]
+            }
+        },
+        {
+            "name": "Landscape",
+            "layer": {
+                "type": "tileLayer",
+                "args": [
+                    "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
+                ]
+            }
+        },        
+        {
+            "name": "Transports",
+            "layer": {
+                "type": "tileLayer",
+                "args": [
+                    "http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
+                ]
+            }
+        }
+    ],
+    "overlayers": [
+        {
+            "name": "Terrain",
+            "layer": {
+            "type": "tileLayer",
+            "args": [
+                "http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png", {
+                "opacity": 0.5
+                }
+            ]
+            }
+        }
+    ]
+};
+L.control.panelLayers(panelJsonConfig.baseLayers, panelJsonConfig.overLayers).addTo(map);
 ```
 
 
