@@ -24,8 +24,6 @@
 <script src="../src/leaflet-panel-layers.js"></script>
 <!-- GEOJSON DATA -->
 <script src="data/bar.js"></script>
-<script src="data/fuel.js"></script>
-<script src="data/parking.js"></script>
 <script src="data/drinking_water.js"></script>
 <script>
 
@@ -70,27 +68,22 @@ var overLayers = [
 			{
 				name: "Terrain",
 				layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
-			},
-			{
-				name: "Landscape",
-				layer: L.tileLayer('http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png')
-			},
-			{
-				name: "Outdoor",
-				layer: L.tileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png')
 			}
 		]
 	},
 	{
-		name: "Print Layers",
+		name: "POI Layers",
 		layers: [
 			{
-				name: "Black &amp; White",
-				layer: L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png')
+				active: true,
+				name: "Bar",
+				icon: '<i class="icon icon-bar"></i>',
+				layer: L.geoJson(Bar)
 			},
 			{
-				name: "Gray",
-				layer: L.tileLayer('http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png')
+				name: "Drinking Water",
+				icon: '<i class="icon icon-drinking_water"></i>',
+				layer: L.geoJson(Drinking_water)
 			}
 		]
 	}
