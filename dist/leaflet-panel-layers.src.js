@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.0 - 2014-11-29 
+ * Leaflet Panel Layers v0.1.1 - 2014-11-29 
  * 
  * Copyright 2014 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -39,16 +39,16 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var i, n;
 
 		for (i in baseLayers)
-			if(baseLayers[i].layers) 
+			if(baseLayers[i].group && baseLayers[i].layers) 
 				for(n in baseLayers[i].layers)
-					this._addLayer(baseLayers[i].layers[n], false, baseLayers[i].name);
+					this._addLayer(baseLayers[i].layers[n], false, baseLayers[i].group);
 			else
 				this._addLayer(baseLayers[i], false);
 
 		for (i in overlays)
-			if(overlays[i].layers) 
+			if(overlays[i].group && overlays[i].layers) 
 				for(n in overlays[i].layers)
-					this._addLayer(overlays[i].layers[n], true, overlays[i].name);
+					this._addLayer(overlays[i].layers[n], true, overlays[i].group);
 			else			
 				this._addLayer(overlays[i], true);
 	},

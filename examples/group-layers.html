@@ -47,7 +47,7 @@ var baseLayers = [
 		layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
 	},	
 	{
-		name: "Road Layers",
+		group: "Road Layers",
 		layers: [
 			{
 				name: "Open Cycle Map",
@@ -63,7 +63,7 @@ var baseLayers = [
 
 var overLayers = [
 	{
-		name: "Hiking Layers",
+		group: "Hiking Layers",
 		layers: [
 			{
 				name: "Terrain",
@@ -72,7 +72,7 @@ var overLayers = [
 		]
 	},
 	{
-		name: "POI Layers",
+		group: "POI Layers",
 		layers: [
 			{
 				active: true,
