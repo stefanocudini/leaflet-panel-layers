@@ -19,7 +19,7 @@ Tested in Leaflet 0.7.3
 
 #Usage
 
-**multiple active layers with icons**
+**Multiple active layers with icons**
 ```javascript
 var baseLayers = [
 	{
@@ -44,7 +44,7 @@ var overLayers = [
 map.addControl( new L.Control.PanelLayers(baseLayers, overLayers) );
 ```
 
-**build panel layers from JSON Config**
+**Build panel layers from JSON Config**
 ```javascript
 var panelJsonConfig = {
     "baselayers": [
@@ -92,6 +92,38 @@ var panelJsonConfig = {
     ]
 };
 L.control.panelLayers(panelJsonConfig.baseLayers, panelJsonConfig.overLayers).addTo(map);
+```
+
+**Grouping of layers**
+```javascript
+L.control.panelLayers([
+	{
+		name: "Open Street Map",
+		layer: osmLayer
+	},
+	{
+		group: "Walking layers",
+		layers: [
+			{
+				name: "Open Cycle Map",
+				layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Hiking",
+				layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
+			}			
+		]
+	},
+	{
+		group: "Road layers",
+		layers: [
+			{
+				name: "Transports",
+				layer: L.tileLayer("http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png")
+			}
+		]
+	}	
+]).addTo(map);
 ```
 
 
