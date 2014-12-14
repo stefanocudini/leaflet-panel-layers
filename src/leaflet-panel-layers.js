@@ -117,8 +117,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(obj.group) {
 			if(!this._groups[obj.group])
 			{
-				this._groups[obj.group] = L.DomUtil.create('div', className + '-group', container);
-				label = L.DomUtil.create('label', className + '-grouplabel');
+				this._groups[obj.group] = L.DomUtil.create('fieldset', className + '-group', container);
+				label = L.DomUtil.create('legend', className + '-grouplabel');
 				var name = document.createElement('span');
 				name.innerHTML = ' ' + obj.group;
 				label.appendChild(name);

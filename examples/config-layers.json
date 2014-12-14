@@ -1,7 +1,6 @@
 {
     "baselayers": [
         {
-            "active": true,
             "name": "Open Cycle Map",
             "layer": {
                 "type": "tileLayer",
@@ -11,6 +10,7 @@
             }
         },
         {
+            "active": true,        	
             "name": "Landscape",
             "layer": {
                 "type": "tileLayer",

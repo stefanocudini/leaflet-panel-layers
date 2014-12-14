@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.1 - 2014-11-29 
+ * Leaflet Panel Layers v0.1.2 - 2014-12-14 
  * 
  * Copyright 2014 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -54,11 +54,11 @@
 	clear: both;
 }	
 .leaflet-panel-layers-group {
-	margin: 2px 0;
-	padding: 2px 4px;
+	margin: 2px;
 	border: 1px solid rgba(0,0,0,0.3);
 	background: rgba(255,255,255,0.6);
 	border-radius: 3px;
+	position: relative;
 }
 .leaflet-panel-layers-grouplabel {
 	color: rgba(0,0,0,0.5);
@@ -114,4 +114,8 @@
 .leaflet-panel-layers-overlays input {
 	float: right;
 	margin: 4px;
+	display: none;
+}
+.leaflet-panel-layers-expanded .leaflet-panel-layers-overlays input {
+	display: block;
 }
