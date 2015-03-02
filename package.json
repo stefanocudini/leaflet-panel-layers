@@ -7,6 +7,7 @@
     "url": "git@github.com:stefanocudini/leaflet-panel-layers.git"
   },
   "homepage": "http://labs.easyblog.it/maps/leaflet-panel-layers/",
+  "main": "dist/leaflet-panel-layers.src.js",
   "author": {
     "name": "Stefano Cudini",
     "email": "stefano.cudini@gmail.com",
