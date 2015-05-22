@@ -44,7 +44,7 @@ var overLayers = [
 map.addControl( new L.Control.PanelLayers(baseLayers, overLayers) );
 ```
 
-**Build panel layers from JSON Config**
+**Build panel layers from pure JSON Config**
 ```javascript
 var panelJsonConfig = {
     "baselayers": [
