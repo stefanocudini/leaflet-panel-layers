@@ -15,20 +15,26 @@
 #config {
 	margin: 0 10px;
 	padding: 0;
-	height: 400px;
+	height: 370px;
 	width: 600px;
 	font-size: 10px;
 	box-shadow: inset 2px 2px 4px #ccc;
 	border: 2px solid #1978cf;
+}
+button {
+	margin: 0 10px 10px 10px;
 }
 </style>
 </head>
 
 <body>
 <h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
-<h4> Configurable Example: build panel layers from JSON config</h4>
+<h4> Dynamic Example: build panel dynamically from JSON config</h4>
 <br />
+
 <div id="map"></div>
+<button id="btnadd_base">Add baselayers</button> 
+<button id="btnadd_over">Add overlayers</button><br>
 <textarea id="config"></textarea>
 
 <div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
@@ -51,7 +57,22 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 			maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
 		});
 
-	L.control.panelLayers(config.baselayers, config.overlayers).addTo(map);
+	var panel = L.control.panelLayers().addTo(map);
+
+	$('#btnadd_base').on('click', function(e) {
+
+		panel.addBaseLayer(config.baselayers.pop());
+		
+		if(!config.baselayers.length)
+			$(this).attr('disabled','');
+	});
+	$('#btnadd_over').on('click', function(e) {
+
+		panel.addOverlay(config.overlayers.pop());
+
+		if(!config.overlayers.length)
+			$(this).attr('disabled','');		
+	});
 
 });
 

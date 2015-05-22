@@ -46,6 +46,20 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		return this._container;
 	},
+	
+	addBaseLayer: function (layer, name, group) {
+		layer.name = name || layer.name || '';
+		this._addLayer(layer, false, group);
+		this._update();
+		return this;
+	},
+
+	addOverlay: function (layer, name, group) {
+		layer.name = name || layer.name || '';
+		this._addLayer(layer, true, group);
+		this._update();
+		return this;
+	},
 
 	_instanceLayer: function(layerDef) {
 		if(layerDef instanceof L.Class)

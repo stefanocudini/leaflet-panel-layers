@@ -40,6 +40,15 @@
                 }
             ]
             }
+        },
+        {
+            "name": "Hiking",
+            "layer": {
+                "type": "tileLayer",
+                "args": [
+                    "http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png"
+                ]
+            }
         }
     ]
 }
