@@ -3,6 +3,7 @@
 L.Control.PanelLayers = L.Control.Layers.extend({
 	options: {
 		collapsed: false,
+		button: false,
 		position: 'topright',
 		autoZIndex: true
 	},
@@ -175,12 +176,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_initLayout: function () {
 		var className = 'leaflet-panel-layers',
+			layerControlClassName = 'leaflet-control-layers',
 		    container = this._container = L.DomUtil.create('div', className);
 
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
-
-		container.style.height = this._map.getSize().y+'px';
 
 		this._map.on('resize', function(e) {
 			container.style.height = e.newSize.y+'px';
@@ -196,13 +196,19 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		var form = this._form = L.DomUtil.create('form', className + '-list');
 
+		form.style.height = this._map.getSize().y+'px';
+
+		if (this.options.button) {
+			this.options.collapsed = true;
+			L.DomUtil.addClass(container, className+'-button-collapse');
+		}
 		if (this.options.collapsed) {
 			if (!L.Browser.android) {
 				L.DomEvent
 				    .on(container, 'mouseover', this._expand, this)
 				    .on(container, 'mouseout', this._collapse, this);
 			}
-			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
+			var link = this._layersLink = L.DomUtil.create('a', layerControlClassName+'-toggle', container);
 			link.href = '#';
 			link.title = 'Layers';
 

@@ -7,7 +7,7 @@
 .leaflet-panel-layers-expanded .leaflet-panel-layers-list {
 	display: block;
 }
-.leaflet-top.leaflet-right .leaflet-panel-layers {
+.leaflet-top.leaflet-right .leaflet-panel-layers:not(.leaflet-panel-layers-button-collapse) {
 	margin: 0;
 }
 .leaflet-panel-layers {
@@ -18,12 +18,34 @@
 	min-width: 30px;
 	overflow: hidden;
 }
+.leaflet-panel-layers-button-collapse {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+}
+.leaflet-panel-layers-button-collapse .leaflet-panel-layers-list,
+.leaflet-panel-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+}
+
 .leaflet-panel-layers-expanded {
 	width: auto;
+	padding: 4px;
 }
 .leaflet-panel-layers-expanded:hover  {
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+.leaflet-panel-layers-button-collapse.leaflet-panel-layers-expanded  {
+	width: initial !important;
+    height: auto;
+    margin: 0;
+}
+.leaflet-panel-layers-expanded .leaflet-panel-layers-list {
+	display: block;
 }
 /*.leaflet-panel-layers-expanded:hover .leaflet-panel-layers-list {
 	margin-right: 10px;
