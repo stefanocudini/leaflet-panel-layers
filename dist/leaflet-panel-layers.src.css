@@ -59,6 +59,7 @@
 	width: initial !important;
     height: auto;
     margin: 0;
+    border-radius: 0;
 }
 .leaflet-panel-layers-expanded .leaflet-panel-layers-list {
 	display: block;
