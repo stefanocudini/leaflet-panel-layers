@@ -132,12 +132,19 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(obj.group) {
 			if(!this._groups[obj.group])
 			{
-				this._groups[obj.group] = L.DomUtil.create('fieldset', className + '-group', container);
-				label = L.DomUtil.create('legend', className + '-grouplabel');
-				var name = document.createElement('span');
-				name.innerHTML = ' ' + obj.group;
-				label.appendChild(name);
-				this._groups[obj.group].appendChild(label);
+                var group = L.DomUtil.create('div', className + '-group');
+                var heading = L.DomUtil.create('label', className + '-grouplabel');
+                    heading.innerHTML = ' ' + obj.group;
+                L.DomEvent.on(heading, 'click', function(){
+                    if ( L.DomUtil.hasClass(group, 'expanded') ) {
+                        L.DomUtil.removeClass(group, 'expanded');
+                    } else {
+                        L.DomUtil.addClass(group, 'expanded');
+                    }
+                });
+                L.DomUtil.addClass(group, 'expanded');
+                this._groups[obj.group] = group;
+                this._groups[obj.group].appendChild(heading);
 			}
             container.appendChild(this._groups[obj.group]);
 			container = this._groups[obj.group];
