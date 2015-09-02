@@ -139,6 +139,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				label.appendChild(name);
 				this._groups[obj.group].appendChild(label);
 			}
+            container.appendChild(this._groups[obj.group]);
 			container = this._groups[obj.group];
 		}
 		
