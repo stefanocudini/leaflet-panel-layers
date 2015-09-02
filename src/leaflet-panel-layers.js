@@ -130,21 +130,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
 
 		if(obj.group) {
-			if(!this._groups[obj.group])
-			{
-                var group = L.DomUtil.create('div', className + '-group');
-                var heading = L.DomUtil.create('label', className + '-grouplabel');
-                    heading.innerHTML = ' ' + obj.group;
-                L.DomEvent.on(heading, 'click', function(){
-                    if ( L.DomUtil.hasClass(group, 'expanded') ) {
-                        L.DomUtil.removeClass(group, 'expanded');
-                    } else {
-                        L.DomUtil.addClass(group, 'expanded');
-                    }
-                });
-                L.DomUtil.addClass(group, 'expanded');
-                this._groups[obj.group] = group;
-                this._groups[obj.group].appendChild(heading);
+			if (!this._groups[obj.group]) {
+                this._groups[obj.group] = this._createGroup( obj.group );
 			}
             container.appendChild(this._groups[obj.group]);
 			container = this._groups[obj.group];
@@ -156,6 +143,38 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		return label;
 	},
+    
+    _createGroup: function ( groupdata ) {
+        var className = 'leaflet-panel-layers',
+            groupname, groupicon, group, heading, icon, iconimg, heading_text;
+        if ( groupdata.hasOwnProperty('name') ) {
+            groupname = groupdata.name;
+        } else {
+            groupname = groupdata;
+        }
+        if ( groupdata.hasOwnProperty('icon') ) {
+            groupicon = groupdata.icon;
+        }
+        group = L.DomUtil.create('div', className + '-group');
+        heading = L.DomUtil.create('label', className + '-grouplabel', group);
+        if ( groupicon ) {
+            icon = L.DomUtil.create('i', className + '-icon', heading);
+            iconimg = L.DomUtil.create('img', null, icon);
+            iconimg.src = groupicon;
+        }
+        heading_text = L.DomUtil.create('span', null, heading);
+        heading_text.innerHTML = ' ' + groupname;
+        L.DomEvent.on(heading, 'click', function(){
+            if ( L.DomUtil.hasClass(group, 'expanded') ) {
+                L.DomUtil.removeClass(group, 'expanded');
+            } else {
+                L.DomUtil.addClass(group, 'expanded');
+            }
+        });
+        L.DomUtil.addClass(group, 'expanded');
+        
+        return group;
+    },
 
 	_onInputClick: function () {
 		var i, input, obj,

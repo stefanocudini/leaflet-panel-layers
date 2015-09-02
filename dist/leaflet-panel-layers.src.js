@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.3 - 2015-09-01 
+ * Leaflet Panel Layers v0.1.3 - 2015-09-02 
  * 
  * Copyright 2015 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -146,15 +146,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
 
 		if(obj.group) {
-			if(!this._groups[obj.group])
-			{
-				this._groups[obj.group] = L.DomUtil.create('fieldset', className + '-group', container);
-				label = L.DomUtil.create('legend', className + '-grouplabel');
-				var name = document.createElement('span');
-				name.innerHTML = ' ' + obj.group;
-				label.appendChild(name);
-				this._groups[obj.group].appendChild(label);
+			if (!this._groups[obj.group]) {
+                this._groups[obj.group] = this._createGroup( obj.group );
 			}
+            container.appendChild(this._groups[obj.group]);
 			container = this._groups[obj.group];
 		}
 		
@@ -164,6 +159,38 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		return label;
 	},
+    
+    _createGroup: function ( groupdata ) {
+        var className = 'leaflet-panel-layers',
+            groupname, groupicon, group, heading, icon, iconimg, heading_text;
+        if ( groupdata.hasOwnProperty('name') ) {
+            groupname = groupdata.name;
+        } else {
+            groupname = groupdata;
+        }
+        if ( groupdata.hasOwnProperty('icon') ) {
+            groupicon = groupdata.icon;
+        }
+        group = L.DomUtil.create('div', className + '-group');
+        heading = L.DomUtil.create('label', className + '-grouplabel', group);
+        if ( groupicon ) {
+            icon = L.DomUtil.create('i', className + '-icon', heading);
+            iconimg = L.DomUtil.create('img', null, icon);
+            iconimg.src = groupicon;
+        }
+        heading_text = L.DomUtil.create('span', null, heading);
+        heading_text.innerHTML = ' ' + groupname;
+        L.DomEvent.on(heading, 'click', function(){
+            if ( L.DomUtil.hasClass(group, 'expanded') ) {
+                L.DomUtil.removeClass(group, 'expanded');
+            } else {
+                L.DomUtil.addClass(group, 'expanded');
+            }
+        });
+        L.DomUtil.addClass(group, 'expanded');
+        
+        return group;
+    },
 
 	_onInputClick: function () {
 		var i, input, obj,
