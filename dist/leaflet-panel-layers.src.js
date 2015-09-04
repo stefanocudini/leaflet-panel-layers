@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.3 - 2015-09-02 
+ * Leaflet Panel Layers v0.1.3 - 2015-09-04 
  * 
  * Copyright 2015 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -77,6 +77,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._update();
 		return this;
 	},
+    
+    _update: function() {
+        this._groups = [];
+        L.Control.Layers.prototype._update.call(this);
+    },
 
 	_instanceLayer: function(layerDef) {
 		if(layerDef instanceof L.Class)
@@ -146,11 +151,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
 
 		if(obj.group) {
-			if (!this._groups[obj.group]) {
-                this._groups[obj.group] = this._createGroup( obj.group );
-			}
-            container.appendChild(this._groups[obj.group]);
-			container = this._groups[obj.group];
+            if (!obj.group.hasOwnProperty('name'))
+            {
+                obj.group = { name: ob.group };
+            }
+            if (!this._groups[obj.group.name]) {
+                this._groups[obj.group.name] = this._createGroup( obj.group );
+            }
+            container.appendChild(this._groups[obj.group.name]);
+            container = this._groups[obj.group.name];
 		}
 		
 		label = this._createItem(obj);
