@@ -168,8 +168,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
         heading = L.DomUtil.create('label', className + '-grouplabel', group);
         if ( groupicon ) {
             icon = L.DomUtil.create('i', className + '-icon', heading);
-            iconimg = L.DomUtil.create('img', null, icon);
-            iconimg.src = groupicon;
+//             iconimg = L.DomUtil.create('img', null, icon);
+//             iconimg.src = groupicon;
+            icon.innerHTML = groupicon || '';
         }
         heading_text = L.DomUtil.create('span', null, heading);
         heading_text.innerHTML = ' ' + groupname;
@@ -218,10 +219,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
 
-		this._map.on('resize', function(e) {
-			container.style.height = e.newSize.y+'px';
-		});
-
 		if (!L.Browser.touch) {
 			L.DomEvent
 				.disableClickPropagation(container)
@@ -231,6 +228,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		var form = this._form = L.DomUtil.create('form', className + '-list');
+        
+        this._map.on('resize', function(e) {
+            form.style.height = e.newSize.y+'px';
+        });
 
 		form.style.height = this._map.getSize().y+'px';
 
@@ -266,6 +267,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
 		this._separator = L.DomUtil.create('div', className + '-separator', form);
 		this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
+        L.DomUtil.create('div', className + '-margin', form); // No need to store it
 
 		container.appendChild(form);
 	},

@@ -65,12 +65,15 @@
 	background: rgba(255,255,255,0.6);
 	border-radius: 3px;
 	position: relative;
-    padding: 5px;
+    padding: 2px;
+    margin-bottom: 4px;
+    width: auto;
+    overflow: hidden;
+    font-weight: bold;
 }
-.leaflet-panel-layers-grouplabel {
-    font-size:  14px;
-    
-}   
+.leaflet-panel-layers-group:not(.expanded) {
+    height: 30px;
+}
 .leaflet-panel-layers-group:not(.expanded) .leaflet-panel-layers-item {
     display: none;
 }
@@ -129,4 +132,7 @@
 }
 .leaflet-panel-layers-expanded .leaflet-panel-layers-overlays input {
 	display: block;
+}
+.leaflet-panel-layers-margin {
+    height: 25px;
 }
