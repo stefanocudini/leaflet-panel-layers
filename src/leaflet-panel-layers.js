@@ -50,15 +50,20 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	addBaseLayer: function (layer, name, group) {
 		layer.name = name || layer.name || '';
 		this._addLayer(layer, false, group);
-		this._update();
+		this._updateLayers();
 		return this;
 	},
 
 	addOverlay: function (layer, name, group) {
 		layer.name = name || layer.name || '';
 		this._addLayer(layer, true, group);
-		this._update();
+		this._updateLayers();
 		return this;
+	},
+	
+	_updateLayers: function () {
+		this._groups = {};
+		this._update();
 	},
 
 	_instanceLayer: function(layerDef) {
