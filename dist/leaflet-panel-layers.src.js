@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.3 - 2015-05-22 
+ * Leaflet Panel Layers v0.1.3 - 2015-09-24 
  * 
  * Copyright 2015 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -66,15 +66,20 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	addBaseLayer: function (layer, name, group) {
 		layer.name = name || layer.name || '';
 		this._addLayer(layer, false, group);
-		this._update();
+		this._updateLayers();
 		return this;
 	},
 
 	addOverlay: function (layer, name, group) {
 		layer.name = name || layer.name || '';
 		this._addLayer(layer, true, group);
-		this._update();
+		this._updateLayers();
 		return this;
+	},
+	
+	_updateLayers: function () {
+		this._groups = {};
+		this._update();
 	},
 
 	_instanceLayer: function(layerDef) {
