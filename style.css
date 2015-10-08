@@ -88,3 +88,12 @@ pre {
 	clear:both;
 }
 
+#config {
+	margin: 0 10px;
+	padding: 0;
+	height: 370px;
+	width: 600px;
+	font-size: 10px;
+	box-shadow: inset 2px 2px 4px #ccc;
+	border: 2px solid #1978cf;
+}
