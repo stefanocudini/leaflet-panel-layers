@@ -69,7 +69,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	_instanceLayer: function(layerDef) {
 		if(layerDef instanceof L.Class)
 			return layerDef;
-		else if(layerDef.type && layerDef.args)
+		else if(layerDef && layerDef.type && layerDef.args)
 			return this._getPath(L, layerDef.type).apply(window, layerDef.args);
 	},
 
