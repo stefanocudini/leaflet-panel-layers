@@ -137,7 +137,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(obj.group) {
             if (!obj.group.hasOwnProperty('name'))
             {
-                obj.group = { name: ob.group };
+                obj.group = { name: obj.group };
             }
             if (!this._groups[obj.group.name]) {
                 this._groups[obj.group.name] = this._createGroup( obj.group );
