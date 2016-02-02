@@ -1,7 +1,7 @@
 /* 
- * Leaflet Panel Layers v0.1.3 - 2015-09-04 
+ * Leaflet Panel Layers v0.1.3 - 2016-02-02 
  * 
- * Copyright 2015 Stefano Cudini 
+ * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
  * http://labs.easyblog.it/ 
  * 
@@ -153,7 +153,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(obj.group) {
             if (!obj.group.hasOwnProperty('name'))
             {
-                obj.group = { name: ob.group };
+                obj.group = { name: obj.group };
             }
             if (!this._groups[obj.group.name]) {
                 this._groups[obj.group.name] = this._createGroup( obj.group );
