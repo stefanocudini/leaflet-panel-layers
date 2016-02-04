@@ -1,7 +1,7 @@
 /* 
- * Leaflet Panel Layers v0.1.3 - 2015-09-24 
+ * Leaflet Panel Layers v0.1.3 - 2016-02-02 
  * 
- * Copyright 2015 Stefano Cudini 
+ * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
  * http://labs.easyblog.it/ 
  * 
@@ -19,6 +19,7 @@
 L.Control.PanelLayers = L.Control.Layers.extend({
 	options: {
 		collapsed: false,
+		button: false,
 		position: 'topright',
 		autoZIndex: true
 	},
@@ -66,21 +67,21 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	addBaseLayer: function (layer, name, group) {
 		layer.name = name || layer.name || '';
 		this._addLayer(layer, false, group);
-		this._updateLayers();
+		this._update();
 		return this;
 	},
 
 	addOverlay: function (layer, name, group) {
 		layer.name = name || layer.name || '';
 		this._addLayer(layer, true, group);
-		this._updateLayers();
+		this._update();
 		return this;
 	},
-	
-	_updateLayers: function () {
-		this._groups = {};
-		this._update();
-	},
+    
+    _update: function() {
+        this._groups = [];
+        L.Control.Layers.prototype._update.call(this);
+    },
 
 	_instanceLayer: function(layerDef) {
 		if(layerDef instanceof L.Class)
@@ -150,16 +151,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
 
 		if(obj.group) {
-			if(!this._groups[obj.group])
-			{
-				this._groups[obj.group] = L.DomUtil.create('fieldset', className + '-group', container);
-				label = L.DomUtil.create('legend', className + '-grouplabel');
-				var name = document.createElement('span');
-				name.innerHTML = ' ' + obj.group;
-				label.appendChild(name);
-				this._groups[obj.group].appendChild(label);
-			}
-			container = this._groups[obj.group];
+            if (!obj.group.hasOwnProperty('name'))
+            {
+                obj.group = { name: obj.group };
+            }
+            if (!this._groups[obj.group.name]) {
+                this._groups[obj.group.name] = this._createGroup( obj.group );
+            }
+            container.appendChild(this._groups[obj.group.name]);
+            container = this._groups[obj.group.name];
 		}
 		
 		label = this._createItem(obj);
@@ -168,6 +168,39 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		return label;
 	},
+    
+    _createGroup: function ( groupdata ) {
+        var className = 'leaflet-panel-layers',
+            groupname, groupicon, group, heading, icon, iconimg, heading_text;
+        if ( groupdata.hasOwnProperty('name') ) {
+            groupname = groupdata.name;
+        } else {
+            groupname = groupdata;
+        }
+        if ( groupdata.hasOwnProperty('icon') ) {
+            groupicon = groupdata.icon;
+        }
+        group = L.DomUtil.create('div', className + '-group');
+        heading = L.DomUtil.create('label', className + '-grouplabel', group);
+        if ( groupicon ) {
+            icon = L.DomUtil.create('i', className + '-icon', heading);
+//             iconimg = L.DomUtil.create('img', null, icon);
+//             iconimg.src = groupicon;
+            icon.innerHTML = groupicon || '';
+        }
+        heading_text = L.DomUtil.create('span', null, heading);
+        heading_text.innerHTML = ' ' + groupname;
+        L.DomEvent.on(heading, 'click', function(){
+            if ( L.DomUtil.hasClass(group, 'expanded') ) {
+                L.DomUtil.removeClass(group, 'expanded');
+            } else {
+                L.DomUtil.addClass(group, 'expanded');
+            }
+        });
+        L.DomUtil.addClass(group, 'expanded');
+        
+        return group;
+    },
 
 	_onInputClick: function () {
 		var i, input, obj,
@@ -196,16 +229,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_initLayout: function () {
 		var className = 'leaflet-panel-layers',
+			layerControlClassName = 'leaflet-control-layers',
 		    container = this._container = L.DomUtil.create('div', className);
 
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
-
-		container.style.height = this._map.getSize().y+'px';
-
-		this._map.on('resize', function(e) {
-			container.style.height = e.newSize.y+'px';
-		});
 
 		if (!L.Browser.touch) {
 			L.DomEvent
@@ -216,14 +244,24 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		var form = this._form = L.DomUtil.create('form', className + '-list');
+        
+        this._map.on('resize', function(e) {
+            form.style.height = e.newSize.y+'px';
+        });
 
+		form.style.height = this._map.getSize().y+'px';
+
+		if (this.options.button) {
+			this.options.collapsed = true;
+			L.DomUtil.addClass(container, className+'-button-collapse');
+		}
 		if (this.options.collapsed) {
 			if (!L.Browser.android) {
 				L.DomEvent
 				    .on(container, 'mouseover', this._expand, this)
 				    .on(container, 'mouseout', this._collapse, this);
 			}
-			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
+			var link = this._layersLink = L.DomUtil.create('a', layerControlClassName+'-toggle', container);
 			link.href = '#';
 			link.title = 'Layers';
 
@@ -245,6 +283,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
 		this._separator = L.DomUtil.create('div', className + '-separator', form);
 		this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
+        L.DomUtil.create('div', className + '-margin', form); // No need to store it
 
 		container.appendChild(form);
 	},
