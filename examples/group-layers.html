@@ -36,55 +36,60 @@ var map = L.map('map', {
 	osmLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 
 map.addLayer(osmLayer);
+
 var baseLayers = [
-    {
-        name: "Mapbox Street",
-        layer: streets,
-        "active": true
-    },
-    {
-        name: "Esri Satellite",
-        layer: satellite
-    },
-    {
-        name: "Mapbox Grayscale",
-        layer: grayscale
-    }
-];
-var overLayers = [
-    {
-        group: "Lake Victoria Basin Land Cover",
-        layers: [
-            {
-                name: "Land Cover - 2014",
-                icon: iconByName('landcover'),
-                layer: landcover2014
-            },
-            {
-                name: "Land Cover - 2014",
-                icon: iconByName('landcover'),
-                layer: landcover2014
-            },
-            {
-                name: "Land Cover - 2014",
-                icon: iconByName('landcover'),
-                layer: landcover2014
-            }
-        ]
-    },
-    {
-        group: "National Boundaries",
-        layers: [
-            {
-                name: "National Boundaries",
-                icon: iconByName('boundaries'),
-                layer: boundaries
-            }
-        ]
-    }
+	{
+		name: "Open Street Map",
+		layer: osmLayer
+	},
+	{
+		name: "Hiking",
+		layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
+	},	
+	{
+		group: "Road Layers",
+		layers: [
+			{
+				name: "Open Cycle Map",
+				layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Transports",
+				layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
+			}
+		]
+	}
 ];
 
-panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {collapsed: false});
+var overLayers = [
+	{
+		group: "Hiking Layers",
+		layers: [
+			{
+				name: "Terrain",
+				layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
+			}
+		]
+	},
+	{
+		group: "POI Layers",
+		layers: [
+			{
+				active: true,
+				name: "Bar",
+				icon: '<i class="icon icon-bar"></i>',
+				layer: L.geoJson(Bar)
+			},
+			{
+				name: "Drinking Water",
+				icon: '<i class="icon icon-drinking_water"></i>',
+				layer: L.geoJson(Drinking_water)
+			}
+		]
+	}
+];
+
+var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers);
 
 map.addControl(panelLayers);
 
