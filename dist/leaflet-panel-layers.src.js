@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.3 - 2016-02-02 
+ * Leaflet Panel Layers v0.1.4 - 2016-03-10 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -18,10 +18,11 @@
 
 L.Control.PanelLayers = L.Control.Layers.extend({
 	options: {
+		button: false,		
 		collapsed: false,
-		button: false,
-		position: 'topright',
-		autoZIndex: true
+		autoZIndex: true,
+		position: 'topright',		
+		collapsibleGroups: false
 	},
 		//TODO add support for json layers defintions
 		//fields:
@@ -130,6 +131,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		input.layerId = L.stamp(obj.layer);
 
 		L.DomEvent.on(input, 'click', this._onInputClick, this);
+
 		label.appendChild(input);
 
 		if(obj.icon) {
@@ -190,13 +192,17 @@ L.Control.PanelLayers = L.Control.Layers.extend({
         }
         heading_text = L.DomUtil.create('span', null, heading);
         heading_text.innerHTML = ' ' + groupname;
-        L.DomEvent.on(heading, 'click', function(){
-            if ( L.DomUtil.hasClass(group, 'expanded') ) {
-                L.DomUtil.removeClass(group, 'expanded');
-            } else {
-                L.DomUtil.addClass(group, 'expanded');
-            }
-        });
+        
+        if(this.options.collapsibleGroups) {
+	        L.DomEvent.on(heading, 'click', function() {
+	            if ( L.DomUtil.hasClass(group, 'expanded') ) {
+	                L.DomUtil.removeClass(group, 'expanded');
+	            } else {
+	                L.DomUtil.addClass(group, 'expanded');
+	            }
+	        });
+	    }
+
         L.DomUtil.addClass(group, 'expanded');
         
         return group;
@@ -239,9 +245,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			L.DomEvent
 				.disableClickPropagation(container)
 				.disableScrollPropagation(container);
-		} else {
+		} else
 			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
-		}
 
 		var form = this._form = L.DomUtil.create('form', className + '-list');
         
@@ -255,6 +260,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			this.options.collapsed = true;
 			L.DomUtil.addClass(container, className+'-button-collapse');
 		}
+
 		if (this.options.collapsed) {
 			if (!L.Browser.android) {
 				L.DomEvent
