@@ -124,7 +124,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label.appendChild(icon);
 		}
 		var name = document.createElement('span');
-		name.innerHTML = ' ' + obj.name;
+		name.innerHTML = obj.name || '';
 		label.appendChild(name);
 
 		return label;
@@ -137,13 +137,12 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
 
 		if(obj.group) {
-            if (!obj.group.hasOwnProperty('name'))
-            {
+            if(!obj.group.hasOwnProperty('name'))
                 obj.group = { name: obj.group };
-            }
-            if (!this._groups[obj.group.name]) {
-                this._groups[obj.group.name] = this._createGroup( obj.group );
-            }
+
+            if(!this._groups[ obj.group.name ])
+                this._groups[ obj.group.name ] = this._createGroup( obj.group );
+            
             container.appendChild(this._groups[obj.group.name]);
             container = this._groups[obj.group.name];
 		}
@@ -157,35 +156,29 @@ L.Control.PanelLayers = L.Control.Layers.extend({
     
     _createGroup: function ( groupdata ) {
         var className = 'leaflet-panel-layers',
-            groupname, groupicon, group, heading, icon, iconimg, heading_text;
-        if ( groupdata.hasOwnProperty('name') ) {
-            groupname = groupdata.name;
-        } else {
-            groupname = groupdata;
-        }
-        if ( groupdata.hasOwnProperty('icon') ) {
-            groupicon = groupdata.icon;
-        }
-        group = L.DomUtil.create('div', className + '-group');
-        heading = L.DomUtil.create('label', className + '-grouplabel', group);
-        if ( groupicon ) {
-            icon = L.DomUtil.create('i', className + '-icon', heading);
-//             iconimg = L.DomUtil.create('img', null, icon);
-//             iconimg.src = groupicon;
-            icon.innerHTML = groupicon || '';
-        }
-        heading_text = L.DomUtil.create('span', null, heading);
-        heading_text.innerHTML = ' ' + groupname;
-        
+            groupname, grouplabel_text, grouplabel_plus,
+        	group = L.DomUtil.create('div', className + '-group'),
+        	grouplabel = L.DomUtil.create('label', className + '-grouplabel', group);
+
         if(this.options.collapsibleGroups) {
-	        L.DomEvent.on(heading, 'click', function() {
+
+	        grouplabel_plus = L.DomUtil.create('span', className + '-groupplus', grouplabel);
+	        grouplabel_plus.innerHTML = ' - ';
+
+
+	        L.DomEvent.on(grouplabel, 'click', function() {	        	
 	            if ( L.DomUtil.hasClass(group, 'expanded') ) {
 	                L.DomUtil.removeClass(group, 'expanded');
+	                grouplabel_plus.innerHTML = ' + ';
 	            } else {
 	                L.DomUtil.addClass(group, 'expanded');
-	            }
+	                grouplabel_plus.innerHTML = ' - ';
+	            }	            
 	        });
 	    }
+
+        grouplabel_text = L.DomUtil.create('span', '', grouplabel);
+        grouplabel_text.innerHTML = groupdata.name;	    
 
         L.DomUtil.addClass(group, 'expanded');
         
