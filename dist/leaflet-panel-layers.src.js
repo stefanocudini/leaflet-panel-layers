@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.5 - 2016-03-10 
+ * Leaflet Panel Layers v0.1.6 - 2016-03-11 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -172,31 +172,30 @@ L.Control.PanelLayers = L.Control.Layers.extend({
     
     _createGroup: function ( groupdata ) {
         var className = 'leaflet-panel-layers',
-            groupname, grouplabel_text, grouplabel_plus,
-        	group = L.DomUtil.create('div', className + '-group'),
-        	grouplabel = L.DomUtil.create('label', className + '-grouplabel', group);
+            grouplabel, groupexp, group = L.DomUtil.create('div', className + '-group');
 
         if(this.options.collapsibleGroups) {
 
-	        grouplabel_plus = L.DomUtil.create('span', className + '-groupplus', grouplabel);
-	        grouplabel_plus.innerHTML = ' - ';
+			L.DomUtil.addClass(group, 'collapsible');
+
+	        groupexp = L.DomUtil.create('i', className + '-icon', group);
+	        groupexp.innerHTML = ' - ';
 
 
-	        L.DomEvent.on(grouplabel, 'click', function() {	        	
+	        L.DomEvent.on(group, 'click', function() {	        	
 	            if ( L.DomUtil.hasClass(group, 'expanded') ) {
 	                L.DomUtil.removeClass(group, 'expanded');
-	                grouplabel_plus.innerHTML = ' + ';
+	                groupexp.innerHTML = ' + ';
 	            } else {
 	                L.DomUtil.addClass(group, 'expanded');
-	                grouplabel_plus.innerHTML = ' - ';
+	                groupexp.innerHTML = ' - ';
 	            }	            
 	        });
+	        L.DomUtil.addClass(group, 'expanded');
 	    }
 
-        grouplabel_text = L.DomUtil.create('span', '', grouplabel);
-        grouplabel_text.innerHTML = groupdata.name;	    
-
-        L.DomUtil.addClass(group, 'expanded');
+       	grouplabel = L.DomUtil.create('label', className + '-grouplabel', group);
+        grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
         
         return group;
     },
