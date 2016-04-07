@@ -8,12 +8,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		position: 'topright',		
 		collapsibleGroups: false
 	},
-		//TODO add support for json layers defintions
-		//fields:
-		//	layerType: "tileLayer",
-		//	layerUrl: "http://..."
-		//	layerAdd: true
-
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);
 		this._layers = {};
@@ -24,30 +18,36 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		var i, n;
 
-		for (i in baseLayers)
+		for (i in baseLayers) {
 			if(baseLayers[i].group && baseLayers[i].layers) 
 				for(n in baseLayers[i].layers)
 					this._addLayer(baseLayers[i].layers[n], false, baseLayers[i].group);
 			else
 				this._addLayer(baseLayers[i], false);
+		}
 
-		for (i in overlays)
+		for (i in overlays) {
 			if(overlays[i].group && overlays[i].layers) 
 				for(n in overlays[i].layers)
 					this._addLayer(overlays[i].layers[n], true, overlays[i].group);
-			else			
+			else
 				this._addLayer(overlays[i], true);
+		}
 	},
 	
 	onAdd: function (map) {
 		
-		for(var i in this._layersActives)
+		for(var i in this._layersActives) {
 			map.addLayer(this._layersActives[i]);
+		}
 
 		L.Control.Layers.prototype.onAdd.call(this, map);
 
 		return this._container;
 	},
+
+	//TODO addBaseLayerGroup
+	//TODO addOverlayGroup
 	
 	addBaseLayer: function (layer, name, group) {
 		layer.name = name || layer.name || '';
@@ -62,39 +62,71 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._update();
 		return this;
 	},
-    
+
+	removeLayer: function (layerDef) {
+		var layer, id;
+
+		if(layerDef.hasOwnProperty('layer'))
+			layer = this._layerFromDef(layerDef);
+		else
+			layer = layerDef;
+		
+		id = L.stamp(layer);
+
+		delete this._layers[ id ];
+		this._update();
+		return this;
+	},
+
+	clearLayers: function() {
+		for (var id in this._layers) {
+			this.removeLayer( this._layers[id] );
+		}
+	},
+
+	_layerFromDef: function(layerDef) {
+		for (var id in this._layers) {
+			
+			//TODO add more conditions to comaparing definitions
+			if(this._layers[id].name === layerDef.name)
+				return this._layers[id].layer;
+		}
+	},
+
     _update: function() {
-        this._groups = [];
+        this._groups = {}; 
         L.Control.Layers.prototype._update.call(this);
     },
 
-	_instanceLayer: function(layerDef) {
+	_instantiateLayer: function(layerDef) {
 		if(layerDef instanceof L.Class)
 			return layerDef;
 		else if(layerDef.type && layerDef.args)
-			return this._getPath(L, layerDef.type).apply(window, layerDef.args);
+			return this._getPath(L, layerDef.type).apply(L, layerDef.args);
 	},
 
-	_addLayer: function (layer, overlay, group) {
+	_addLayer: function (layerDef, overlay, group) {
 
-		var layerLayer = this._instanceLayer(layer.layer),
-			id = L.stamp(layerLayer);
+		var layer = this._instantiateLayer(layerDef.layer);
 
-		if(layer.active)
-			this._layersActives.push(layerLayer);
+		var id = L.stamp(layer);
 
-		this._layers[id] = {
-			layer: layerLayer,
-			name: layer.name,
-			icon: layer.icon,
+		if(layerDef.active)
+			this._layersActives.push(layer);
+
+		this._layers[ id ] = {
+			layer: layer,
+			name: layerDef.name,
+			icon: layerDef.icon,
 			overlay: overlay,
 			group: group
 		};
 
-		if (this.options.autoZIndex && layerLayer.setZIndex) {
+		if (this.options.autoZIndex && layer.setZIndex) {
 			this._lastZIndex++;
-			layerLayer.setZIndex(this._lastZIndex);
+			layer.setZIndex(this._lastZIndex);
 		}
+
 	},
 
 	_createItem: function(obj) {
@@ -112,7 +144,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			input = this._createRadioElement('leaflet-base-layers', checked);
 		}
 
-		input.layerId = L.stamp(obj.layer);
+		input.value = L.stamp(obj.layer);
 
 		L.DomEvent.on(input, 'click', this._onInputClick, this);
 
@@ -192,8 +224,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._handlingClick = true;
 
 		for (i = 0; i < inputsLen; i++) {
+			
 			input = inputs[i];
-			obj = this._layers[input.layerId];
+
+			obj = this._layers[ input.value ];
 
 			if (input.checked && !this._map.hasLayer(obj.layer)) {
 				this._map.addLayer(obj.layer);

@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.6 - 2016-03-11 
+ * Leaflet Panel Layers v0.1.7 - 2016-04-07 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -81,11 +81,11 @@
 	background: rgba(255,255,255,0.6);
 	border-radius: 3px;
 	position: relative;
-    padding: 2px 4px;
-    margin-bottom: 4px;
-    width: auto;
-    overflow: hidden;
-    font-weight: bold;
+	padding: 2px 4px;
+	margin-bottom: 4px;
+	width: auto;
+	overflow: hidden;
+	font-weight: bold;
 }
 .leaflet-panel-layers-group.collapsible:not(.expanded) {
     height: 20px;
@@ -93,7 +93,15 @@
 .leaflet-panel-layers-group.collapsible:not(.expanded) .leaflet-panel-layers-item {
     display: none;
 }
-.leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon {
+.leaflet-panel-layers-icon {
+	text-align: center;
+	line-height: 22px;
+	height: 22px;
+	width: 22px;
+	background: #fff;
+	display: inline-block;
+}
+.leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon:first-child {
 	display: inline-block;
 	min-width: 20px;
 	font-size: 16px;
@@ -138,15 +146,6 @@
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item:hover {
 	border: 1px solid #888;
 	cursor: pointer;
-}
-.leaflet-panel-layers-icon {
-	text-align: center;
-	line-height: 22px;
-	height: 22px;
-	width: 22px;
-	background: #fff;
-	display: inline-block;
-	margin-right: 4px;
 }
 .leaflet-panel-layers-overlays span {
 	display: inline-block;

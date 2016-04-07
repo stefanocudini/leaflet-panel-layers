@@ -11,9 +11,16 @@
 #map {
 	width: 500px;
 	height: 400px;
+	margin-right: 10px;
 }
-button {
-	margin: 0 10px 10px 10px;
+#config {
+	margin: 10px;
+	height: 215px;
+	display: block;
+}
+fieldset, label {
+	margin: 0 10px;
+	max-width: 600px;
 }
 </style>
 </head>
@@ -24,9 +31,16 @@ button {
 <br />
 
 <div id="map"></div>
-<button id="btnadd_base">Add baselayers</button> 
-<button id="btnadd_over">Add overlayers</button><br>
+<label>Layers defintions</label><br />
 <textarea id="config"></textarea>
+<br />
+<fieldset id="baselayers">
+	<legend>baselayers</legend>
+</fieldset>
+<br />
+<fieldset id="overlayers">
+	<legend>overlayers</legend>
+</fieldset>
 
 <div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
 
@@ -48,23 +62,59 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 			maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
 		});
 
-	var panel = L.control.panelLayers().addTo(map);
+	window.panel = L.control.panelLayers().addTo(map);
 
-	$('#btnadd_base').on('click', function(e) {
+	var hash = {
+		'baselayers': {
+			'selector': '#baselayers',
+			'addMethod': 'addBaseLayer'
+		},
+		'overlayers': {
+			'selector': '#overlayers',
+			'addMethod': 'addOverlay'
+		}
+	};
 
-		panel.addBaseLayer(config.baselayers.pop());
-		
-		if(!config.baselayers.length)
-			$(this).attr('disabled','');
+	config.overlayers.push({
+		name: "GeoJSON Point",
+		layer: L.geoJson({
+	      "type": "Feature",
+	      "id": "node/749981880",
+	      "properties": {
+	        "@id": "node/749981880",
+	        "amenity": "bar"
+	      },
+	      "geometry": {
+	        "type": "Point",
+	        "coordinates": [
+	        12.4992, 42.4918
+	        ]
+	      }
+	    })
 	});
-	$('#btnadd_over').on('click', function(e) {
 
-		panel.addOverlay(config.overlayers.pop());
+	$.each(config, function(typeLayer, items) {
+		$.each(items, function(i, item) {
 
-		if(!config.overlayers.length)
-			$(this).attr('disabled','');		
+			var $label = $('<label>'+item.name+'</label>')
+				.appendTo( hash[ typeLayer ]['selector'] );
+
+			$('<input type="checkbox" value="'+item.name+'" />')
+			.on('click', function(e) {
+				
+				console.log(
+					item,
+					$(e.target).prop('checked')
+				);
+
+				if( $(e.target).prop('checked') )
+					panel[ hash[ typeLayer ]['addMethod'] ](item);
+				else
+					panel.removeLayer(item);	
+
+			}).prependTo($label);
+		});
 	});
-
 });
 
 </script>
