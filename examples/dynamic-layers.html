@@ -62,6 +62,7 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 			maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
 		});
 
+	window.config = config;
 	window.panel = L.control.panelLayers().addTo(map);
 
 	var hash = {
@@ -75,24 +76,6 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 		}
 	};
 
-	config.overlayers.push({
-		name: "GeoJSON Point",
-		layer: L.geoJson({
-	      "type": "Feature",
-	      "id": "node/749981880",
-	      "properties": {
-	        "@id": "node/749981880",
-	        "amenity": "bar"
-	      },
-	      "geometry": {
-	        "type": "Point",
-	        "coordinates": [
-	        12.4992, 42.4918
-	        ]
-	      }
-	    })
-	});
-
 	$.each(config, function(typeLayer, items) {
 		$.each(items, function(i, item) {
 
@@ -102,19 +85,16 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 			$('<input type="checkbox" value="'+item.name+'" />')
 			.on('click', function(e) {
 				
-				console.log(
-					item,
-					$(e.target).prop('checked')
-				);
-
 				if( $(e.target).prop('checked') )
 					panel[ hash[ typeLayer ]['addMethod'] ](item);
+				}
 				else
 					panel.removeLayer(item);	
 
 			}).prependTo($label);
 		});
 	});
+
 });
 
 </script>

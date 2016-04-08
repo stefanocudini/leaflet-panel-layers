@@ -12,6 +12,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		L.setOptions(this, options);
 		this._layers = {};
 		this._groups = {};
+		this._items = {};		
 		this._layersActives = [];
 		this._lastZIndex = 0;
 		this._handlingClick = false;
@@ -95,6 +96,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
     _update: function() {
         this._groups = {}; 
+        this._items = {}; 
         L.Control.Layers.prototype._update.call(this);
     },
 
@@ -158,6 +160,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var name = document.createElement('span');
 		name.innerHTML = obj.name || '';
 		label.appendChild(name);
+		
+		this._items[ input.value ] = label;
 
 		return label;
 	},
