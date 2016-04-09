@@ -102,7 +102,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_addLayer: function (layerDef, overlay, group) {
 
-		var layer = this._instantiateLayer(layerDef.layer);
+		var layer = layerDef.hasOwnProperty('layer') ? this._instantiateLayer(layerDef.layer) : layerDef;
 
 		var id = L.stamp(layer);
 
