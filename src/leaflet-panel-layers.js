@@ -204,7 +204,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	        groupexp.innerHTML = ' - ';
 
 
-	        L.DomEvent.on(groupdiv, 'click', function() {	        	
+	        L.DomEvent.on(groupexp, 'click', function() {	        	
 	            if ( L.DomUtil.hasClass(groupdiv, 'expanded') ) {
 	                L.DomUtil.removeClass(groupdiv, 'expanded');
 	                groupexp.innerHTML = ' + ';

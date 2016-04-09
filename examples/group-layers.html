@@ -22,13 +22,14 @@
 
 <script src="/maps/leaflet/dist/leaflet.js"></script>
 <script src="../src/leaflet-panel-layers.js"></script>
+<script src="/js/jquery-2.1.1.min.js"></script>
 <!-- GEOJSON DATA -->
 <script src="data/bar.js"></script>
 <script src="data/drinking_water.js"></script>
 <script>
 
 var map = L.map('map', {
-		zoom: 11,
+		zoom: 10,
 		center: L.latLng([42.4918,12.4992]),		
 		attributionControl: false,		
 		maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
@@ -47,7 +48,17 @@ var baseLayers = [
 		layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
 	},	
 	{
+		name: "Aerial",
+		layer: L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+			type: 'sat',
+			ext: 'jpg',
+			attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+			subdomains: '1234'
+		})
+	},
+	{
 		group: "Road Layers",
+		collapsed: true,
 		layers: [
 			{
 				name: "Open Cycle Map",
@@ -63,20 +74,10 @@ var baseLayers = [
 
 var overLayers = [
 	{
-		group: "Hiking Layers",
-		layers: [
-			{
-				name: "Terrain",
-				layer: L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}.png')
-			}
-		]
-	},
-	{
 		group: "POI Layers",
 		layers: [
 			{
 				active: true,
-				//name: "Bar",
 				icon: '<i class="icon icon-bar"></i>',
 				layer: L.geoJson(Bar)
 			},
@@ -86,14 +87,25 @@ var overLayers = [
 				layer: L.geoJson(Drinking_water)
 			}
 		]
-	}
-];
+	},
+	{
+		group: "Hiking Layers",
+		collapsed: true,
+		layers: [
 
-for(var i=0; i<10; i++) {
-	var e = overLayers[1];
-	e.group = "group "+i;
-	overLayers.push(e)
-}
+			{
+				name: "Rivers",
+				layer: (function() {
+					var l = L.geoJson();
+					$.getJSON('data/river.json', function(j) {
+						l.addData(j);
+					});
+					return l;
+				}())
+			}			
+		]
+	}	
+];
 
 var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {collapsibleGroups: true});
 
