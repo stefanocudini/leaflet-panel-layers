@@ -43,7 +43,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		L.Control.Layers.prototype.onAdd.call(this, map);
-
 		return this._container;
 	},
 
@@ -65,17 +64,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
 	removeLayer: function (layerDef) {
-		var layer, id;
-
-		if(layerDef.hasOwnProperty('layer'))
-			layer = this._layerFromDef(layerDef);
-		else
-			layer = layerDef;
+		var layer = layerDef.hasOwnProperty('layer') ? this._layerFromDef(layerDef) : layerDef;
 		
-		id = L.stamp(layer);
+		this._map.removeLayer(layer);
 
-		delete this._layers[ id ];
-		this._update();
+		L.Control.Layers.prototype.removeLayer.call(this, layer);
 		return this;
 	},
 

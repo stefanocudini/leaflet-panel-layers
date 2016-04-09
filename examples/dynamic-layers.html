@@ -55,7 +55,7 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 
 	$('#config').text(xhr.responseText);
 
-	var map = L.map('map', {
+	window.map = L.map('map', {
 			zoom: 11,
 			center: L.latLng([42.4918,12.4992]),
 			attributionControl: false,
@@ -65,28 +65,20 @@ $.getJSON('config-layers.json', function(config, status, xhr) {
 	window.config = config;
 	window.panel = L.control.panelLayers().addTo(map);
 
-	var hash = {
-		'baselayers': {
-			'selector': '#baselayers',
-			'addMethod': 'addBaseLayer'
-		},
-		'overlayers': {
-			'selector': '#overlayers',
-			'addMethod': 'addOverlay'
-		}
-	};
-
 	$.each(config, function(typeLayer, items) {
 		$.each(items, function(i, item) {
 
 			var $label = $('<label>'+item.name+'</label>')
-				.appendTo( hash[ typeLayer ]['selector'] );
+				.appendTo('#'+typeLayer);
 
-			$('<input type="checkbox" value="'+item.name+'" />')
-			.on('click', function(e) {
+			$('<input type="checkbox" value="'+item.name+'" />').on('click', function(e) {
 				
-				if( $(e.target).prop('checked') )
-					panel[ hash[ typeLayer ]['addMethod'] ](item);
+				if( $(e.target).prop('checked') ) {
+
+					if(typeLayer==='baselayers')
+						panel.addBaseLayer(item);
+					else if(typeLayer==='overlayers')
+						panel.addOverlay(item);
 				}
 				else
 					panel.removeLayer(item);	

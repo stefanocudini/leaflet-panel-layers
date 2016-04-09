@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.7 - 2016-04-07 
+ * Leaflet Panel Layers v0.1.8 - 2016-04-09 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -28,6 +28,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		L.setOptions(this, options);
 		this._layers = {};
 		this._groups = {};
+		this._items = {};		
 		this._layersActives = [];
 		this._lastZIndex = 0;
 		this._handlingClick = false;
@@ -58,7 +59,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		L.Control.Layers.prototype.onAdd.call(this, map);
-
 		return this._container;
 	},
 
@@ -80,17 +80,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
 	removeLayer: function (layerDef) {
-		var layer, id;
-
-		if(layerDef.hasOwnProperty('layer'))
-			layer = this._layerFromDef(layerDef);
-		else
-			layer = layerDef;
+		var layer = layerDef.hasOwnProperty('layer') ? this._layerFromDef(layerDef) : layerDef;
 		
-		id = L.stamp(layer);
+		this._map.removeLayer(layer);
 
-		delete this._layers[ id ];
-		this._update();
+		L.Control.Layers.prototype.removeLayer.call(this, layer);
 		return this;
 	},
 
@@ -111,6 +105,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
     _update: function() {
         this._groups = {}; 
+        this._items = {}; 
         L.Control.Layers.prototype._update.call(this);
     },
 
@@ -174,6 +169,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var name = document.createElement('span');
 		name.innerHTML = obj.name || '';
 		label.appendChild(name);
+		
+		this._items[ input.value ] = label;
 
 		return label;
 	},
