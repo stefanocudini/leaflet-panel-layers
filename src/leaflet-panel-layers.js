@@ -43,6 +43,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		L.Control.Layers.prototype.onAdd.call(this, map);
+
 		return this._container;
 	},
 
@@ -89,7 +90,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
     _update: function() {
         this._groups = {}; 
-        this._items = {}; 
+        this._items = {};
         L.Control.Layers.prototype._update.call(this);
     },
 
@@ -160,10 +161,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
 	_addItem: function (obj) {
-		var className = 'leaflet-panel-layers',
+		var self = this,
+			className = 'leaflet-panel-layers',
 			label, input, icon, checked;
 
-		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
+		var list = obj.overlay ? this._overlaysList : this._baseLayersList;
 
 		if(obj.group) {
             if(!obj.group.hasOwnProperty('name'))
@@ -172,45 +174,52 @@ L.Control.PanelLayers = L.Control.Layers.extend({
             if(!this._groups[ obj.group.name ])
                 this._groups[ obj.group.name ] = this._createGroup( obj.group );
             
-            container.appendChild(this._groups[obj.group.name]);
-            container = this._groups[obj.group.name];
+            list.appendChild(this._groups[obj.group.name]);
+            list = this._groups[obj.group.name];
 		}
 		
 		label = this._createItem(obj);
 
-		container.appendChild(label);
+		list.appendChild(label);
+		
+		if(obj.group) {
+			setTimeout(function() {
+				self._container.style.width = (self._container.clientWidth-8)+'px';
+			},100);
+		}
 
 		return label;
 	},
     
     _createGroup: function ( groupdata ) {
         var className = 'leaflet-panel-layers',
-            grouplabel, groupexp, group = L.DomUtil.create('div', className + '-group');
+            groupdiv = L.DomUtil.create('div', className + '-group'),
+            grouplabel, groupexp;
 
         if(this.options.collapsibleGroups) {
 
-			L.DomUtil.addClass(group, 'collapsible');
+			L.DomUtil.addClass(groupdiv, 'collapsible');
 
-	        groupexp = L.DomUtil.create('i', className + '-icon', group);
+	        groupexp = L.DomUtil.create('i', className + '-icon', groupdiv);
 	        groupexp.innerHTML = ' - ';
 
 
-	        L.DomEvent.on(group, 'click', function() {	        	
-	            if ( L.DomUtil.hasClass(group, 'expanded') ) {
-	                L.DomUtil.removeClass(group, 'expanded');
+	        L.DomEvent.on(groupdiv, 'click', function() {	        	
+	            if ( L.DomUtil.hasClass(groupdiv, 'expanded') ) {
+	                L.DomUtil.removeClass(groupdiv, 'expanded');
 	                groupexp.innerHTML = ' + ';
 	            } else {
-	                L.DomUtil.addClass(group, 'expanded');
+	                L.DomUtil.addClass(groupdiv, 'expanded');
 	                groupexp.innerHTML = ' - ';
 	            }	            
 	        });
-	        L.DomUtil.addClass(group, 'expanded');
+	        L.DomUtil.addClass(groupdiv, 'expanded');        
 	    }
 
-       	grouplabel = L.DomUtil.create('label', className + '-grouplabel', group);
+       	grouplabel = L.DomUtil.create('label', className + '-grouplabel', groupdiv);
         grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
         
-        return group;
+        return groupdiv;
     },
 
 	_onInputClick: function () {

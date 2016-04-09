@@ -67,7 +67,7 @@ var overLayers = [
 		layers: [
 			{
 				name: "Terrain",
-				layer: L.tileLayer('http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png')
+				layer: L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}.png')
 			}
 		]
 	},
@@ -88,6 +88,12 @@ var overLayers = [
 		]
 	}
 ];
+
+for(var i=0; i<10; i++) {
+	var e = overLayers[1];
+	e.group = "group "+i;
+	overLayers.push(e)
+}
 
 var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {collapsibleGroups: true});
 
