@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.1.8 - 2016-04-09 
+ * Leaflet Panel Layers v0.2.0 - 2016-04-09 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -118,7 +118,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_addLayer: function (layerDef, overlay, group) {
 
-		var layer = this._instantiateLayer(layerDef.layer);
+		var layer = layerDef.hasOwnProperty('layer') ? this._instantiateLayer(layerDef.layer) : layerDef;
 
 		var id = L.stamp(layer);
 

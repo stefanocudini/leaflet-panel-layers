@@ -26,8 +26,8 @@
 	height: 36px;
 	padding: 0;
 }
-.leaflet-panel-layers-button-collapse .leaflet-panel-layers-list,
-.leaflet-panel-layers-expanded .leaflet-control-layers-toggle {
+.leaflet-panel-layers .leaflet-control-layers-toggle,
+.leaflet-panel-layers-button-collapse .leaflet-panel-layers-list {
 	display: none;
 }
 
