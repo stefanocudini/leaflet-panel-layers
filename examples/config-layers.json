@@ -31,17 +31,6 @@
     ],
     "overlayers": [
         {
-            "name": "Terrain",
-            "layer": {
-            "type": "tileLayer",
-            "args": [
-                "http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png", {
-                "opacity": 0.5
-                }
-            ]
-            }
-        },
-        {
             "name": "Hiking",
             "layer": {
                 "type": "tileLayer",
@@ -49,6 +38,44 @@
                     "http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png"
                 ]
             }
-        }
+        },
+        {
+            "name": "Water",
+            "layer": {
+                "type": "geoJson",
+                "args": [
+                    {
+                      "type": "Feature",
+                      "geometry": {
+                        "type": "MultiPoint",
+                        "coordinates": [
+                            [12.5107845,42.5204998],
+                            [12.4892016,42.4786585],
+                            [12.4907083,42.5373499]
+                        ]
+                      }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Bars",
+            "layer": {
+                "type": "geoJson",
+                "args": [
+                    {
+                      "type": "Feature",
+                      "geometry": {
+                        "type": "MultiPoint",
+                        "coordinates": [
+                            [12.5107845,42.5204998],
+                            [12.4892016,42.4786585],
+                            [12.4907083,42.5373499]
+                        ]
+                      }
+                    }
+                ]
+            }
+        }        
     ]
 }
