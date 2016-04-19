@@ -139,6 +139,27 @@ $.getJSON('some/url/path.geojson', function(data){
 });
 ```
 
+**Load layers on show**
+```javascript
+var overLayers = [
+	{
+		active: true,
+		name: "Parking",
+		icon: '<i class="icon icon-parking"></i>',
+		onshow: function(layer, cb){
+			
+			if(layer.layer){
+				cb(layer.layer) // cached
+			} else {
+				$.getJSON('some/url/path.geojson', function(data){
+					cb(L.geoJson(data))
+				}
+			}
+		}
+	}	
+];
+```
+
 
 #Build
 
