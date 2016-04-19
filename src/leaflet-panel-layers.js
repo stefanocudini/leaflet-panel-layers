@@ -236,7 +236,18 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			obj = this._layers[ input.value ];
 
 			if (input.checked && !this._map.hasLayer(obj.layer)) {
-				this._map.addLayer(obj.layer);
+				
+				load_layer = function(layer){
+					obj.layer = layer;
+					this._map.addLayer(layer);
+				}
+				
+				if(obj.onshow === 'function'){
+					obj.onshow(obj, load_layer)
+				} else {
+					load_layer(obj.layer);
+				}
+				
 
 			} else if (!input.checked && this._map.hasLayer(obj.layer)) {
 				this._map.removeLayer(obj.layer);
