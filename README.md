@@ -126,6 +126,19 @@ L.control.panelLayers([
 ]).addTo(map);
 ```
 
+**Add layers dynamically at runtime**
+```javascript
+var panel = L.control.panelLayers();
+
+$.getJSON('some/url/path.geojson', function(data){
+	panel.addOverlay({
+		name: "Drinking Water",
+		icon: '<i class="icon icon-water"></i>',
+		layer: L.geoJson(data)
+	});
+});
+```
+
 
 #Build
 
