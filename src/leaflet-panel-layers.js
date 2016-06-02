@@ -190,7 +190,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		
 		if(obj.group) {
 			setTimeout(function() {
-				self._container.style.width = (self._container.clientWidth-8)+'px';
+				self._container.style.width = '160px';
 			},100);
 		}
 
@@ -259,7 +259,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var className = 'leaflet-panel-layers',
 			layerControlClassName = 'leaflet-control-layers',
 		    container = this._container = L.DomUtil.create('div', className);
-
+		container.setAttribute('style', 'width:160px');
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
 
