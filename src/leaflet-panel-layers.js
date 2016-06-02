@@ -132,7 +132,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		
 		label = L.DomUtil.create('label', className + '-item');
 		if(obj.backgroundImage){
-			label.setAttribute('style','height:80px;background-image:url("'+obj.backgroudImage+'")');
+			label.setAttribute('style','height:80px;background-image:url("'+obj.backgroundImage+'")');
 		}
 		checked = this._map.hasLayer(obj.layer);
 		if (obj.overlay) {
