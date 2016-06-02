@@ -114,6 +114,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			layer: layer,
 			name: layerDef.name,
 			icon: layerDef.icon,
+			backgroundImage:layerDef.backgroundImage,
 			overlay: overlay,
 			group: group
 		};
@@ -130,6 +131,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label, input, checked;
 		
 		label = L.DomUtil.create('label', className + '-item');
+		if(obj.backgroundImage){
+			label.setAttribute('style','height:80px;background-image:url("'+obj.backgroundImage+'")');
+		}
 		checked = this._map.hasLayer(obj.layer);
 		if (obj.overlay) {
 			input = document.createElement('input');
@@ -152,6 +156,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label.appendChild(icon);
 		}
 		var name = document.createElement('span');
+		name.style.color='rgb(51,51,51)';
+		name.style.backgroudColor='white';
 		name.innerHTML = obj.name || '';
 		label.appendChild(name);
 		
@@ -184,7 +190,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		
 		if(obj.group) {
 			setTimeout(function() {
-				self._container.style.width = (self._container.clientWidth-8)+'px';
+				self._container.style.width = '160px';
 			},100);
 		}
 
@@ -253,7 +259,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		var className = 'leaflet-panel-layers',
 			layerControlClassName = 'leaflet-control-layers',
 		    container = this._container = L.DomUtil.create('div', className);
-
+		container.setAttribute('style', 'width:160px');
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
 
