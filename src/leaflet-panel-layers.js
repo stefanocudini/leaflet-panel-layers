@@ -5,8 +5,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		button: false,		
 		collapsed: false,
 		autoZIndex: true,
-		position: 'topright',		
-		collapsibleGroups: false
+		position: 'topright',
+		collapsibleGroups: false,
+		buildItem: null				//function that return row item html node(or html string)
 	},
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);
@@ -110,13 +111,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(layerDef.active)
 			this._layersActives.push(layer);
 
-		this._layers[ id ] = {
-			layer: layer,
-			name: layerDef.name,
-			icon: layerDef.icon,
+		this._layers[ id ] = L.Util.extend(layerDef, {
 			overlay: overlay,
-			group: group
-		};
+			group: group,
+			layer: layer			
+		});
 
 		if (this.options.autoZIndex && layer.setZIndex) {
 			this._lastZIndex++;
@@ -151,9 +150,25 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			icon.innerHTML = obj.icon || '';
 			label.appendChild(icon);
 		}
-		var name = document.createElement('span');
-		name.innerHTML = obj.name || '';
-		label.appendChild(name);
+
+		var item = document.createElement('span');
+
+		if(this.options.buildItem)
+		{
+			var node = this.options.buildItem.call(this, obj); //custom node node or html string
+			if(typeof node === 'string')
+			{
+				var tmpNode = L.DomUtil.create('div');
+				tmpNode.innerHTML = node;
+				item = tmpNode.firstChild;
+			}
+			else
+				item = node;
+		}
+		else
+			item.innerHTML = obj.name || '';
+
+		label.appendChild(item);
 		
 		this._items[ input.value ] = label;
 

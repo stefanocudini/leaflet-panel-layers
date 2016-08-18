@@ -94,8 +94,7 @@
 	height: 20px;
 	float: right;
 	background: none;
-	cursor: pointer;
-	
+	cursor: pointer;	
 }
 .leaflet-panel-layers-base .leaflet-panel-layers-item,
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
