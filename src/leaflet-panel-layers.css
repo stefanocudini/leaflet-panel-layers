@@ -96,8 +96,7 @@
 	background: none;
 	cursor: pointer;	
 }
-.leaflet-panel-layers-base .leaflet-panel-layers-item,
-.leaflet-panel-layers-overlays .leaflet-panel-layers-item {
+.leaflet-panel-layers-item {
 	display: block;
 	clear: both;
 	float: none;

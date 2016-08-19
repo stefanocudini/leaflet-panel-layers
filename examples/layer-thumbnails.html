@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>Leaflet Panel Layers</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link rel="stylesheet" href="/maps/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
+<link rel="stylesheet" href="icons.css" />
+<link rel="stylesheet" href="../style.css" />
+
+
+<style type="text/css">
+
+.leaflet-panel-layers-item span {
+	display: block;
+	background: #fff:
+}
+.panel-thumb {
+	height: 50px;
+	width: 150px;
+	float: left;
+	cursor: pointer;
+}
+
+</style>
+
+</head>
+<body>
+<h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
+<h4> Build custom panel layer contains thumbnail by tile layer</h4>
+<br />
+<div id="map"></div>
+
+<div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
+
+<a href="https://github.com/stefanocudini/leaflet-panel-layers"><img id="ribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<script src="/maps/leaflet/dist/leaflet-src.js"></script>
+<script src="../src/leaflet-panel-layers.js"></script>
+<script>
+
+	var map = L.map('map', {
+			zoom: 15,
+			attributionControl: false,
+			center: L.latLng([42,12]),
+			maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5),
+		});
+
+	var baselayers = [
+			{
+				active: true,
+				name: "Open Street Map",
+				layer: L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png'),
+			},
+			{
+				name: "Landscape",
+				layer: L.tileLayer('http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png')
+			},	
+			{
+				name: "Open Cycle Map",
+				layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Transports",
+				layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
+			}
+		];
+
+	L.control.panelLayers(baselayers, null, {
+		buildItem: function(item) {
+
+			function getXYZ(latlng, zoom) {
+				var latRad = latlng.lat * Math.PI / 180,
+					lngRad = latlng.lng * Math.PI / 180;
+			    return {
+			    	z: zoom,
+			    	x: parseInt(Math.floor( (latlng.lng + 180) / 360 * (1<<zoom) )),
+			    	y: parseInt(Math.floor( (1 - Math.log(Math.tan(lngRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * (1<<zoom) ))
+				}
+			}
+			
+			var xyz = getXYZ(map.getCenter(), map.getZoom() ),
+				url = item.layer.getTileUrl( xyz );
+			
+			var node = L.DomUtil.create('div','panel-thumb');
+			
+			node.style.background = "url('"+url+"') no-repeat top left";
+			node.innerHTML = item.name;
+
+			return node;
+		}
+	}).addTo(map);
+
+	map.on('click', function(e) {
+
+		var layer = baselayers[0].layer;
+
+		function getXYZ(latlng, zoom) {
+			function toRad(n) {
+				return n * Math.PI / 180;
+			}
+		    return {
+		    	z: zoom,
+		    	x: parseInt(Math.floor( (latlng.lng + 180) / 360 * (1<<zoom) )),
+		    	y: parseInt(Math.floor( (1 - Math.log(Math.tan(toRad(latlng.lat)) + 1 / Math.cos(toRad(latlng.lat))) / Math.PI) / 2 * (1<<zoom) ))
+			}
+		}
+		//var url = getTileURL(e.latlng.lat, e.latlng.lng, map.getZoom());
+		var xyz = getXYZ(e.latlng, map.getZoom());
+		var url = layer.getTileUrl( xyz );
+
+		console.log(url)
+	});
+
+
+</script> 
+
+<script type="text/javascript" src="/labs-common.js"></script>
+
+</body>
+</html>

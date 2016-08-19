@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.3.0 - 2016-08-18 
+ * Leaflet Panel Layers v0.3.0 - 2016-08-19 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
