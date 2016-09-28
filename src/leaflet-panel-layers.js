@@ -2,7 +2,7 @@
 
 L.Control.PanelLayers = L.Control.Layers.extend({
 	options: {
-		button: false,		
+		button: false,
 		collapsed: false,
 		autoZIndex: true,
 		position: 'topright',
@@ -13,32 +13,36 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		L.setOptions(this, options);
 		this._layers = {};
 		this._groups = {};
-		this._items = {};		
+		this._items = {};
 		this._layersActives = [];
 		this._lastZIndex = 0;
 		this._handlingClick = false;
 
-		var i, n;
+		var i, n, isCollapsed;
 
 		for (i in baseLayers) {
-			if(baseLayers[i].group && baseLayers[i].layers) 
+			if(baseLayers[i].group && baseLayers[i].layers) {
+				isCollapsed = baseLayers[i].collapsed || false;
 				for(n in baseLayers[i].layers)
-					this._addLayer(baseLayers[i].layers[n], false, baseLayers[i].group);
+					this._addLayer(baseLayers[i].layers[n], false, baseLayers[i].group, isCollapsed);
+			}
 			else
 				this._addLayer(baseLayers[i], false);
 		}
 
 		for (i in overlays) {
-			if(overlays[i].group && overlays[i].layers) 
+			if(overlays[i].group && overlays[i].layers) {
+				isCollapsed = overlays[i].collapsed || false;
 				for(n in overlays[i].layers)
-					this._addLayer(overlays[i].layers[n], true, overlays[i].group);
+					this._addLayer(overlays[i].layers[n], true, overlays[i].group, isCollapsed);
+			}
 			else
 				this._addLayer(overlays[i], true);
 		}
 	},
-	
+
 	onAdd: function (map) {
-		
+
 		for(var i in this._layersActives) {
 			map.addLayer(this._layersActives[i]);
 		}
@@ -50,7 +54,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	//TODO addBaseLayerGroup
 	//TODO addOverlayGroup
-	
+
 	addBaseLayer: function (layer, name, group) {
 		layer.name = name || layer.name || '';
 		this._addLayer(layer, false, group);
@@ -67,7 +71,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	removeLayer: function (layerDef) {
 		var layer = layerDef.hasOwnProperty('layer') ? this._layerFromDef(layerDef) : layerDef;
-		
+
 		this._map.removeLayer(layer);
 
 		L.Control.Layers.prototype.removeLayer.call(this, layer);
@@ -82,7 +86,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_layerFromDef: function(layerDef) {
 		for (var id in this._layers) {
-			
+
 			//TODO add more conditions to comaparing definitions
 			if(this._layers[id].name === layerDef.name)
 				return this._layers[id].layer;
@@ -90,7 +94,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
     _update: function() {
-        this._groups = {}; 
+        this._groups = {};
         this._items = {};
         L.Control.Layers.prototype._update.call(this);
     },
@@ -102,7 +106,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			return this._getPath(L, layerDef.type).apply(L, layerDef.args);
 	},
 
-	_addLayer: function (layerDef, overlay, group) {
+	_addLayer: function (layerDef, overlay, group, isCollapsed) {
 
 		var layer = layerDef.hasOwnProperty('layer') ? this._instantiateLayer(layerDef.layer) : layerDef;
 
@@ -114,7 +118,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._layers[ id ] = L.Util.extend(layerDef, {
 			overlay: overlay,
 			group: group,
-			layer: layer			
+			layer: layer,
+			collapsed: isCollapsed
 		});
 
 		if (this.options.autoZIndex && layer.setZIndex) {
@@ -127,7 +132,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	_createItem: function(obj) {
 		var className = 'leaflet-panel-layers',
 			label, input, checked;
-		
+
 		label = L.DomUtil.create('label', className + '-item');
 		checked = this._map.hasLayer(obj.layer);
 		if (obj.overlay) {
@@ -169,7 +174,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			item.innerHTML = obj.name || '';
 
 		label.appendChild(item);
-		
+
 		this._items[ input.value ] = label;
 
 		return label;
@@ -186,27 +191,31 @@ L.Control.PanelLayers = L.Control.Layers.extend({
             if(!obj.group.hasOwnProperty('name'))
                 obj.group = { name: obj.group };
 
-            if(!this._groups[ obj.group.name ])
-                this._groups[ obj.group.name ] = this._createGroup( obj.group );
-            
+            if(!this._groups[ obj.group.name ]) {
+				var collapsed = false;
+				if(obj.collapsed === true)
+					collapsed = true;
+                this._groups[ obj.group.name ] = this._createGroup( obj.group, collapsed );
+			}
+
             list.appendChild(this._groups[obj.group.name]);
             list = this._groups[obj.group.name];
 		}
-		
+
 		label = this._createItem(obj);
 
 		list.appendChild(label);
-		
+
 		if(obj.group) {
 			setTimeout(function() {
-				self._container.style.width = (self._container.clientWidth-8)+'px';
+				self._container.style.width = (self._container.clientWidth-5)+'px';
 			},100);
 		}
 
 		return label;
 	},
-    
-    _createGroup: function ( groupdata ) {
+
+    _createGroup: function ( groupdata, isCollapsed ) {
         var className = 'leaflet-panel-layers',
             groupdiv = L.DomUtil.create('div', className + '-group'),
             grouplabel, groupexp;
@@ -216,24 +225,27 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			L.DomUtil.addClass(groupdiv, 'collapsible');
 
 	        groupexp = L.DomUtil.create('i', className + '-icon', groupdiv);
-	        groupexp.innerHTML = ' - ';
+			if(isCollapsed === true)
+				groupexp.innerHTML = ' + ';
+			else
+				groupexp.innerHTML = ' - ';
 
-
-	        L.DomEvent.on(groupexp, 'click', function() {	        	
+	        L.DomEvent.on(groupexp, 'click', function() {
 	            if ( L.DomUtil.hasClass(groupdiv, 'expanded') ) {
 	                L.DomUtil.removeClass(groupdiv, 'expanded');
 	                groupexp.innerHTML = ' + ';
 	            } else {
 	                L.DomUtil.addClass(groupdiv, 'expanded');
 	                groupexp.innerHTML = ' - ';
-	            }	            
+	            }
 	        });
-	        L.DomUtil.addClass(groupdiv, 'expanded');        
+			if(isCollapsed === false)
+				L.DomUtil.addClass(groupdiv, 'expanded');
 	    }
 
        	grouplabel = L.DomUtil.create('label', className + '-grouplabel', groupdiv);
         grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
-        
+
         return groupdiv;
     },
 
@@ -245,7 +257,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._handlingClick = true;
 
 		for (i = 0; i < inputsLen; i++) {
-			
+
 			input = inputs[i];
 
 			obj = this._layers[ input.value ];
@@ -280,7 +292,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
 
 		var form = this._form = L.DomUtil.create('form', className + '-list');
-        
+
         this._map.on('resize', function(e) {
             form.style.height = e.newSize.y+'px';
         });
