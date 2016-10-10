@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.4.0 - 2016-09-28 
+ * Leaflet Panel Layers v0.5.0 - 2016-10-10 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -19,6 +19,7 @@
 L.Control.PanelLayers = L.Control.Layers.extend({
 	options: {
 		button: false,
+		compact: false,
 		collapsed: false,
 		autoZIndex: true,
 		position: 'topright',
@@ -33,6 +34,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._layersActives = [];
 		this._lastZIndex = 0;
 		this._handlingClick = false;
+
+		this.className = 'leaflet-panel-layers';
+			
 
 		var i, n, isCollapsed;
 
@@ -146,10 +150,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
 	_createItem: function(obj) {
-		var className = 'leaflet-panel-layers',
-			label, input, checked;
+		var label, input, checked;
 
-		label = L.DomUtil.create('label', className + '-item');
+		label = L.DomUtil.create('label', this.className + '-item');
 		checked = this._map.hasLayer(obj.layer);
 		if (obj.overlay) {
 			input = document.createElement('input');
@@ -167,7 +170,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		label.appendChild(input);
 
 		if(obj.icon) {
-			var icon = L.DomUtil.create('i', className+'-icon');
+			var icon = L.DomUtil.create('i', this.className+'-icon');
 			icon.innerHTML = obj.icon || '';
 			label.appendChild(icon);
 		}
@@ -198,7 +201,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_addItem: function (obj) {
 		var self = this,
-			className = 'leaflet-panel-layers',
 			label, input, icon, checked;
 
 		var list = obj.overlay ? this._overlaysList : this._baseLayersList;
@@ -232,15 +234,14 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
     _createGroup: function ( groupdata, isCollapsed ) {
-        var className = 'leaflet-panel-layers',
-            groupdiv = L.DomUtil.create('div', className + '-group'),
+        var groupdiv = L.DomUtil.create('div', this.className + '-group'),
             grouplabel, groupexp;
 
         if(this.options.collapsibleGroups) {
 
 			L.DomUtil.addClass(groupdiv, 'collapsible');
 
-	        groupexp = L.DomUtil.create('i', className + '-icon', groupdiv);
+	        groupexp = L.DomUtil.create('i', this.className + '-icon', groupdiv);
 			if(isCollapsed === true)
 				groupexp.innerHTML = ' + ';
 			else
@@ -259,7 +260,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				L.DomUtil.addClass(groupdiv, 'expanded');
 	    }
 
-       	grouplabel = L.DomUtil.create('label', className + '-grouplabel', groupdiv);
+       	grouplabel = L.DomUtil.create('label', this.className + '-grouplabel', groupdiv);
         grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
 
         return groupdiv;
@@ -293,9 +294,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 
 	_initLayout: function () {
-		var className = 'leaflet-panel-layers',
-			layerControlClassName = 'leaflet-control-layers',
-		    container = this._container = L.DomUtil.create('div', className);
+		var layerControlClassName = 'leaflet-control-layers',
+		    container = this._container = L.DomUtil.create('div', this.className);
 
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
@@ -307,17 +307,20 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		} else
 			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
 
-		var form = this._form = L.DomUtil.create('form', className + '-list');
+		var form = this._form = L.DomUtil.create('form', this.className + '-list');
 
         this._map.on('resize', function(e) {
             form.style.height = e.newSize.y+'px';
         });
 
-		form.style.height = this._map.getSize().y+'px';
+        if(this.options.compact)
+			L.DomUtil.addClass(container, this.className+'-compact');
+        else
+			form.style.height = this._map.getSize().y+'px';
 
 		if (this.options.button) {
 			this.options.collapsed = true;
-			L.DomUtil.addClass(container, className+'-button-collapse');
+			L.DomUtil.addClass(container, this.className+'-button-collapse');
 		}
 
 		if (this.options.collapsed) {
@@ -345,10 +348,12 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			this._expand();
 		}
 
-		this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
-		this._separator = L.DomUtil.create('div', className + '-separator', form);
-		this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
-        L.DomUtil.create('div', className + '-margin', form); // No need to store it
+		this._baseLayersList = L.DomUtil.create('div', this.className + '-base', form);
+		this._separator = L.DomUtil.create('div', this.className + '-separator', form);
+		this._overlaysList = L.DomUtil.create('div', this.className + '-overlays', form);
+        
+        if(!this.options.compact)
+        	L.DomUtil.create('div', this.className + '-margin', form);
 
 		container.appendChild(form);
 	},
@@ -358,7 +363,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
 	_collapse: function () {
-		this._container.className = this._container.className.replace(' leaflet-panel-layers-expanded', '');
+		this._container.className = this._container.className.replace(this.className+'-expanded', '');
 	},
 
 	_getPath: function(obj, prop) {

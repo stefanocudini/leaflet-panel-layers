@@ -7,7 +7,7 @@
 .leaflet-panel-layers-expanded .leaflet-panel-layers-list {
 	display: block;
 }
-.leaflet-top.leaflet-right .leaflet-panel-layers:not(.leaflet-panel-layers-button-collapse) {
+.leaflet-top.leaflet-right .leaflet-panel-layers:not(.leaflet-panel-layers-button-collapse):not(.leaflet-panel-layers-compact) {
 	margin: 0;
 }
 .leaflet-panel-layers {
@@ -47,6 +47,9 @@
 }
 .leaflet-panel-layers-expanded .leaflet-panel-layers-list {
 	display: block;
+}
+.leaflet-panel-layers-compact  {
+    border-radius: 5px;
 }
 /*.leaflet-panel-layers-expanded:hover .leaflet-panel-layers-list {
 	margin-right: 10px;

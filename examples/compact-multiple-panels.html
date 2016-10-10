@@ -56,6 +56,40 @@ function featureToMarker(feature, latlng) {
 	});
 }
 
+var baselayers = [
+    {
+        "name": "Open Cycle Map",
+        "layer": {
+            "type": "tileLayer",
+            "args": [
+                "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+            ]
+        }
+    },
+    {
+        "active": true,        	
+        "name": "Landscape",
+        "layer": {
+            "type": "tileLayer",
+            "args": [
+                "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
+            ]
+        }
+    }
+];
+
+var baselayers2 = [      
+    {
+        "name": "Transportations",
+        "layer": {
+            "type": "tileLayer",
+            "args": [
+                "http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
+            ]
+        }
+    }
+];
+
 var overLayers = [
 	{
 		name: "Bar",
@@ -63,10 +97,13 @@ var overLayers = [
 		layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
 	},
 	{
-		name: "Drinking Water",
+		name: "Water",
 		icon: iconByName('drinking_water'),
 		layer: L.geoJson(Drinking_water, {pointToLayer: featureToMarker })
-	},
+	}
+];
+
+var overLayers2 = [
 	{
 		name: "Fuel",
 		icon: iconByName('fuel'),
@@ -79,9 +116,13 @@ var overLayers = [
 	}	
 ];
 
-var panelLayers = new L.Control.PanelLayers(null, overLayers, {
-	collapsed: true
-});
+L.control.panelLayers(baselayers, overLayers, {
+	compact: true
+}).addTo(map);
+
+L.control.panelLayers(baselayers2, overLayers2, {
+	compact: true
+}).addTo(map);
 
 map.addControl(panelLayers);
 
