@@ -82,16 +82,14 @@ var baselayers2 = [
     }
 ];
 
-L.control.panelLayers(null, baselayers2, {
-	title: 'Tree Cover Trend',
-	position: 'topright',
+L.control.panelLayers(baselayers, null,  {
+	position: 'bottomright',
 	compact: true
 }).addTo(map);
 
-
-L.control.panelLayers(baselayers, null,  {
-	title: 'Base Layers',
-	position: 'bottomright',
+L.control.panelLayers(null, baselayers2, {
+	title: 'Tree Cover Trend',
+	position: 'topright',
 	compact: true
 }).addTo(map);
 
