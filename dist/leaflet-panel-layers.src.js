@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.5.0 - 2016-10-10 
+ * Leaflet Panel Layers v0.5.2 - 2016-10-21 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -24,7 +24,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		autoZIndex: true,
 		position: 'topright',
 		collapsibleGroups: false,
-		buildItem: null				//function that return row item html node(or html string)
+		buildItem: null,				//function that return row item html node(or html string)
+		title: ''		
 	},
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);
@@ -354,6 +355,12 @@ L.Control.PanelLayers = L.Control.Layers.extend({
         
         if(!this.options.compact)
         	L.DomUtil.create('div', this.className + '-margin', form);
+
+        if(this.options.title) {
+        	var titlabel = L.DomUtil.create('label', this.className + '-title');
+        	titlabel.innerHTML = '<span>'+this.options.title+'</span>';
+        	container.appendChild(titlabel);
+        }
 
 		container.appendChild(form);
 	},

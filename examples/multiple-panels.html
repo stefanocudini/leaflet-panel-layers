@@ -32,73 +32,69 @@ var map = L.map('map', {
 
 var baselayers = [
 	{
-		group: "Base Layers",
-		layers: [
-			{
-				name: "Esri Gray",
-				active: true,
-				layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-					attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-					maxZoom: 16
-				})
-			},
-		    {   	
-		        name: "Landscape",
-		        layer: {
-		            type: "tileLayer",
-		            args: [
-		                "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
-		            ]
-		        }
-		    }
-		]
-	}
+		name: "Esri Gray",
+		active: true,
+		layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+			maxZoom: 16
+		})
+	},
+    {   	
+        name: "Landscape",
+        layer: {
+            type: "tileLayer",
+            args: [
+                "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
+            ]
+        }
+    }
 ];
 
 var baselayers2 = [
-	{
-		group: "Tree Cover",
-		layers: [
-		    {
-		        active: true,
-		        name: " Gain",
-		        layer: {
-		            type: "tileLayer",
-		            args: [
-		                "http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png", {
-		                	maxZoom: 12,
-							attribution:
-							'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
-							'Tree Cover Gain (12 years, 30m, global)</a>'
-		                }
-		            ]
-		        }
-		    }, 
-		    {
-		        name: " Loss",
-		        layer: {
-		            type: "tileLayer",
-		            args: [
-		                "http://earthengine.google.org/static/hansen_2013/loss_alpha/{z}/{x}/{y}.png", {
-		                	maxZoom: 12,
-							attribution:
-							'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
-							'Tree Cover Loss (12 years, 30m, global)</a>'
-		                }
-		            ]
-		        }
-		    }
-		]
-	}
+    {
+        active: true,
+        name: " Gain",
+        layer: {
+            type: "tileLayer",
+            args: [
+                "http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png", {
+                	maxZoom: 12,
+					attribution:
+					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
+					'Tree Cover Gain (12 years, 30m, global)</a>'
+                }
+            ]
+        }
+    }, 
+    {
+        name: " Loss",
+        layer: {
+            type: "tileLayer",
+            args: [
+                "http://earthengine.google.org/static/hansen_2013/loss_alpha/{z}/{x}/{y}.png", {
+                	maxZoom: 12,
+					attribution:
+					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
+					'Tree Cover Loss (12 years, 30m, global)</a>'
+                }
+            ]
+        }
+    }
 ];
 
-L.control.panelLayers(baselayers, null,  {
+L.control.panelLayers(null, baselayers2, {
+	title: 'Tree Cover Trend',
+	position: 'topright',
 	compact: true
 }).addTo(map);
 
-L.control.panelLayers(null, baselayers2, {
+
+L.control.panelLayers(baselayers, null,  {
+	title: 'Base Layers',
+	position: 'bottomright',
 	compact: true
 }).addTo(map);
+
 
 </script> 
 
