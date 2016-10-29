@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>Leaflet Panel Layers</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link rel="stylesheet" href="/maps/leaflet-0.7.7/dist/leaflet.css" />
+<link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
+<link rel="stylesheet" href="icons.css" />
+<link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+<h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
+<h4> Multiple panels in compact mode</h4>
+<br />
+<div id="map"></div>
+
+<div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
+
+<a href="https://github.com/stefanocudini/leaflet-panel-layers"><img id="ribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<script src="/maps/leaflet-0.7.7/dist/leaflet-src.js"></script>
+<script src="../src/leaflet-panel-layers.js"></script>
+<script>
+
+var map = L.map('map', {
+		center: L.latLng([42.4918,12.4992]),
+		zoom: 10
+	});
+
+var baselayers = [
+	{
+		name: "Esri Gray",
+		active: true,
+		layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+			maxZoom: 16
+		})
+	},
+    {   	
+        name: "Landscape",
+        layer: {
+            type: "tileLayer",
+            args: [
+                "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
+            ]
+        }
+    }
+];
+
+var baselayers2 = [
+    {
+        active: true,
+        name: " Gain",
+        layer: {
+            type: "tileLayer",
+            args: [
+                "http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png", {
+                	maxZoom: 12,
+					attribution:
+					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
+					'Tree Cover Gain (12 years, 30m, global)</a>'
+                }
+            ]
+        }
+    }, 
+    {
+        name: " Loss",
+        layer: {
+            type: "tileLayer",
+            args: [
+                "http://earthengine.google.org/static/hansen_2013/loss_alpha/{z}/{x}/{y}.png", {
+                	maxZoom: 12,
+					attribution:
+					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
+					'Tree Cover Loss (12 years, 30m, global)</a>'
+                }
+            ]
+        }
+    }
+];
+
+L.control.panelLayers(baselayers, null,  {
+	position: 'bottomright',
+	compact: true
+}).addTo(map);
+
+L.control.panelLayers(null, baselayers2, {
+	title: 'Tree Cover Trend',
+	position: 'topright',
+	compact: true
+}).addTo(map);
+
+
+</script> 
+
+<script type="text/javascript" src="/labs-common.js"></script>
+
+</body>
+</html>

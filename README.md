@@ -39,7 +39,7 @@ var overLayers = [
 		name: "Parking",
 		icon: '<i class="icon icon-parking"></i>',
 		layer: L.geoJson(ParkingGeoJSON)
-	}	
+	}
 ];
 map.addControl( new L.Control.PanelLayers(baseLayers, overLayers) );
 ```
@@ -96,6 +96,41 @@ L.control.panelLayers(panelJsonConfig.baseLayers, panelJsonConfig.overLayers).ad
 
 **Grouping of layers**
 ```javascript
+L.control.panelLayers(
+	[
+		{
+			name: "Open Street Map",
+			layer: osmLayer
+		},
+		{
+			group: "Walking layers",
+			layers: [
+				{
+					name: "Open Cycle Map",
+					layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+				},
+				{
+					name: "Hiking",
+					layer: L.tileLayer("http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
+				}
+			]
+		},
+		{
+			group: "Road layers",
+			layers: [
+				{
+					name: "Transports",
+					layer: L.tileLayer("http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png")
+				}
+			]
+		}
+	],
+	{collapsibleGroups: true}
+).addTo(map);
+```
+
+**Collapse some layers' groups**
+```javascript
 L.control.panelLayers([
 	{
 		name: "Open Street Map",
@@ -116,13 +151,14 @@ L.control.panelLayers([
 	},
 	{
 		group: "Road layers",
+		collapsed: true,
 		layers: [
 			{
 				name: "Transports",
 				layer: L.tileLayer("http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png")
 			}
 		]
-	}	
+	}
 ]).addTo(map);
 ```
 

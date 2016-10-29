@@ -79,7 +79,9 @@ var overLayers = [
 	}	
 ];
 
-var panelLayers = new L.Control.PanelLayers(null, overLayers, {collapsed: true});
+var panelLayers = new L.Control.PanelLayers(null, overLayers, {
+	collapsed: true
+});
 
 map.addControl(panelLayers);
 
