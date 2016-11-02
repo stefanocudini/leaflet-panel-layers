@@ -9,7 +9,23 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		position: 'topright',
 		collapsibleGroups: false,
 		buildItem: null,				//function that return row item html node(or html string)
-		title: ''		
+		title: ''
+	/*
+		{
+			name: "Bar",
+			icon: iconByName('bar'),
+			layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
+		},
+			layer: {
+				type: "geoJson",
+				args: [ river ]
+			},
+		{
+			group: "Title Group",
+			collapsed: true,
+			layers: []
+		}
+	*/
 	},
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);

@@ -7,6 +7,16 @@
 <link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
 <link rel="stylesheet" href="icons.css" />
 <link rel="stylesheet" href="../style.css" />
+<style>
+
+.leaflet-panel-layers {
+    background: rgba(255,255,255,0.8);
+}
+#map {
+    width:100%;
+    height: 700px;
+}
+</style>
 </head>
 
 <body>
@@ -28,68 +38,139 @@ var map = L.map('map', {
 		zoom: 10
 	});
 
-var baselayers = [
-	{
-		name: "Esri Gray",
-		active: true,
-		layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-			maxZoom: 16
-		})
-	},
-    {   	
-        name: "Landscape",
-        layer: {
-            type: "tileLayer",
-            args: [
-                "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
-            ]
-        }
-    }
-];
-
-var baselayers2 = [
-    {
-        active: true,
-        name: " Gain",
-        layer: {
-            type: "tileLayer",
-            args: [
-                "http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png", {
-                	maxZoom: 12,
-					attribution:
-					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
-					'Tree Cover Gain (12 years, 30m, global)</a>'
+var conf = {
+    base: {
+        title: 'Others Base Layers',
+        layers: [
+        	{
+        		name: "Esri Gray",
+        		active: true,
+        		layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+        			maxZoom: 16
+        		})
+        	},
+            {   	
+                name: "Landscape",
+                layer: {
+                    type: "tileLayer",
+                    args: [
+                        "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
+                    ]
                 }
-            ]
-        }
-    }, 
-    {
-        name: " Loss",
-        layer: {
-            type: "tileLayer",
-            args: [
-                "http://earthengine.google.org/static/hansen_2013/loss_alpha/{z}/{x}/{y}.png", {
-                	maxZoom: 12,
-					attribution:
-					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
-					'Tree Cover Loss (12 years, 30m, global)</a>'
+            }
+        ]
+    },
+    tree: {
+        title: "Tree Cover Trend",
+        layers: [
+            {
+                active: true,
+                name: "Gain",
+                layer: {
+                    type: "tileLayer",
+                    args: [
+                        "http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png", {
+                        	maxZoom: 12,
+        					attribution:
+        					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
+        					'Tree Cover Gain (12 years, 30m, global)</a>'
+                        }
+                    ]
                 }
-            ]
-        }
+            }, 
+            {
+                name: "Loss",
+                layer: {
+                    type: "tileLayer",
+                    args: [
+                        "http://earthengine.google.org/static/hansen_2013/loss_alpha/{z}/{x}/{y}.png", {
+                        	maxZoom: 12,
+        					attribution:
+        					'<a href="http://earthenginepartners.appspot.com/science-2013-global-forest"> '+
+        					'Tree Cover Loss (12 years, 30m, global)</a>'
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    land: {
+        title: "Land Cover",
+        layers: [
+            {
+                name: "Tree Cover 2000",
+                layer: {
+                    type: "tileLayer",
+                    args: [
+                        "http://earthengine.google.org/static/hansen_2014/gfw_loss_tree_year_30_2014/{z}/{x}/{y}.png", {
+                            attribution: "<a href='http://earthenginepartners.appspot.com/science-2013-global-forest'>Tree Cover (2000-2014, Hansen/UMD/Google/USGS/NASA)</a>",
+                            maxZoom: 12
+                        }
+                    ]
+                }
+            }, 
+            {
+                name: "Land Cover 2009",
+                layer: {
+                    type: "tileLayer",
+                    args: [
+                        "https://s3.amazonaws.com/wri-tiles/global-landcover/{z}/{x}/{y}.png", {
+                            attribution: "<a href='http://earthenginepartners.appspot.com/science-2013-global-forest'>Maps land cover distribution globally</a>",
+                            maxZoom: 12
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    trend: {
+        title: "Global Land Trends",
+        layers: [
+            {
+                name: "forest",
+                layer: {
+                    type: "tileLayer.wms",
+                    args: [
+                        "http://fenix.fao.org:20900/geoserver/forestry/wms", {
+                            // srs=EPSG:3857
+                            styles: "forestry:polygon_forest",
+                            layers: "forestry:forest",
+                            format: "image/png",
+                            transparent: true,
+                        }
+                    ]
+                }
+            }
+        ]
     }
-];
+};
 
-L.control.panelLayers(baselayers, null,  {
+
+var base1 = L.control.panelLayers(conf.base.layers, null,  {
+    title: conf.base.title,
 	position: 'bottomright',
 	compact: true
 }).addTo(map);
 
-L.control.panelLayers(null, baselayers2, {
-	title: 'Tree Cover Trend',
-	position: 'topright',
-	compact: true
+var over1 = L.control.panelLayers(null, conf.tree.layers, {
+    title: conf.tree.title,
+    position: 'topright',
+    compact: true
 }).addTo(map);
+
+var over2 = L.control.panelLayers(conf.land.layers, null, {
+    title: conf.land.title,
+    position: 'bottomright',
+    compact: true
+}).addTo(map);
+
+var over3 = L.control.panelLayers(null, conf.trend.layers, {
+    title: conf.trend.title,
+    position: 'topright',
+    compact: true
+}).addTo(map);
+
 
 
 </script> 

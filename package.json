@@ -21,7 +21,7 @@
     "leaflet"
   ],
   "dependencies": {
-    "leaflet": "*"
+    "leaflet": "~0.7.7"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
