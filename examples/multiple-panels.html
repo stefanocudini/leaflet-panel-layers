@@ -13,8 +13,10 @@
     background: rgba(255,255,255,0.8);
 }
 #map {
-    width:100%;
-    height: 700px;
+    position: fixed;
+    top: 50px;
+    width:98%;
+    height: 90%;
 }
 </style>
 </head>
@@ -27,37 +29,70 @@
 
 <div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
 
-<a href="https://github.com/stefanocudini/leaflet-panel-layers"><img id="ribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-
 <script src="/maps/leaflet-0.7.7/dist/leaflet-src.js"></script>
 <script src="../src/leaflet-panel-layers.js"></script>
 <script>
 
 var map = L.map('map', {
 		center: L.latLng([42.4918,12.4992]),
-		zoom: 10
+		zoom: 5
 	});
 
 var conf = {
     base: {
         title: 'Others Base Layers',
         layers: [
-        	{
-        		name: "Esri Gray",
-        		active: true,
-        		layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-        			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-        			maxZoom: 16
-        		})
-        	},
-            {   	
-                name: "Landscape",
-                layer: {
-                    type: "tileLayer",
-                    args: [
-                        "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
-                    ]
-                }
+            {
+                group: "Road Layers",
+                collapsed: true,
+                layers: [
+                	{
+                		name: "Esri Gray",
+                		active: true,
+                		layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                			maxZoom: 16
+                		})
+                	},
+                    {   	
+                        name: "Landscape",
+                        layer: {
+                            type: "tileLayer",
+                            args: [
+                                "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                group: "Land Cover",
+                layers: [
+                    {
+                        name: "Tree Cover 2000",
+                        layer: {
+                            type: "tileLayer",
+                            args: [
+                                "http://earthengine.google.org/static/hansen_2014/gfw_loss_tree_year_30_2014/{z}/{x}/{y}.png", {
+                                    attribution: "<a href='http://earthenginepartners.appspot.com/science-2013-global-forest'>Tree Cover (2000-2014, Hansen/UMD/Google/USGS/NASA)</a>",
+                                    maxZoom: 12
+                                }
+                            ]
+                        }
+                    }, 
+                    {
+                        name: "Land Cover 2009",
+                        layer: {
+                            type: "tileLayer",
+                            args: [
+                                "https://s3.amazonaws.com/wri-tiles/global-landcover/{z}/{x}/{y}.png", {
+                                    attribution: "<a href='http://earthenginepartners.appspot.com/science-2013-global-forest'>Maps land cover distribution globally</a>",
+                                    maxZoom: 12
+                                }
+                            ]
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -95,35 +130,6 @@ var conf = {
             }
         ]
     },
-    land: {
-        title: "Land Cover",
-        layers: [
-            {
-                name: "Tree Cover 2000",
-                layer: {
-                    type: "tileLayer",
-                    args: [
-                        "http://earthengine.google.org/static/hansen_2014/gfw_loss_tree_year_30_2014/{z}/{x}/{y}.png", {
-                            attribution: "<a href='http://earthenginepartners.appspot.com/science-2013-global-forest'>Tree Cover (2000-2014, Hansen/UMD/Google/USGS/NASA)</a>",
-                            maxZoom: 12
-                        }
-                    ]
-                }
-            }, 
-            {
-                name: "Land Cover 2009",
-                layer: {
-                    type: "tileLayer",
-                    args: [
-                        "https://s3.amazonaws.com/wri-tiles/global-landcover/{z}/{x}/{y}.png", {
-                            attribution: "<a href='http://earthenginepartners.appspot.com/science-2013-global-forest'>Maps land cover distribution globally</a>",
-                            maxZoom: 12
-                        }
-                    ]
-                }
-            }
-        ]
-    },
     trend: {
         title: "Global Land Trends",
         layers: [
@@ -149,8 +155,14 @@ var conf = {
 
 var base1 = L.control.panelLayers(conf.base.layers, null,  {
     title: conf.base.title,
-	position: 'bottomright',
+	position: 'topright',
 	compact: true
+}).addTo(map);
+
+var over3 = L.control.panelLayers(null, conf.trend.layers, {
+    title: conf.trend.title,
+    position: 'topright',
+    compact: true
 }).addTo(map);
 
 var over1 = L.control.panelLayers(null, conf.tree.layers, {
@@ -159,17 +171,6 @@ var over1 = L.control.panelLayers(null, conf.tree.layers, {
     compact: true
 }).addTo(map);
 
-var over2 = L.control.panelLayers(conf.land.layers, null, {
-    title: conf.land.title,
-    position: 'bottomright',
-    compact: true
-}).addTo(map);
-
-var over3 = L.control.panelLayers(null, conf.trend.layers, {
-    title: conf.trend.title,
-    position: 'topright',
-    compact: true
-}).addTo(map);
 
 
 
