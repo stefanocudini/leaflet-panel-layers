@@ -33,11 +33,6 @@
 <script src="../src/leaflet-panel-layers.js"></script>
 <script>
 
-var map = L.map('map', {
-		center: L.latLng([42.4918,12.4992]),
-		zoom: 5
-	});
-
 var conf = {
     base: {
         title: 'Others Base Layers',
@@ -100,7 +95,7 @@ var conf = {
         title: "Tree Cover Trend",
         layers: [
             {
-                active: true,
+                active: false,
                 name: "Gain",
                 layer: {
                     type: "tileLayer",
@@ -134,13 +129,16 @@ var conf = {
         title: "Global Land Trends",
         layers: [
             {
+                active: true,
                 name: "forest",
                 layer: {
                     type: "tileLayer.wms",
                     args: [
                         "http://fenix.fao.org:20900/geoserver/forestry/wms", {
                             // srs=EPSG:3857
-                            styles: "forestry:polygon_forest",
+                            //styles: "forestry:polygon_forest",
+                            //styles: "polygon_forest_zoom",
+                            //styles: "polygon",
                             layers: "forestry:forest",
                             format: "image/png",
                             transparent: true,
@@ -152,6 +150,11 @@ var conf = {
     }
 };
 
+
+var map = L.map('map', {
+        center: L.latLng([42.4918,12.4992]),
+        zoom: 3
+    });
 
 var base1 = L.control.panelLayers(conf.base.layers, null,  {
     title: conf.base.title,
@@ -172,7 +175,21 @@ var over1 = L.control.panelLayers(null, conf.tree.layers, {
 }).addTo(map);
 
 
+var scale = L.control.scale().addTo(map);
 
+map.on('zoomend', function() {
+    var y = map.getSize().y,
+        x = map.getSize().x;
+    // calculate the distance the one side of the map to the other using the haversine formula
+    var maxMeters = map.containerPointToLatLng([0, y]).distanceTo( map.containerPointToLatLng([x,y]));
+    // calculate how many meters each pixel represents
+    var MeterPerPixel = maxMeters/x ;
+    // say this is your scale
+    // This is the scale denominator
+    console.log('scale denominator: ',MeterPerPixel*scale.options.maxWidth);  
+
+    console.log('zoom', map.getZoom() )
+});
 
 </script> 
 
