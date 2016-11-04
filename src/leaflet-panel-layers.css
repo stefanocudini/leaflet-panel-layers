@@ -66,6 +66,17 @@
 .leaflet-panel-layers-title {
 	float: none;
 }
+
+.leaflet-panel-layers-item .leaflet-panel-layers-title {
+	float: left;
+	padding-left: 4px
+}
+
+.leaflet-panel-layers-group .leaflet-panel-layers-title {
+	float: none;
+	padding-left: 0;
+}
+
 .leaflet-panel-layers-group {
 	border: 1px solid rgba(0,0,0,0.3);
 	background: rgba(255,255,255,0.6);
@@ -75,8 +86,8 @@
 	margin-bottom: 4px;
 	width: auto;
 	overflow: hidden;
-	font-weight: bold;
 }
+
 .leaflet-panel-layers-group.collapsible:not(.expanded) {
     height: 20px;
 }
@@ -115,6 +126,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    	font-weight: bold;
 }
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
 	margin-bottom: 4px;
@@ -129,7 +141,6 @@
 	word-wrap: break-word;
 	width: auto;
 	overflow: hidden;
-	font-weight: bold;
 }
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item:hover {
 	border: 1px solid #888;

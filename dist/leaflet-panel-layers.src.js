@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.5.2 - 2016-10-21 
+ * Leaflet Panel Layers v0.6.0 - 2016-11-04 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -25,7 +25,24 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		position: 'topright',
 		collapsibleGroups: false,
 		buildItem: null,				//function that return row item html node(or html string)
-		title: ''		
+		title: ''
+	/*
+	//TODO write example of config
+		{
+			name: "Bar",
+			icon: iconByName('bar'),
+			layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
+		},
+			layer: {
+				type: "geoJson",
+				args: [ river ]
+			},
+		{
+			group: "Title Group",
+			collapsed: true,
+			layers: []
+		}
+	*/
 	},
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);
@@ -176,7 +193,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label.appendChild(icon);
 		}
 
-		var item = document.createElement('span');
+		var item = L.DomUtil.create('span', this.className + '-title', label);
 
 		if(this.options.buildItem)
 		{
@@ -193,7 +210,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		else
 			item.innerHTML = obj.name || '';
 
-		label.appendChild(item);
+		//label.appendChild(item);
 
 		this._items[ input.value ] = label;
 
@@ -236,7 +253,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
     _createGroup: function ( groupdata, isCollapsed ) {
         var groupdiv = L.DomUtil.create('div', this.className + '-group'),
-            grouplabel, groupexp;
+            grouplabel, grouptit, groupexp;
 
         if(this.options.collapsibleGroups) {
 
@@ -262,7 +279,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	    }
 
        	grouplabel = L.DomUtil.create('label', this.className + '-grouplabel', groupdiv);
-        grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
+        //grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
+
+		grouptit = L.DomUtil.create('span', this.className + '-title', grouplabel);
+		grouptit.innerHTML = groupdata.name;
 
         return groupdiv;
     },

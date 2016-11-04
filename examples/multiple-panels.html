@@ -124,29 +124,6 @@ var conf = {
                 }
             }
         ]
-    },
-    trend: {
-        title: "Global Land Trends",
-        layers: [
-            {
-                active: true,
-                name: "forest",
-                layer: {
-                    type: "tileLayer.wms",
-                    args: [
-                        "http://fenix.fao.org:20900/geoserver/forestry/wms", {
-                            // srs=EPSG:3857
-                            //styles: "forestry:polygon_forest",
-                            //styles: "polygon_forest_zoom",
-                            //styles: "polygon",
-                            layers: "forestry:forest",
-                            format: "image/png",
-                            transparent: true,
-                        }
-                    ]
-                }
-            }
-        ]
     }
 };
 
@@ -160,12 +137,6 @@ var base1 = L.control.panelLayers(conf.base.layers, null,  {
     title: conf.base.title,
 	position: 'topright',
 	compact: true
-}).addTo(map);
-
-var over3 = L.control.panelLayers(null, conf.trend.layers, {
-    title: conf.trend.title,
-    position: 'topright',
-    compact: true
 }).addTo(map);
 
 var over1 = L.control.panelLayers(null, conf.tree.layers, {
