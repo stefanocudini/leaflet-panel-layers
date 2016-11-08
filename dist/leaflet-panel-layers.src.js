@@ -344,9 +344,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		var form = this._form = L.DomUtil.create('form', this.className + '-list');
 
-        this._map.on('resize', function(e) {
-            form.style.height = e.newSize.y+'px';
-        });
+		if(!this.options.compact)
+	        this._map.on('resize', function(e) {
+	            form.style.height = e.newSize.y+'px';
+	        });
 
         if(this.options.compact)
 			L.DomUtil.addClass(container, this.className+'-compact');
