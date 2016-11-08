@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.6.0 - 2016-11-04 
+ * Leaflet Panel Layers v0.6.0 - 2016-11-08 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -17,6 +17,9 @@
 (function() {
 
 L.Control.PanelLayers = L.Control.Layers.extend({
+	
+	includes: L.Mixin.Events,
+
 	options: {
 		button: false,
 		compact: false,
@@ -168,9 +171,13 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
 	_createItem: function(obj) {
+		
+		var self = this;
+
 		var label, input, checked;
 
 		label = L.DomUtil.create('label', this.className + '-item');
+
 		checked = this._map.hasLayer(obj.layer);
 		if (obj.overlay) {
 			input = document.createElement('input');
@@ -182,8 +189,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		input.value = L.stamp(obj.layer);
+		input._layer = obj;
 
-		L.DomEvent.on(input, 'click', this._onInputClick, this);
+		L.DomEvent.on(input, 'click', function(e) {
+			self._onInputClick();
+			if(e.target.checked)
+				self.fire('panel:selected', e.target._layer)
+			else
+				self.fire('panel:unselected', e.target._layer)
+		}, this);
 
 		label.appendChild(input);
 
