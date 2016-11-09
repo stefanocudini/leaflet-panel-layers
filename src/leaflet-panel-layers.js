@@ -191,7 +191,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label.appendChild(icon);
 		}
 
-		var item = L.DomUtil.create('span', this.className + '-title', label);
+		var item = L.DomUtil.create('span', this.className + '-title');
 
 		if(this.options.buildItem)
 		{
@@ -208,7 +208,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		else
 			item.innerHTML = obj.name || '';
 
-		//label.appendChild(item);
+		label.appendChild(item);
 
 		this._items[ input.value ] = label;
 
