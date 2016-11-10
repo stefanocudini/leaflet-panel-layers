@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.6.0 - 2016-11-08 
+ * Leaflet Panel Layers v0.6.0 - 2016-11-10 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -182,7 +182,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if (obj.overlay) {
 			input = document.createElement('input');
 			input.type = 'checkbox';
-			input.className = 'leaflet-control-layers-selector';
+			input.className = this.className+'-selector';
 			input.defaultChecked = checked;
 		} else {
 			input = this._createRadioElement('leaflet-base-layers', checked);
@@ -207,7 +207,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label.appendChild(icon);
 		}
 
-		var item = L.DomUtil.create('span', this.className + '-title', label);
+		var item = L.DomUtil.create('span', this.className + '-title');
 
 		if(this.options.buildItem)
 		{
@@ -224,7 +224,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		else
 			item.innerHTML = obj.name || '';
 
-		//label.appendChild(item);
+		label.appendChild(item);
 
 		this._items[ input.value ] = label;
 
@@ -329,7 +329,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 
 	_initLayout: function () {
-		var layerControlClassName = 'leaflet-control-layers',
+		var //this.className = 'leaflet-control-layers',
 		    container = this._container = L.DomUtil.create('div', this.className);
 
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
@@ -365,7 +365,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				    .on(container, 'mouseover', this._expand, this)
 				    .on(container, 'mouseout', this._collapse, this);
 			}
-			var link = this._layersLink = L.DomUtil.create('a', layerControlClassName+'-toggle', container);
+			var link = this._layersLink = L.DomUtil.create('a', this.className+'-toggle', container);
 			link.href = '#';
 			link.title = 'Layers';
 
