@@ -240,11 +240,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		list.appendChild(label);
 
-		if(obj.group) {
+		/*if(obj.group) {
 			setTimeout(function() {
-				self._container.style.width = (self._container.clientWidth-5)+'px';
-			},100);
-		}
+				self._container.style.width = (self._container.clientWidth)+'px';
+			},5);
+		}*/
 
 		return label;
 	},

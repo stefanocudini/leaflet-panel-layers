@@ -72,11 +72,6 @@
 	padding-left: 4px
 }
 
-.leaflet-panel-layers-group .leaflet-panel-layers-title {
-	float: none;
-	padding-left: 0;
-}
-
 .leaflet-panel-layers-group {
 	border: 1px solid rgba(0,0,0,0.3);
 	background: rgba(255,255,255,0.6);
@@ -86,6 +81,7 @@
 	margin-bottom: 4px;
 	width: auto;
 	overflow: hidden;
+	clear: both;
 }
 
 .leaflet-panel-layers-group.collapsible:not(.expanded) {
@@ -117,8 +113,7 @@
 	display: block;
 	clear: both;
 	float: none;
-	line-height: 20px;
-
+	height: 20px;
 	white-space: nowrap;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -126,7 +121,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    	font-weight: bold;
 }
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
 	margin-bottom: 4px;
@@ -146,6 +140,9 @@
 	margin-top: 2px;
 	position: relative;
 	top: 1px;
+}
+.leaflet-panel-layers-overlays .leaflet-panel-layers-selector {
+	float: right;
 }
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item:hover {
 	border: 1px solid #888;

@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.6.0 - 2016-11-10 
+ * Leaflet Panel Layers v0.6.5 - 2016-11-11 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -256,11 +256,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		list.appendChild(label);
 
-		if(obj.group) {
+		/*if(obj.group) {
 			setTimeout(function() {
-				self._container.style.width = (self._container.clientWidth-5)+'px';
-			},100);
-		}
+				self._container.style.width = (self._container.clientWidth)+'px';
+			},5);
+		}*/
 
 		return label;
 	},
