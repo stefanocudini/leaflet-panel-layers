@@ -5,14 +5,14 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	includes: L.Mixin.Events,
 
 	options: {
-		button: false,
 		compact: false,
 		collapsed: false,
 		autoZIndex: true,
-		position: 'topright',
 		collapsibleGroups: false,
 		buildItem: null,				//function that return row item html node(or html string)
-		title: ''
+		title: '',						//title of panel
+		//button: false, //TODO supporto button mode		
+		position: 'topright'
 	/*
 	//TODO write example of config
 		{
@@ -160,13 +160,12 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		var label, input, checked;
 
-		label = L.DomUtil.create('label', this.className + '-item');
+		label = L.DomUtil.create('label', this.className+'-item');
 
 		checked = this._map.hasLayer(obj.layer);
 		if (obj.overlay) {
-			input = document.createElement('input');
+			input = L.DomUtil.create('input', this.className+'-selector');
 			input.type = 'checkbox';
-			input.className = this.className+'-selector';
 			input.defaultChecked = checked;
 		} else {
 			input = this._createRadioElement('leaflet-base-layers', checked);
@@ -191,7 +190,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label.appendChild(icon);
 		}
 
-		var item = L.DomUtil.create('span', this.className + '-title');
+		var item = L.DomUtil.create('span', this.className+'-title');
 
 		if(this.options.buildItem)
 		{
@@ -250,14 +249,14 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
     _createGroup: function ( groupdata, isCollapsed ) {
-        var groupdiv = L.DomUtil.create('div', this.className + '-group'),
+        var groupdiv = L.DomUtil.create('div', this.className+'-group'),
             grouplabel, grouptit, groupexp;
 
         if(this.options.collapsibleGroups) {
 
 			L.DomUtil.addClass(groupdiv, 'collapsible');
 
-	        groupexp = L.DomUtil.create('i', this.className + '-icon', groupdiv);
+	        groupexp = L.DomUtil.create('i', this.className+'-icon', groupdiv);
 			if(isCollapsed === true)
 				groupexp.innerHTML = ' + ';
 			else
@@ -276,10 +275,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				L.DomUtil.addClass(groupdiv, 'expanded');
 	    }
 
-       	grouplabel = L.DomUtil.create('label', this.className + '-grouplabel', groupdiv);
+       	grouplabel = L.DomUtil.create('label', this.className+'-grouplabel', groupdiv);
         //grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
 
-		grouptit = L.DomUtil.create('span', this.className + '-title', grouplabel);
+		grouptit = L.DomUtil.create('span', this.className+'-title', grouplabel);
 		grouptit.innerHTML = groupdata.name;
 
         return groupdiv;
@@ -287,7 +286,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_onInputClick: function () {
 		var i, input, obj,
-		    inputs = this._form.getElementsByTagName('input'),
+		    inputs = this._form.getElementsByClassName(this.className+'-selector'),
 		    inputsLen = inputs.length;
 
 		this._handlingClick = true;
@@ -313,8 +312,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 
 	_initLayout: function () {
-		var //this.className = 'leaflet-control-layers',
-		    container = this._container = L.DomUtil.create('div', this.className);
+		var container = this._container = L.DomUtil.create('div', this.className);
 
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
@@ -326,7 +324,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		} else
 			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
 
-		var form = this._form = L.DomUtil.create('form', this.className + '-list');
+		var form = this._form = L.DomUtil.create('form', this.className+'-list');
 
 		if(!this.options.compact)
 	        this._map.on('resize', function(e) {
@@ -334,14 +332,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	        });
 
         if(this.options.compact)
-			L.DomUtil.addClass(container, this.className+'-compact');
+			L.DomUtil.addClass(container, 'compact');
         else
 			form.style.height = this._map.getSize().y+'px';
 
-		if (this.options.button) {
+		//TODO supporto button mode 
+		/*if (this.options.button) {
 			this.options.collapsed = true;
 			L.DomUtil.addClass(container, this.className+'-button-collapse');
-		}
+		}*/
 
 		if (this.options.collapsed) {
 			if (!L.Browser.android) {
@@ -368,15 +367,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			this._expand();
 		}
 
-		this._baseLayersList = L.DomUtil.create('div', this.className + '-base', form);
-		this._separator = L.DomUtil.create('div', this.className + '-separator', form);
-		this._overlaysList = L.DomUtil.create('div', this.className + '-overlays', form);
+		this._baseLayersList = L.DomUtil.create('div', this.className+'-base', form);
+		this._separator = L.DomUtil.create('div', this.className+'-separator', form);
+		this._overlaysList = L.DomUtil.create('div', this.className+'-overlays', form);
         
         if(!this.options.compact)
-        	L.DomUtil.create('div', this.className + '-margin', form);
+        	L.DomUtil.create('div', this.className+'-margin', form);
 
         if(this.options.title) {
-        	var titlabel = L.DomUtil.create('label', this.className + '-title');
+        	var titlabel = L.DomUtil.create('label', this.className+'-title');
         	titlabel.innerHTML = '<span>'+this.options.title+'</span>';
         	container.appendChild(titlabel);
         }
@@ -385,11 +384,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
 	_expand: function () {
-		L.DomUtil.addClass(this._container, 'leaflet-panel-layers-expanded');
+		L.DomUtil.addClass(this._container, 'expanded');
 	},
 
 	_collapse: function () {
-		this._container.className = this._container.className.replace(this.className+'-expanded', '');
+		this._container.className = this._container.className.replace('expanded', '');
 	},
 
 	_getPath: function(obj, prop) {
