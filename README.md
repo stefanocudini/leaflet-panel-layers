@@ -19,6 +19,32 @@ Tested in Leaflet 0.7.3
 
 #Usage
 
+**Panel Item Definition formats**
+```javascript
+	{
+		name: "Bar",
+		icon: iconByName('bar'),
+		layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
+	}
+```
+```javascript
+	{
+		layer: {
+			type: "geoJson",
+			args: [ river ]
+		},
+	}
+```
+```javascript
+	{
+		group: "Title Group",
+		collapsed: true,
+		layers: [
+		...other items...
+		]
+	}
+```
+
 **Multiple active layers with icons**
 ```javascript
 var baseLayers = [
