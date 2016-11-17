@@ -1,19 +1,5 @@
 (function() {
-/*	{
-		name: "Bar",
-		icon: iconByName('bar'),
-		layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
-	},
-		layer: {
-			type: "geoJson",
-			args: [ river ]
-		},
-	{
-		group: "Title Group",
-		collapsed: true,
-		layers: []
-	}
-*/
+
 L.Control.PanelLayers = L.Control.Layers.extend({
 	
 	includes: L.Mixin.Events,
@@ -41,6 +27,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		//button: false, //TODO supporto button mode		
 		position: 'topright'
 	},
+
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);
 		this._layers = {};
@@ -201,7 +188,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 
 		var item = L.DomUtil.create('span', this.className+'-title');
-
+		
 		if(this.options.buildItem)
 		{
 			var node = this.options.buildItem.call(this, obj); //custom node node or html string
@@ -216,6 +203,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		}
 		else
 			item.innerHTML = obj.name || '';
+
+		//DEBUGGING
+		//var z = L.DomUtil.create('b', '', label);
+		//z.innerHTML = '<b>['+obj.layer.options.zIndex+']</b>';
 
 		label.appendChild(item);
 
