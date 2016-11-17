@@ -214,6 +214,21 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		return label;
 	},
 
+	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
+	_createRadioElement: function (name, checked) {
+
+		var radioHtml = '<input type="radio" class="'+this.className+'-selector" name="' + name + '"';
+		if (checked) {
+			radioHtml += ' checked="checked"';
+		}
+		radioHtml += '/>';
+
+		var radioFragment = document.createElement('div');
+		radioFragment.innerHTML = radioHtml;
+
+		return radioFragment.firstChild;
+	},
+
 	_addItem: function (obj) {
 		var self = this,
 			label, input, icon, checked;

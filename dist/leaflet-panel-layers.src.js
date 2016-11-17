@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.6.6 - 2016-11-15 
+ * Leaflet Panel Layers v0.6.7 - 2016-11-17 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -228,6 +228,21 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._items[ input.value ] = label;
 
 		return label;
+	},
+
+	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
+	_createRadioElement: function (name, checked) {
+
+		var radioHtml = '<input type="radio" class="'+this.className+'-selector" name="' + name + '"';
+		if (checked) {
+			radioHtml += ' checked="checked"';
+		}
+		radioHtml += '/>';
+
+		var radioFragment = document.createElement('div');
+		radioFragment.innerHTML = radioHtml;
+
+		return radioFragment.firstChild;
 	},
 
 	_addItem: function (obj) {
