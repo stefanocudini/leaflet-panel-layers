@@ -101,7 +101,7 @@
 	width: 22px;
 	background: #fff;
 	display: inline-block;
-
+	float: left;
 }
 .leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon:first-child {
 	display: inline-block;
@@ -162,8 +162,6 @@
 .leaflet-panel-layers-margin {
     height: 25px;
 }
-
-
 .leaflet-control-layers-selector {
 	float: left;
 }

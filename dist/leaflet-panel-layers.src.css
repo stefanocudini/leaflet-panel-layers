@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.6.8 - 2016-11-17 
+ * Leaflet Panel Layers v0.6.9 - 2016-11-17 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -117,7 +117,7 @@
 	width: 22px;
 	background: #fff;
 	display: inline-block;
-
+	float: left;
 }
 .leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon:first-child {
 	display: inline-block;
@@ -178,8 +178,6 @@
 .leaflet-panel-layers-margin {
     height: 25px;
 }
-
-
 .leaflet-control-layers-selector {
 	float: left;
 }
