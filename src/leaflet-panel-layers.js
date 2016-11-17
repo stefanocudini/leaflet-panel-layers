@@ -1,9 +1,36 @@
 (function() {
-
+/*	{
+		name: "Bar",
+		icon: iconByName('bar'),
+		layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
+	},
+		layer: {
+			type: "geoJson",
+			args: [ river ]
+		},
+	{
+		group: "Title Group",
+		collapsed: true,
+		layers: []
+	}
+*/
 L.Control.PanelLayers = L.Control.Layers.extend({
 	
 	includes: L.Mixin.Events,
-
+	//
+	//Managed Events:
+	//	Event				Data passed		Description
+	//
+	//	panel:selected		{layerDef}		fired when an item of panel is added
+	//	panel:unselected	{layerDef}		fired when an item of panel is removed
+	//
+	//Methods exposed:
+	//	Method 			Data passed		Description
+	//
+	//	addBaseLayer	{panel item}	add new layer item defition to panel as baselayers
+	//	addOverlay		{panel item}	add new layer item defition to panel as overlay
+	//	removeLayer	    {panel item}	remove layer item from panel
+	//
 	options: {
 		compact: false,
 		collapsed: false,
@@ -13,23 +40,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		title: '',						//title of panel
 		//button: false, //TODO supporto button mode		
 		position: 'topright'
-	/*
-	//TODO write example of config
-		{
-			name: "Bar",
-			icon: iconByName('bar'),
-			layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
-		},
-			layer: {
-				type: "geoJson",
-				args: [ river ]
-			},
-		{
-			group: "Title Group",
-			collapsed: true,
-			layers: []
-		}
-	*/
 	},
 	initialize: function (baseLayers, overlays, options) {
 		L.setOptions(this, options);

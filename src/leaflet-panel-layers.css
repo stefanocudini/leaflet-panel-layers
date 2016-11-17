@@ -146,6 +146,9 @@
 	position: relative;
 	top: 1px;
 }
+.leaflet-panel-layers-base .leaflet-panel-layers-selector {
+	float: left;
+}
 .leaflet-panel-layers-overlays .leaflet-panel-layers-selector {
 	float: right;
 }
