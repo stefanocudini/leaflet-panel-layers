@@ -348,10 +348,19 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		var form = this._form = L.DomUtil.create('form', this.className+'-list');
 
-		if(!this.options.compact)
+		if(this.options.compact) {
+			form.style.maxHeight = (this._map.getSize().y-30)+'px';
+			this._map.on('resize', function(e) {
+				console.log('map load resize',e)
+	            form.style.maxHeight = (e.newSize.y-50)+'px';
+	        });
+		}
+		else {
+			form.style.height = (this._map.getSize().y-30)+'px';
 	        this._map.on('resize', function(e) {
 	            form.style.height = e.newSize.y+'px';
 	        });
+	    }
 
         if(this.options.compact)
 			L.DomUtil.addClass(container, 'compact');
