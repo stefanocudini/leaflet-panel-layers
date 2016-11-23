@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.6.9 - 2016-11-17 
+ * Leaflet Panel Layers v0.7.0 - 2016-11-23 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -142,6 +142,9 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+.leaflet-panel-layers-item.active {
+	
 }
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
 	margin-bottom: 4px;

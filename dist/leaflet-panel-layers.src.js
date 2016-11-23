@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.6.9 - 2016-11-17 
+ * Leaflet Panel Layers v0.7.0 - 2016-11-23 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -154,10 +154,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			this._layersActives.push(layer);
 
 		this._layers[ id ] = L.Util.extend(layerDef, {
+			collapsed: isCollapsed,			
 			overlay: overlay,
 			group: group,
-			layer: layer,
-			collapsed: isCollapsed
+			layer: layer
 		});
 
 		if (this.options.autoZIndex && layer.setZIndex) {
@@ -173,9 +173,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		var label, input, checked;
 
-		label = L.DomUtil.create('label', this.className+'-item');
+		label = L.DomUtil.create('label', this.className+'-item' +(obj.active?' active':'') );
 
 		checked = this._map.hasLayer(obj.layer);
+
 		if (obj.overlay) {
 			input = L.DomUtil.create('input', this.className+'-selector');
 			input.type = 'checkbox';
@@ -188,11 +189,14 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		input._layer = obj;
 
 		L.DomEvent.on(input, 'click', function(e) {
-			self._onInputClick();
+			
+			self._onInputClick(e.target.parentNode);
+
 			if(e.target.checked)
 				self.fire('panel:selected', e.target._layer)
 			else
 				self.fire('panel:unselected', e.target._layer)
+			
 		}, this);
 
 		label.appendChild(input);
@@ -203,7 +207,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			label.appendChild(icon);
 		}
 
-		var item = L.DomUtil.create('span', this.className+'-title');
+		var title = L.DomUtil.create('span', this.className+'-title');
 		
 		if(this.options.buildItem)
 		{
@@ -212,19 +216,19 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			{
 				var tmpNode = L.DomUtil.create('div');
 				tmpNode.innerHTML = node;
-				item = tmpNode.firstChild;
+				title = tmpNode.firstChild;
 			}
 			else
-				item = node;
+				title = node;
 		}
 		else
-			item.innerHTML = obj.name || '';
+			title.innerHTML = obj.name || '';
 
 		//DEBUGGING
 		//var z = L.DomUtil.create('b', '', label);
 		//z.innerHTML = '<b>['+obj.layer.options.zIndex+']</b>';
 
-		label.appendChild(item);
+		label.appendChild(title);
 
 		this._items[ input.value ] = label;
 
@@ -330,9 +334,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			obj = this._layers[ input.value ];
 
 			if (input.checked && !this._map.hasLayer(obj.layer)) {
+				L.DomUtil.addClass(input.parentNode, 'active');				
 				this._map.addLayer(obj.layer);
 
 			} else if (!input.checked && this._map.hasLayer(obj.layer)) {
+				L.DomUtil.removeClass(input.parentNode, 'active');
 				this._map.removeLayer(obj.layer);
 			}
 		}

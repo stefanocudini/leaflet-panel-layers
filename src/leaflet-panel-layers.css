@@ -127,6 +127,9 @@
     -ms-user-select: none;
     user-select: none;
 }
+.leaflet-panel-layers-item.active {
+	
+}
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
 	margin-bottom: 4px;
 	padding: 2px;
