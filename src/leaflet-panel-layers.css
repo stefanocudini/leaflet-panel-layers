@@ -52,12 +52,10 @@
 .leaflet-panel-layers.expanded .leaflet-panel-layers-list {
 	display: block;
 }
-/*.leaflet-panel-layers.expanded:hover .leaflet-panel-layers-list {
-	margin-right: 10px;
+.leaflet-panel-layers:not(.expanded) .leaflet-panel-layers-title,
+.leaflet-panel-layers:not(.expanded) .leaflet-panel-layers-selector {
+    display: none;
 }
-.leaflet-panel-layers.expanded:hover .leaflet-panel-layers-group {
-	margin-right: -10px
-}*/
 .leaflet-panel-layers-separator {
 	border-top:1px solid rgba(0,0,0,0.3);
 	height: 8px;

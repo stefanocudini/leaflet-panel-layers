@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.7.2 - 2016-11-23 
+ * Leaflet Panel Layers v0.7.3 - 2016-11-23 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -367,8 +367,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(this.options.compact) {
 			form.style.maxHeight = (this._map.getSize().y-30)+'px';
 			this._map.on('resize', function(e) {
-				console.log('map load resize',e)
-	            form.style.maxHeight = (e.newSize.y-50)+'px';
+	            form.style.maxHeight = (e.newSize.y-30)+'px';
 	        });
 		}
 		else {
