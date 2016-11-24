@@ -45,6 +45,7 @@
 	padding: 4px;
 }
 .leaflet-panel-layers.expanded:hover  {
+	overflow-x: hidden;
 	overflow-y: auto;
 }
 .leaflet-panel-layers.expanded .leaflet-panel-layers-list {
