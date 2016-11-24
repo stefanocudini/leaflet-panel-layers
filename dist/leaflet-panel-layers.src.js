@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.7.3 - 2016-11-23 
+ * Leaflet Panel Layers v0.8.0 - 2016-11-24 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -146,23 +146,24 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_addLayer: function (layerDef, overlay, group, isCollapsed) {
 
-		var layer = layerDef.hasOwnProperty('layer') ? this._instantiateLayer(layerDef.layer) : layerDef;
+		if(layerDef.hasOwnProperty('layer'))
+			layerDef.layer = this._instantiateLayer(layerDef.layer);
 
-		var id = L.stamp(layer);
+		if(!layerDef.hasOwnProperty('id'))
+			layerDef.id = L.stamp(layerDef.layer);
 
 		if(layerDef.active)
-			this._layersActives.push(layer);
+			this._layersActives.push(layerDef.layer);
 
-		this._layers[ id ] = L.Util.extend(layerDef, {
+		this._layers[ layerDef.id ] = L.Util.extend(layerDef, {
 			collapsed: isCollapsed,			
 			overlay: overlay,
-			group: group,
-			layer: layer
+			group: group
 		});
 
-		if (this.options.autoZIndex && layer.setZIndex) {
+		if (this.options.autoZIndex && layerDef.layer.setZIndex) {
 			this._lastZIndex++;
-			layer.setZIndex(this._lastZIndex);
+			layerDef.layer.setZIndex(this._lastZIndex);
 		}
 
 	},
@@ -171,16 +172,21 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		
 		var self = this;
 
-		var label, input, checked;
+		var item, input, checked;
 
-		label = L.DomUtil.create('label', this.className+'-item' +(obj.active?' active':'') );
+		item = L.DomUtil.create('div', this.className+'-item' +(obj.active?' active':'') );
 
 		checked = this._map.hasLayer(obj.layer);
 
+console.log('_createItem', obj)
+
 		if (obj.overlay) {
 			input = L.DomUtil.create('input', this.className+'-selector');
+			//input.id = this.className +'-item-'+ obj.id;
+			//input.name = this.className +'-item-'+ obj.id;
 			input.type = 'checkbox';
 			input.defaultChecked = checked;
+			//TODO name
 		} else {
 			input = this._createRadioElement('leaflet-base-layers', checked);
 		}
@@ -190,7 +196,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		L.DomEvent.on(input, 'click', function(e) {
 			
-			self._onInputClick(e.target.parentNode);
+			self._onInputClick();
 
 			if(e.target.checked)
 				self.fire('panel:selected', e.target._layer)
@@ -199,40 +205,42 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			
 		}, this);
 
-		label.appendChild(input);
+		//item.appendChild(input);
+
+		var title = L.DomUtil.create('label', this.className+'-title');
+		//title.htmlFor = input.id;
+		title.innerHTML = '<span>'+obj.name+'<span>' || '';
 
 		if(obj.icon) {
 			var icon = L.DomUtil.create('i', this.className+'-icon');
-			icon.innerHTML = obj.icon || '';
-			label.appendChild(icon);
+			
+			if(typeof obj.icon === 'string')
+				icon.innerHTML = obj.icon || '';
+			else
+				icon.appendChild(obj.icon);
+
+			title.appendChild(icon);
 		}
 
-		var title = L.DomUtil.create('span', this.className+'-title');
-		
+		title.appendChild(input);
+		item.appendChild(title);
+
 		if(this.options.buildItem)
 		{
 			var node = this.options.buildItem.call(this, obj); //custom node node or html string
 			if(typeof node === 'string')
 			{
-				var tmpNode = L.DomUtil.create('div');
-				tmpNode.innerHTML = node;
-				title = tmpNode.firstChild;
+				var tmp = L.DomUtil.create('div');
+				tmp.innerHTML = node;
+				item.appendChild(tmp.firstChild);
 			}
 			else
-				title = node;
-		}
-		else
-			title.innerHTML = obj.name || '';
+				item.appendChild(node);
+		}		
 
-		//DEBUGGING
-		//var z = L.DomUtil.create('b', '', label);
-		//z.innerHTML = '<b>['+obj.layer.options.zIndex+']</b>';
+		this._items[ input.value ] = item;
 
-		label.appendChild(title);
-
-		this._items[ input.value ] = label;
-
-		return label;
+		return item;
 	},
 
 	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
@@ -334,11 +342,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			obj = this._layers[ input.value ];
 
 			if (input.checked && !this._map.hasLayer(obj.layer)) {
-				L.DomUtil.addClass(input.parentNode, 'active');				
+				L.DomUtil.addClass(input.parentNode.parentNode, 'active');				
 				this._map.addLayer(obj.layer);
 
 			} else if (!input.checked && this._map.hasLayer(obj.layer)) {
-				L.DomUtil.removeClass(input.parentNode, 'active');
+				L.DomUtil.removeClass(input.parentNode.parentNode, 'active');
 				this._map.removeLayer(obj.layer);
 			}
 		}

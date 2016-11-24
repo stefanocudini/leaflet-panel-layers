@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.7.3 - 2016-11-23 
+ * Leaflet Panel Layers v0.8.0 - 2016-11-24 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -32,7 +32,6 @@
 	padding: 4px;
 	width: 30px;
 	min-width: 30px;
-	overflow: hidden;
 }
 /* TODO support button mode
 .leaflet-panel-layers-button-collapse {
@@ -62,13 +61,12 @@
 	padding: 4px;
 }
 .leaflet-panel-layers.expanded:hover  {
-	overflow-x: hidden;	
 	overflow-y: auto;
 }
 .leaflet-panel-layers.expanded .leaflet-panel-layers-list {
 	display: block;
 }
-.leaflet-panel-layers:not(.expanded) .leaflet-panel-layers-title,
+.leaflet-panel-layers:not(.expanded) .leaflet-panel-layers-title > span,
 .leaflet-panel-layers:not(.expanded) .leaflet-panel-layers-selector {
     display: none;
 }
@@ -78,13 +76,15 @@
 	margin: 12px 4px 0 4px;
 	clear: both;
 }
-.leaflet-panel-layers-title {
-	float: none;
-}
 
 .leaflet-panel-layers-item .leaflet-panel-layers-title {
-	float: left;
-	padding-left: 4px
+	display: block;
+	white-space: nowrap;
+	padding-left: 4px;
+	float: none;
+}
+.leaflet-panel-layers-title .leaflet-panel-layers-selector {
+	float: right;
 }
 
 .leaflet-panel-layers-group {
@@ -95,7 +95,7 @@
 	padding: 2px 4px;
 	margin-bottom: 4px;
 	width: auto;
-	overflow: hidden;
+	height: auto;
 	clear: both;
 }
 
@@ -103,25 +103,21 @@
     height: 20px;
 }
 .leaflet-panel-layers-group.collapsible:not(.expanded) .leaflet-panel-layers-item {
-    display: none;
+    display: none;    
 }
 .leaflet-panel-layers-icon {
 	text-align: center;
-	line-height: 22px;
-	height: 22px;
-	width: 22px;
+	line-height: 20px;
+	display: inline-block;	
+	height: 20px;
+	width: 20px;
 	background: #fff;
-	display: inline-block;
 	float: left;
 }
 .leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon:first-child {
-	display: inline-block;
 	min-width: 20px;
 	font-size: 16px;
-	line-height: 20px;
 	text-align: center;
-	height: 20px;
-	float: right;
 	background: none;
 	cursor: pointer;
     -webkit-touch-callout: none;
@@ -133,9 +129,9 @@
 }
 .leaflet-panel-layers-item {
 	display: block;
+	height: auto;
 	clear: both;
-	float: none;
-	height: 20px;
+	min-height: 20px;
 	white-space: nowrap;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

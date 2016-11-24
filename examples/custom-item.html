@@ -93,7 +93,7 @@
 			buildItem: function(item) {
 
 				var points = item.layer.getLayers ? item.layer.getLayers().length : 0,
-					label = item.name + (points ? ' #'+points : ''),
+					label = points ? ' #'+points : '',
 					size = Math.min(18,Math.max(9,points))+'px',
 					node = L.DomUtil.create('span','');
 
