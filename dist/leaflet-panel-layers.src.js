@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.8.0 - 2016-11-24 
+ * Leaflet Panel Layers v0.8.1 - 2016-11-24 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -209,7 +209,7 @@ console.log('_createItem', obj)
 
 		var title = L.DomUtil.create('label', this.className+'-title');
 		//title.htmlFor = input.id;
-		title.innerHTML = '<span>'+obj.name+'<span>' || '';
+		title.innerHTML = '<span>'+(obj.name||'')+'<span>';
 
 		if(obj.icon) {
 			var icon = L.DomUtil.create('i', this.className+'-icon');

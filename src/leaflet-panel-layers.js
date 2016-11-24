@@ -193,7 +193,7 @@ console.log('_createItem', obj)
 
 		var title = L.DomUtil.create('label', this.className+'-title');
 		//title.htmlFor = input.id;
-		title.innerHTML = '<span>'+obj.name+'<span>' || '';
+		title.innerHTML = '<span>'+(obj.name||'')+'<span>';
 
 		if(obj.icon) {
 			var icon = L.DomUtil.create('i', this.className+'-icon');
