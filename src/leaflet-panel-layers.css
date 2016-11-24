@@ -82,6 +82,7 @@
 	width: auto;
 	height: auto;
 	clear: both;
+	overflow: hidden;
 }
 
 .leaflet-panel-layers-group.collapsible:not(.expanded) {
