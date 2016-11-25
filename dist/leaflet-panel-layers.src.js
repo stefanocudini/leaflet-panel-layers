@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.8.2 - 2016-11-25 
+ * Leaflet Panel Layers v0.8.4 - 2016-11-25 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -40,7 +40,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		collapsibleGroups: false,
 		buildItem: null,				//function that return row item html node(or html string)
 		title: '',						//title of panel
-		//button: false, //TODO supporto button mode		
+		//button: false, //TODO supporto button mode
+		className: '',					//additional class name for panel	
 		position: 'topright'
 	},
 
@@ -369,6 +370,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				.disableScrollPropagation(container);
 		} else
 			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
+
+		if(this.options.className)
+			L.DomUtil.addClass(container, this.options.className);
 
 		var form = this._form = L.DomUtil.create('form', this.className+'-list');
 
