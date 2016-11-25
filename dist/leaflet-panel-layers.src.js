@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.8.4 - 2016-11-25 
+ * Leaflet Panel Layers v0.8.5 - 2016-11-25 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -82,11 +82,18 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	onAdd: function (map) {
 
+		var self = this;
+
 		for(var i in this._layersActives) {
 			map.addLayer(this._layersActives[i]);
 		}
 
 		L.Control.Layers.prototype.onAdd.call(this, map);
+
+		this._map.on('resize', function(e) {
+            //this._form.style.maxHeight = (e.newSize.y-30)+'px';
+            self._updateHeight(e.newSize.y);
+        });
 
 		return this._container;
 	},
@@ -179,7 +186,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		checked = this._map.hasLayer(obj.layer);
 
-//console.log('_createItem', obj)
+		//console.log('_createItem', obj)
 
 		if (obj.overlay) {
 			input = L.DomUtil.create('input', this.className+'-selector');
@@ -294,7 +301,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	},
 
     _createGroup: function ( groupdata, isCollapsed ) {
-        var groupdiv = L.DomUtil.create('div', this.className+'-group'),
+
+        var self = this,
+        	groupdiv = L.DomUtil.create('div', this.className+'-group'),
             grouplabel, grouptit, groupexp;
 
         if(this.options.collapsibleGroups) {
@@ -315,7 +324,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	                L.DomUtil.addClass(groupdiv, 'expanded');
 	                groupexp.innerHTML = ' - ';
 	            }
+	            self._updateHeight();
 	        });
+
 			if(isCollapsed === false)
 				L.DomUtil.addClass(groupdiv, 'expanded');
 	    }
@@ -374,25 +385,14 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(this.options.className)
 			L.DomUtil.addClass(container, this.options.className);
 
-		var form = this._form = L.DomUtil.create('form', this.className+'-list');
+		this._form = L.DomUtil.create('form', this.className+'-list');
 
-		if(this.options.compact) {
-			form.style.maxHeight = (this._map.getSize().y-30)+'px';
-			this._map.on('resize', function(e) {
-	            form.style.maxHeight = (e.newSize.y-30)+'px';
-	        });
-		}
-		else {
-			form.style.height = (this._map.getSize().y-30)+'px';
-	        this._map.on('resize', function(e) {
-	            form.style.height = e.newSize.y+'px';
-	        });
-	    }
+		this._updateHeight();
 
         if(this.options.compact)
 			L.DomUtil.addClass(container, 'compact');
         else
-			form.style.height = this._map.getSize().y+'px';
+			this._form.style.height = this._map.getSize().y+'px';
 
 		//TODO supporto button mode 
 		/*if (this.options.button) {
@@ -425,12 +425,12 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			this._expand();
 		}
 
-		this._baseLayersList = L.DomUtil.create('div', this.className+'-base', form);
-		this._separator = L.DomUtil.create('div', this.className+'-separator', form);
-		this._overlaysList = L.DomUtil.create('div', this.className+'-overlays', form);
+		this._baseLayersList = L.DomUtil.create('div', this.className+'-base', this._form);
+		this._separator = L.DomUtil.create('div', this.className+'-separator', this._form);
+		this._overlaysList = L.DomUtil.create('div', this.className+'-overlays', this._form);
         
         if(!this.options.compact)
-        	L.DomUtil.create('div', this.className+'-margin', form);
+        	L.DomUtil.create('div', this.className+'-margin', this._form);
 
         if(this.options.title) {
         	var titlabel = L.DomUtil.create('label', this.className+'-title');
@@ -438,7 +438,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
         	container.appendChild(titlabel);
         }
 
-		container.appendChild(form);
+		container.appendChild(this._form);
+	},
+
+	_updateHeight: function(h) {
+		h = h || this._map.getSize().y;
+		if(this.options.compact)
+			this._form.style.maxHeight = (h-30)+'px';
+		else
+			this._form.style.height = (h-30)+'px';
 	},
 
 	_expand: function () {
