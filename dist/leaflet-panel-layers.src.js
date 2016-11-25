@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.8.1 - 2016-11-24 
+ * Leaflet Panel Layers v0.8.2 - 2016-11-25 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -178,7 +178,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		checked = this._map.hasLayer(obj.layer);
 
-console.log('_createItem', obj)
+//console.log('_createItem', obj)
 
 		if (obj.overlay) {
 			input = L.DomUtil.create('input', this.className+'-selector');

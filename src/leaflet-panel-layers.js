@@ -162,7 +162,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		checked = this._map.hasLayer(obj.layer);
 
-console.log('_createItem', obj)
+//console.log('_createItem', obj)
 
 		if (obj.overlay) {
 			input = L.DomUtil.create('input', this.className+'-selector');

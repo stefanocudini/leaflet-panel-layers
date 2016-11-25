@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.8.1 - 2016-11-24 
+ * Leaflet Panel Layers v0.8.2 - 2016-11-25 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -59,8 +59,7 @@
 .leaflet-panel-layers.expanded {
 	width: auto;
 	padding: 4px;
-}
-.leaflet-panel-layers.expanded:hover  {
+	overflow-x: hidden;
 	overflow-y: auto;
 }
 .leaflet-panel-layers.expanded .leaflet-panel-layers-list {
@@ -80,8 +79,8 @@
 .leaflet-panel-layers-item .leaflet-panel-layers-title {
 	display: block;
 	white-space: nowrap;
-	padding-left: 4px;
 	float: none;
+	cursor: pointer;
 }
 .leaflet-panel-layers-title .leaflet-panel-layers-selector {
 	float: right;
@@ -97,6 +96,7 @@
 	width: auto;
 	height: auto;
 	clear: both;
+	overflow: hidden;
 }
 
 .leaflet-panel-layers-group.collapsible:not(.expanded) {
@@ -113,6 +113,10 @@
 	width: 20px;
 	background: #fff;
 	float: left;
+}
+.leaflet-panel-layers-group.collapsible:not(.expanded) .leaflet-panel-layers-grouplabel {
+	height: 20px;
+	overflow: hidden;
 }
 .leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon:first-child {
 	min-width: 20px;

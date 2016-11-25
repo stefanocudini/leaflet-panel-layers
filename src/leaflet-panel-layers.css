@@ -43,8 +43,6 @@
 .leaflet-panel-layers.expanded {
 	width: auto;
 	padding: 4px;
-}
-.leaflet-panel-layers.expanded:hover  {
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -65,8 +63,8 @@
 .leaflet-panel-layers-item .leaflet-panel-layers-title {
 	display: block;
 	white-space: nowrap;
-	padding-left: 4px;
 	float: none;
+	cursor: pointer;
 }
 .leaflet-panel-layers-title .leaflet-panel-layers-selector {
 	float: right;
@@ -99,6 +97,10 @@
 	width: 20px;
 	background: #fff;
 	float: left;
+}
+.leaflet-panel-layers-group.collapsible:not(.expanded) .leaflet-panel-layers-grouplabel {
+	height: 20px;
+	overflow: hidden;
 }
 .leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon:first-child {
 	min-width: 20px;
