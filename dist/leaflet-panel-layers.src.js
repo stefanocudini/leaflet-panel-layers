@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.8.5 - 2016-11-25 
+ * Leaflet Panel Layers v0.8.6 - 2016-11-28 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -381,6 +381,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				.disableScrollPropagation(container);
 		} else
 			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
+
+		//FIX IE 11 drag problem
+		L.DomEvent.disableClickPropagation(container);
 
 		if(this.options.className)
 			L.DomUtil.addClass(container, this.options.className);

@@ -366,6 +366,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		} else
 			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
 
+		//FIX IE 11 drag problem
+		L.DomEvent.disableClickPropagation(container);
+
 		if(this.options.className)
 			L.DomUtil.addClass(container, this.options.className);
 
