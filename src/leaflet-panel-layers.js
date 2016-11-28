@@ -1,4 +1,17 @@
-(function() {
+(function (factory) {
+    if(typeof define === 'function' && define.amd) {
+    //AMD
+        define(['leaflet'], factory);
+    } else if(typeof module !== 'undefined') {
+    // Node/CommonJS
+        module.exports = factory(require('leaflet'));
+    } else {
+    // Browser globals
+        if(typeof window.L === 'undefined')
+            throw 'Leaflet must be loaded first';
+        factory(window.L);
+    }
+})(function (L) {
 
 L.Control.PanelLayers = L.Control.Layers.extend({
 	
@@ -464,4 +477,6 @@ L.control.panelLayers = function (baseLayers, overlays, options) {
 	return new L.Control.PanelLayers(baseLayers, overlays, options);
 };
 
-}).call(this);
+return L.Control.PanelLayers;
+
+});
