@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v0.9.0 - 2016-11-28 
+ * Leaflet Panel Layers v0.9.2 - 2016-12-02 
  * 
  * Copyright 2016 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -158,17 +158,14 @@ L.Control.PanelLayers = L.Control.Layers.extend({
         L.Control.Layers.prototype._update.call(this);
     },
 
-	_instantiateLayer: function(layerDef) {
-		if(layerDef instanceof L.Class)
-			return layerDef;
-		else if(layerDef.type && layerDef.args)
-			return this._getPath(L, layerDef.type).apply(L, layerDef.args);
-	},
-
 	_addLayer: function (layerDef, overlay, group, isCollapsed) {
 
-		if(layerDef.hasOwnProperty('layer'))
-			layerDef.layer = this._instantiateLayer(layerDef.layer);
+		if(!layerDef.layer)
+			throw new Error('layer not defined in item: '+(layerDef.name||''));
+
+		if( !(layerDef.layer instanceof L.Class) && layerDef.layer.type && layerDef.layerl.args ) {
+			return this._getPath(L, layerDef.layer.type).apply(L, layerDef.layer.args);
+		}
 
 		if(!layerDef.hasOwnProperty('id'))
 			layerDef.id = L.stamp(layerDef.layer);
@@ -182,7 +179,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			group: group
 		});
 
-		if (this.options.autoZIndex && layerDef.layer.setZIndex) {
+		if (this.options.autoZIndex && layerDef.layer && layerDef.layer.setZIndex) {
 			this._lastZIndex++;
 			layerDef.layer.setZIndex(this._lastZIndex);
 		}
@@ -199,20 +196,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		checked = this._map.hasLayer(obj.layer);
 
-		//console.log('_createItem', obj)
-
 		if (obj.overlay) {
 			input = L.DomUtil.create('input', this.className+'-selector');
-			//input.id = this.className +'-item-'+ obj.id;
-			//input.name = this.className +'-item-'+ obj.id;
 			input.type = 'checkbox';
 			input.defaultChecked = checked;
 			//TODO name
-		} else {
+		} else
 			input = this._createRadioElement('leaflet-base-layers', checked);
-		}
 
-		input.value = L.stamp(obj.layer);
+		input.value = obj.id;
 		input._layer = obj;
 
 		L.DomEvent.on(input, 'click', function(e) {
@@ -226,10 +218,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			
 		}, this);
 
-		//item.appendChild(input);
-
 		var title = L.DomUtil.create('label', this.className+'-title');
-		//title.htmlFor = input.id;
+		//TODO title.htmlFor = input.id;
 		title.innerHTML = '<span>'+(obj.name||'')+'<span>';
 
 		if(obj.icon) {
@@ -271,7 +261,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if (checked) {
 			radioHtml += ' checked="checked"';
 		}
-		radioHtml += '/>';
+		radioHtml += ' />';
 
 		var radioFragment = document.createElement('div');
 		radioFragment.innerHTML = radioHtml;
