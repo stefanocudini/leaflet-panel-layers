@@ -17,19 +17,25 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	
 	includes: L.Mixin.Events,
 	//
-	//Managed Events:
+	//Events:
 	//	Event				Data passed		Description
 	//
 	//	panel:selected		{layerDef}		fired when an item of panel is added
 	//	panel:unselected	{layerDef}		fired when an item of panel is removed
 	//
-	//Methods exposed:
+	//Methods:
 	//	Method 			Data passed		Description
 	//
 	//	addBaseLayer	{panel item}	add new layer item defition to panel as baselayers
 	//	addOverlay		{panel item}	add new layer item defition to panel as overlay
 	//	removeLayer	    {panel item}	remove layer item from panel
 	//
+	//Static Methods:
+	//	Method 					Data passed		Description
+	//
+	//	configToControlLayers	{layerDef}		convert config from Control.PanelLayers to Control.Layers
+	//	
+	
 	options: {
 		compact: false,
 		collapsed: false,
@@ -278,12 +284,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		list.appendChild(label);
 
-		/*if(obj.group) {
-			setTimeout(function() {
-				self._container.style.width = (self._container.clientWidth)+'px';
-			},5);
-		}*/
-
 		return label;
 	},
 
@@ -319,8 +319,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 	    }
 
        	grouplabel = L.DomUtil.create('label', this.className+'-grouplabel', groupdiv);
-        //grouplabel.innerHTML = '<span>'+groupdata.name+'</span>';
-
 		grouptit = L.DomUtil.create('span', this.className+'-title', grouplabel);
 		grouptit.innerHTML = groupdata.name;
 
