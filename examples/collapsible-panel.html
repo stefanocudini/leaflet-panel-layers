@@ -79,7 +79,28 @@ var overLayers = [
 	}	
 ];
 
-var panelLayers = new L.Control.PanelLayers(null, overLayers, {
+var baseLayers = [
+	{
+		group: "Road Layers",
+		icon: iconByName('parking'),
+		collapsed: true,
+		layers: [
+			{
+				name: "Open Cycle Map",
+				icon: iconByName('drinking_water'),
+				layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Transports",
+				icon: iconByName('drinking_water'),
+				layer: L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
+			}
+		]
+	}
+];
+
+var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {
+	collapsibleGroups: true,
 	collapsed: true
 });
 
