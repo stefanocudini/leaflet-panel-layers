@@ -153,8 +153,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if(!layerDef.layer)
 			throw new Error('layer not defined in item: '+(layerDef.name||''));
 
-		if( !(layerDef.layer instanceof L.Class) && layerDef.layer.type && layerDef.layerl.args ) {
-			return this._getPath(L, layerDef.layer.type).apply(L, layerDef.layer.args);
+		if( !(layerDef.layer instanceof L.Class) && 
+			(layerDef.layer.type && layerDef.layer.args) ) {
+			layerDef.layer = this._getPath(L, layerDef.layer.type).apply(L, layerDef.layer.args);
 		}
 
 		if(!layerDef.hasOwnProperty('id'))
