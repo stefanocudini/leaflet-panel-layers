@@ -31,15 +31,6 @@
     ],
     "overlayers": [
         {
-            "name": "Hiking",
-            "layer": {
-                "type": "tileLayer",
-                "args": [
-                    "http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png"
-                ]
-            }
-        },
-        {
             "name": "Water",
             "layer": {
                 "type": "geoJson",
@@ -49,9 +40,9 @@
                       "geometry": {
                         "type": "MultiPoint",
                         "coordinates": [
-                            [12.5107845,42.5204998],
-                            [12.4892016,42.4786585],
-                            [12.4907083,42.5373499]
+                            [12.5107845,42.5214998],
+                            [12.4392016,42.4776585],
+                            [12.4707083,42.5363499]
                         ]
                       }
                     }
