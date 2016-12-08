@@ -32,7 +32,6 @@ fieldset, label {
 
 <div id="map"></div>
 <label>Layers defintions</label><br />
-<textarea id="config"></textarea>
 <br />
 <fieldset id="baselayers">
 	<legend>baselayers</legend>
@@ -52,8 +51,6 @@ fieldset, label {
 <script>
 
 $.getJSON('config-layers.json', function(config, status, xhr) {
-
-	$('#config').text(xhr.responseText);
 
 	window.map = L.map('map', {
 			zoom: 11,

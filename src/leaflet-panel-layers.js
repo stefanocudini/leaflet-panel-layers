@@ -209,10 +209,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			
 		}, this);
 
-		var title = L.DomUtil.create('label', this.className+'-title');
-		//TODO title.htmlFor = input.id;
-		title.innerHTML = '<span>'+(obj.name||'')+'<span>';
-
+		var label = L.DomUtil.create('label', this.className+'-title');
+		//TODO label.htmlFor = input.id;
+		var title = L.DomUtil.create('span');
+		title.innerHTML = obj.name||'';
+		
 		if(obj.icon) {
 			var icon = L.DomUtil.create('i', this.className+'-icon');
 			
@@ -221,11 +222,12 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			else
 				icon.appendChild(obj.icon);
 
-			title.appendChild(icon);
+			label.appendChild(icon);
 		}
 
-		title.appendChild(input);
-		item.appendChild(title);
+		label.appendChild(input);
+		label.appendChild(title);
+		item.appendChild(label);
 
 		if(this.options.buildItem)
 		{
