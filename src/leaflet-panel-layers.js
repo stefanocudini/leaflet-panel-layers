@@ -18,9 +18,11 @@
 	if (typeof define === 'function' && define.amd) {
 		//AMD
 		define(['leaflet'], factory);
+/* breaks tests in dependent project
 	} else if (typeof module !== 'undefined') {
 		// Node/CommonJS
 		module.exports = factory(require('leaflet'));
+*/
 	} else {
 		// Browser globals
 		if (typeof window.L === 'undefined')

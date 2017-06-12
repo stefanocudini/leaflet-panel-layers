@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v1.0.0 - 2017-06-08 
+ * Leaflet Panel Layers v1.0.0 - 2017-06-12 
  * 
  * Copyright 2017 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -11,7 +11,7 @@
  * http://labs.easyblog.it/maps/leaflet-panel-layers/ 
  * 
  * Source: 
- * git@github.com:stefanocudini/leaflet-panel-layers.git 
+ * git@github.com:strepto42/leaflet-panel-layers.git 
  * 
  */
 /*
@@ -34,9 +34,6 @@
 	if (typeof define === 'function' && define.amd) {
 		//AMD
 		define(['leaflet'], factory);
-	} else if (typeof module !== 'undefined') {
-		// Node/CommonJS
-		module.exports = factory(require('leaflet'));
 	} else {
 		// Browser globals
 		if (typeof window.L === 'undefined')
