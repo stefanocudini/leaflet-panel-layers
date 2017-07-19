@@ -14,22 +14,6 @@
  * git@github.com:stefanocudini/leaflet-panel-layers.git 
  * 
  */
-/*
- * Leaflet Panel Layers v0.9.5 - 2016-12-08
- *
- * Copyright 2016 Stefano Cudini
- * stefano.cudini@gmail.com
- * http://labs.easyblog.it/
- *
- * Licensed under the MIT license.
- *
- * Demos:
- * http://labs.easyblog.it/maps/leaflet-panel-layers/
- *
- * Source:
- * git@github.com:stefanocudini/leaflet-panel-layers.git
- *
- */
 (function (factory) {
 if (typeof define === 'function' && define.amd) {
 	//AMD
