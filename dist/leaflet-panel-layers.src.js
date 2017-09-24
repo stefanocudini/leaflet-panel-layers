@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v1.0.0 - 2017-07-19 
+ * Leaflet Panel Layers v1.1.0 - 2017-09-24 
  * 
  * Copyright 2017 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -33,7 +33,7 @@ if (typeof define === 'function' && define.amd) {
 
 L.Control.PanelLayers = L.Control.Layers.extend({
 
-	includes: L.Mixin.Events,
+	includes: L.version[0]==='1' ? L.Evented.prototype : L.Mixin.Events,
 	//
 	//Events:
 	//	Event				Data passed		Description
@@ -154,8 +154,8 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		for (var i = 0; i < this._layers.length; i++) {
 			var id = L.stamp(this._layers[i].layer);
 			//TODO add more conditions to comparing definitions
-			if (_getLayer(id).name === layerDef.name)
-				return _getLayer(id).layer;
+			if (this._getLayer(id).name === layerDef.name)
+				return this._getLayer(id).layer;
 		}
 	},
 
@@ -169,14 +169,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		for (var i = 0; i < this._layers.length; i++) {
 			if (this._layers[i] && this._layers[i].id == id) {
 				return this._layers[i];
-			}
-		}
-	},
-
-	_getLayerIndex: function (id) {
-		for (var i = 0; i < this._layers.length; i++) {
-			if (this._layers[i] && this._layers[i].id == id) {
-				return i;
 			}
 		}
 	},
@@ -373,7 +365,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			input = inputs[i];
 
 			obj = this._getLayer(input.value);
-
 
 			if (input.checked && !this._map.hasLayer(obj.layer)) {
 				L.DomUtil.addClass(input.parentNode.parentNode, 'active');
