@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v1.1.0 - 2017-09-24 
+ * Leaflet Panel Layers v1.2.0 - 2017-10-04 
  * 
  * Copyright 2017 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -14,15 +14,26 @@
  * git@github.com:stefanocudini/leaflet-panel-layers.git 
  * 
  */
+/*
+	Name					Data passed		   Description
+
+	Managed Events:
+	 panel:selected			{layerDef}		   fired after moved and show markerLocation
+	 panel:unselected		{}			       fired after control was expanded
+
+	Public methods:
+	 addBaseLayer()			{panel item}       add new layer item definition to panel as baselayers
+	 addOverlay()           {panel item}       add new layer item definition to panel as overlay
+	 removeLayer()			{panel item}       remove layer item from panel
+	 configToControlLayers  {layerDef}         convert config from Control.PanelLayers to Control.Layers
+*/
 (function (factory) {
 if (typeof define === 'function' && define.amd) {
 	//AMD
 	define(['leaflet'], factory);
-	/* breaks tests in dependent project
-	 } else if (typeof module !== 'undefined') {
+} else if (typeof module !== 'undefined') {
 	 // Node/CommonJS
 	 module.exports = factory(require('leaflet'));
-	 */
 } else {
 	// Browser globals
 	if (typeof window.L === 'undefined')
@@ -34,25 +45,6 @@ if (typeof define === 'function' && define.amd) {
 L.Control.PanelLayers = L.Control.Layers.extend({
 
 	includes: L.version[0]==='1' ? L.Evented.prototype : L.Mixin.Events,
-	//
-	//Events:
-	//	Event				Data passed		Description
-	//
-	//	panel:selected		{layerDef}		fired when an item of panel is added
-	//	panel:unselected	{layerDef}		fired when an item of panel is removed
-	//
-	//Methods:
-	//	Method 			Data passed		Description
-	//
-	//	addBaseLayer	{panel item}	add new layer item definition to panel as baselayers
-	//	addOverlay		{panel item}	add new layer item definition to panel as overlay
-	//	removeLayer	    {panel item}	remove layer item from panel
-	//
-	//Static Methods:
-	//	Method 					Data passed		Description
-	//
-	//	configToControlLayers	{layerDef}		convert config from Control.PanelLayers to Control.Layers
-	//
 
 	options: {
 		compact: false,
@@ -61,7 +53,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		collapsibleGroups: false,
 		buildItem: null,				//function that return row item html node(or html string)
 		title: '',						//title of panel
-		//button: false, //TODO supporto button mode
 		className: '',					//additional class name for panel
 		position: 'topright'
 	},
@@ -111,7 +102,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		L.Control.Layers.prototype.onAdd.call(this, map);
 
 		this._map.on('resize', function(e) {
-			//this._form.style.maxHeight = (e.newSize.y-30)+'px';
 			self._updateHeight(e.newSize.y);
 		});
 
@@ -410,12 +400,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		else
 			this._form.style.height = this._map.getSize().y + 'px';
 
-		//TODO supporto button mode
-		/*if (this.options.button) {
-		 this.options.collapsed = true;
-		 L.DomUtil.addClass(container, this.className+'-button-collapse');
-		 }*/
-
 		if (this.options.collapsed) {
 			if (!L.Browser.android) {
 				L.DomEvent
@@ -437,6 +421,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 			this._map.on('click', this._collapse, this);
 			// TODO keyboard accessibility
+			
 		} else {
 			this._expand();
 		}

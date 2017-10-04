@@ -86,7 +86,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		L.Control.Layers.prototype.onAdd.call(this, map);
 
 		this._map.on('resize', function(e) {
-			//this._form.style.maxHeight = (e.newSize.y-30)+'px';
 			self._updateHeight(e.newSize.y);
 		});
 
