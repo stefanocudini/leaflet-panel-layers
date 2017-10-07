@@ -1,7 +1,6 @@
 
 /* PANEL LAYERS */
-.leaflet-panel-layers .leaflet-panel-layers-list,
-.leaflet-panel-layers.expanded .leaflet-panel-layers-toggle {
+.leaflet-panel-layers .leaflet-panel-layers-list {
 	display: block;
 }
 .leaflet-panel-layers.expanded .leaflet-panel-layers-list {
