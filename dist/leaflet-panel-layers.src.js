@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v1.2.0 - 2017-10-04 
+ * Leaflet Panel Layers v1.2.1 - 2017-10-07 
  * 
  * Copyright 2017 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -401,26 +401,16 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			this._form.style.height = this._map.getSize().y + 'px';
 
 		if (this.options.collapsed) {
-			if (!L.Browser.android) {
+			if (L.Browser.touch)
+				L.DomEvent
+					.on(container, 'click', this._expand, this);
+			else {
 				L.DomEvent
 					.on(container, 'mouseover', this._expand, this)
 					.on(container, 'mouseout', this._collapse, this);
 			}
-			var link = this._layersLink = L.DomUtil.create('a', this.className + '-toggle', container);
-			link.href = '#';
-			link.title = 'Layers';
-
-			if (L.Browser.touch) {
-				L.DomEvent
-					.on(link, 'click', L.DomEvent.stop)
-					.on(link, 'click', this._expand, this);
-			}
-			else {
-				L.DomEvent.on(link, 'focus', this._expand, this);
-			}
 
 			this._map.on('click', this._collapse, this);
-			// TODO keyboard accessibility
 			
 		} else {
 			this._expand();
