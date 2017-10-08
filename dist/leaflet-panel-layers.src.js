@@ -1,5 +1,5 @@
 /* 
- * Leaflet Panel Layers v1.2.1 - 2017-10-07 
+ * Leaflet Panel Layers v1.2.2 - 2017-10-08 
  * 
  * Copyright 2017 Stefano Cudini 
  * stefano.cudini@gmail.com 
@@ -374,6 +374,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_initLayout: function () {
 		var container = this._container = L.DomUtil.create('div', this.className);
+		
+		if(this.options.compact)
+			L.DomUtil.addClass(container, 'compact');
 
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
@@ -395,19 +398,15 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		this._updateHeight();
 
-		if (this.options.compact)
-			L.DomUtil.addClass(container, 'compact');
-		else
-			this._form.style.height = this._map.getSize().y + 'px';
-
 		if (this.options.collapsed) {
-			if (L.Browser.touch)
+
+			if (L.Browser.android)
 				L.DomEvent
 					.on(container, 'click', this._expand, this);
 			else {
 				L.DomEvent
-					.on(container, 'mouseover', this._expand, this)
-					.on(container, 'mouseout', this._collapse, this);
+					.on(container, 'mouseenter', this._expand, this)
+					.on(container, 'mouseleave', this._collapse, this);
 			}
 
 			this._map.on('click', this._collapse, this);
@@ -420,8 +419,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._separator = L.DomUtil.create('div', this.className + '-separator', this._form);
 		this._overlaysList = L.DomUtil.create('div', this.className + '-overlays', this._form);
 
+		/* maybe useless 
 		if (!this.options.compact)
-			L.DomUtil.create('div', this.className + '-margin', this._form);
+			L.DomUtil.create('div', this.className + '-margin', this._form);*/
 
 		if (this.options.title) {
 			var titlabel = L.DomUtil.create('label', this.className + '-title');
@@ -434,10 +434,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_updateHeight: function (h) {
 		h = h || this._map.getSize().y;
+
 		if (this.options.compact)
-			this._form.style.maxHeight = (h - 30) + 'px';
+			this._form.style.maxHeight = h + 'px';
 		else
-			this._form.style.height = (h - 30) + 'px';
+			this._form.style.height = h + 'px';
 	},
 
 	_expand: function () {
