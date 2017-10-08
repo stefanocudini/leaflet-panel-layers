@@ -34,8 +34,9 @@ h3 a:hover {
 	border:2px solid #1978cf;
 	box-shadow: 0 0 8px #999;
 	float:left;
-	width:380px;
-	height:400px;	
+	width:100%;
+	max-width: 600px;
+	height:600px;	
 }
 label {
 	float: left;
