@@ -3,8 +3,13 @@
 <head> 
 <title>Leaflet Panel Layers</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
+<link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.css" />
+<link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.skinNice.css" />
+
 <link rel="stylesheet" href="/maps/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
+
 <link rel="stylesheet" href="icons.css" />
 <link rel="stylesheet" href="../style.css" />
 </head>
@@ -18,6 +23,9 @@
 <div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
 
 <a href="https://github.com/stefanocudini/leaflet-panel-layers"><img id="ribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<script src="https://unpkg.com/jquery@2.1.1/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/ion-rangeslider@2.2.0/js/ion.rangeSlider.js"></script>
 
 <script src="/maps/leaflet/dist/leaflet.js"></script>
 <script src="../src/leaflet-panel-layers.js"></script>
@@ -111,6 +119,64 @@
 			}
 		}
 	) );
+
+	L.control.panelLayers(null, [{
+		group: "WMS Natural Layers",
+		layers: [
+			{
+				active: true,
+				name: "Isolines",
+				layer: {
+					type: "tileLayer.wms",
+					args: ["https://siat.regione.umbria.it/arcgis/services/public/DBT_05_Orografia/MapServer/WMSServer", {
+							layers: '13',
+							format: 'image/png',
+							transparent: true,
+							opacity: 0.5
+						}
+					]
+				}
+			},
+			{
+				active: true,
+				name: "Streams",
+				layer: {
+					type: "tileLayer.wms",
+					args: ["https://siat.regione.umbria.it/arcgis/services/public/DBT_04_Idrografia/MapServer/WMSServer", {
+							layers: '6',
+							format: 'image/png',
+							transparent: true
+						}
+					]
+				}
+			}
+		]
+	}], {
+		position: 'bottomright',
+		buildItem: function(item) {
+
+            var $slider = $('<div class="layer-slider">');
+
+            var $input = $('<input type="text" value="' + item.layer.options.opacity + '" />');
+
+            $slider.append($input);
+
+            $input.ionRangeSlider({
+                min: 0.1,
+                max: 1,
+                step: 0.01,
+                hide_min_max: true,
+                hide_from_to: true,
+                from: item.layer.options.opacity,
+                onChange: function(o) {
+                    item.layer.setOpacity(o.from);
+                }
+            });
+
+            return $slider[0];
+    	}
+	}).addTo(map);
+
 
 </script> 
 
