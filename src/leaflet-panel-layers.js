@@ -273,7 +273,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 			if (!this._groups[obj.group.name]) {
 				var collapsed = false;
-				if (obj.collapsed === true)
+				if (obj.group.collapsed === true || obj.collapsed === true)
 					collapsed = true;
 				this._groups[obj.group.name] = this._createGroup(obj.group, collapsed);
 			}
