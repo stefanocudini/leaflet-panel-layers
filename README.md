@@ -17,7 +17,33 @@ Tested in Leaflet 0.7.3
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/images/leaflet-panel-layers-layout.jpg)
 
-#Usage
+# Options
+| Option	  | Default  | Description                       |
+| --------------- | -------- | ----------------------------------------- |
+| compact	  | false    | panel height minor of map height |
+| collapsed       | false    | panel collapsed at startup |
+| autoZIndex 	  | true     | set zindex layer by order definition |
+| collapsibleGroups| false   | groups of layers is collapsible by button |
+| buildItem	  | null     | function that return row item html node(or html string) |
+| title	          | ''       | title of panel |
+| className	  | ''       | additional class name for panel |
+| position	  | 'topright' | position of control |
+
+# Events
+| Event			 | Data			  | Description                               |
+| ---------------------- | ---------------------- | ----------------------------------------- |
+| 'panel:selected'       | {layerDef}             | fired after moved and show markerLocation |
+| 'panel:unselected'	 | {}	                  | fired after control was expanded          |
+
+# Methods
+| Method		 | Arguments		 | Description                                              |
+| ---------------------- | --------------------- | -------------------------------------------------------- |
+| addBaseLayer()         | layerDef      	 | add new layer item definition to panel as baselayers     |
+| addOverlay()           | 'Text message' 	 | add new layer item definition to panel as overlay        |
+| removeLayer()		 | 'Text searched'	 | remove layer item from panel                             |
+| configToControlLayers()| 'Text searched'	 | convert config from Control.PanelLayers to Control.Layers|
+
+# Usage
 
 **Panel Item Definition formats**
 ```javascript
@@ -202,7 +228,7 @@ $.getJSON('some/url/path.geojson', function(data){
 ```
 
 
-#Build
+# Build
 
 This plugin support [Grunt](http://gruntjs.com/) for building process.
 Therefore the deployment require [NPM](https://npmjs.org/) installed in your system.
