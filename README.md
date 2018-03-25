@@ -17,6 +17,18 @@ Tested in Leaflet 0.7.3
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/images/leaflet-panel-layers-layout.jpg)
 
+# Options
+| Option	  | Default  | Description                       |
+| --------------- | -------- | ----------------------------------------- |
+| compact	  | false    | panel height minor of map height |
+| collapsed       | false    | panel collapsed at startup |
+| autoZIndex 	  | true     | set zindex layer by order definition |
+| collapsibleGroups| false   | groups of layers is collapsible by button |
+| buildItem	  | null     | function that return row item html node(or html string) |
+| title	          | ''       | title of panel |
+| className	  | ''       | additional class name for panel |
+| position	  | 'topright' | position of control |
+
 # Events
 | Event			 | Data			  | Description                               |
 | ---------------------- | ---------------------- | ----------------------------------------- |
