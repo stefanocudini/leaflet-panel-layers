@@ -38,7 +38,7 @@ Tested in Leaflet 0.7.3
 # Methods
 | Method		 | Arguments		 | Description                                              |
 | ---------------------- | --------------------- | -------------------------------------------------------- |
-| addBaseLayer()         | layerDef      	 | add new layer item definition to panel as baselayers     |
+| addBaseLayer()         | layerDef,group,collapsed       	 | add new layer item definition to panel as baselayers     |
 | addOverlay()           | 'Text message' 	 | add new layer item definition to panel as overlay        |
 | removeLayer()		 | 'Text searched'	 | remove layer item from panel                             |
 | configToControlLayers()| 'Text searched'	 | convert config from Control.PanelLayers to Control.Layers|
