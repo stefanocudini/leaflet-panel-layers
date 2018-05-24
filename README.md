@@ -7,15 +7,18 @@ Copyright [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
 
 Tested in Leaflet 0.7.3
 
-**demo:**
+**Demo:**
+
 [labs.easyblog.it/maps/leaflet-panel-layers](http://labs.easyblog.it/maps/leaflet-panel-layers/)
 
 **Source code:**  
+
 [Github](https://github.com/stefanocudini/leaflet-panel-layers)   
 [Bitbucket](https://bitbucket.org/stefanocudini/leaflet-panel-layers)
 [NPM](https://npmjs.org/package/leaflet-panel-layers)
 
-**use cases:**
+**Use Cases:**
+
 [Websites-that-use-Leaflet-Panel-Layers](https://github.com/stefanocudini/leaflet-panel-layers/wiki/Websites-that-use-Leaflet-Panel-Layers)
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/images/leaflet-panel-layers-layout.jpg)
