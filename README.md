@@ -15,6 +15,9 @@ Tested in Leaflet 0.7.3
 [Bitbucket](https://bitbucket.org/stefanocudini/leaflet-panel-layers)
 [NPM](https://npmjs.org/package/leaflet-panel-layers)
 
+**use cases:**
+[Websites-that-use-Leaflet-Panel-Layers](https://github.com/stefanocudini/leaflet-panel-layers/wiki/Websites-that-use-Leaflet-Panel-Layers)
+
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/images/leaflet-panel-layers-layout.jpg)
 
 # Options
