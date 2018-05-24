@@ -1,16 +1,4 @@
-/*
-	Name					Data passed		   Description
 
-	Managed Events:
-	 panel:selected			{layerDef}		   fired after moved and show markerLocation
-	 panel:unselected		{}			       fired after control was expanded
-
-	Public methods:
-	 addBaseLayer()			{panel item}       add new layer item definition to panel as baselayers
-	 addOverlay()           {panel item}       add new layer item definition to panel as overlay
-	 removeLayer()			{panel item}       remove layer item from panel
-	 configToControlLayers  {layerDef}         convert config from Control.PanelLayers to Control.Layers
-*/
 (function (factory) {
 if (typeof define === 'function' && define.amd) {
 	//AMD
