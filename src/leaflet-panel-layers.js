@@ -353,15 +353,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
 
-		if (!L.Browser.touch) {
-			L.DomEvent
-				.disableClickPropagation(container)
-				.disableScrollPropagation(container);
-		} else
-			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
-
-		//FIX IE 11 drag problem
-		L.DomEvent.disableClickPropagation(container);
+		L.DomEvent
+			.disableClickPropagation(container)
+			.disableScrollPropagation(container);
 
 		if (this.options.className)
 			L.DomUtil.addClass(container, this.options.className);
