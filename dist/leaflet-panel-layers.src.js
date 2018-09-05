@@ -1,7 +1,7 @@
 /* 
- * Leaflet Panel Layers v1.2.2 - 2017-10-08 
+ * Leaflet Panel Layers v1.2.3 - 2018-09-05 
  * 
- * Copyright 2017 Stefano Cudini 
+ * Copyright 2018 Stefano Cudini 
  * stefano.cudini@gmail.com 
  * http://labs.easyblog.it/ 
  * 
@@ -14,19 +14,7 @@
  * git@github.com:stefanocudini/leaflet-panel-layers.git 
  * 
  */
-/*
-	Name					Data passed		   Description
 
-	Managed Events:
-	 panel:selected			{layerDef}		   fired after moved and show markerLocation
-	 panel:unselected		{}			       fired after control was expanded
-
-	Public methods:
-	 addBaseLayer()			{panel item}       add new layer item definition to panel as baselayers
-	 addOverlay()           {panel item}       add new layer item definition to panel as overlay
-	 removeLayer()			{panel item}       remove layer item from panel
-	 configToControlLayers  {layerDef}         convert config from Control.PanelLayers to Control.Layers
-*/
 (function (factory) {
 if (typeof define === 'function' && define.amd) {
 	//AMD
@@ -381,15 +369,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
 
-		if (!L.Browser.touch) {
-			L.DomEvent
-				.disableClickPropagation(container)
-				.disableScrollPropagation(container);
-		} else
-			L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
-
-		//FIX IE 11 drag problem
-		L.DomEvent.disableClickPropagation(container);
+		L.DomEvent
+			.disableClickPropagation(container)
+			.disableScrollPropagation(container);
 
 		if (this.options.className)
 			L.DomUtil.addClass(container, this.options.className);
