@@ -346,7 +346,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_initLayout: function () {
 		var container = this._container = L.DomUtil.create('div', this.className);
-		
+
 		if(this.options.compact)
 			L.DomUtil.addClass(container, 'compact');
 
@@ -376,7 +376,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			}
 
 			this._map.on('click', this._collapse, this);
-			
+
 		} else {
 			this._expand();
 		}
@@ -385,7 +385,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._separator = L.DomUtil.create('div', this.className + '-separator', this._form);
 		this._overlaysList = L.DomUtil.create('div', this.className + '-overlays', this._form);
 
-		/* maybe useless 
+		/* maybe useless
 		if (!this.options.compact)
 			L.DomUtil.create('div', this.className + '-margin', this._form);*/
 

@@ -1,18 +1,18 @@
-/* 
- * Leaflet Panel Layers v1.2.3 - 2018-09-05 
- * 
- * Copyright 2018 Stefano Cudini 
- * stefano.cudini@gmail.com 
- * http://labs.easyblog.it/ 
- * 
- * Licensed under the MIT license. 
- * 
- * Demos: 
- * http://labs.easyblog.it/maps/leaflet-panel-layers/ 
- * 
- * Source: 
- * git@github.com:stefanocudini/leaflet-panel-layers.git 
- * 
+/*
+ * Leaflet Panel Layers v1.2.3 - 2018-09-05
+ *
+ * Copyright 2018 Stefano Cudini
+ * stefano.cudini@gmail.com
+ * http://labs.easyblog.it/
+ *
+ * Licensed under the MIT license.
+ *
+ * Demos:
+ * http://labs.easyblog.it/maps/leaflet-panel-layers/
+ *
+ * Source:
+ * git@github.com:stefanocudini/leaflet-panel-layers.git
+ *
  */
 
 (function (factory) {
@@ -362,7 +362,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	_initLayout: function () {
 		var container = this._container = L.DomUtil.create('div', this.className);
-		
+
 		if(this.options.compact)
 			L.DomUtil.addClass(container, 'compact');
 
@@ -392,7 +392,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			}
 
 			this._map.on('click', this._collapse, this);
-			
+
 		} else {
 			this._expand();
 		}
@@ -401,7 +401,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		this._separator = L.DomUtil.create('div', this.className + '-separator', this._form);
 		this._overlaysList = L.DomUtil.create('div', this.className + '-overlays', this._form);
 
-		/* maybe useless 
+		/* maybe useless
 		if (!this.options.compact)
 			L.DomUtil.create('div', this.className + '-margin', this._form);*/
 

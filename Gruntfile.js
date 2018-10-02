@@ -54,7 +54,7 @@ grunt.initConfig({
 		},
 		dist: {
 			files: {
-				'dist/leaflet-panel-layers.src.js': ['src/leaflet-panel-layers.js'],			
+				'dist/leaflet-panel-layers.src.js': ['src/leaflet-panel-layers.js'],
 				'dist/leaflet-panel-layers.src.css': ['src/leaflet-panel-layers.css']
 			}
 		}
@@ -91,13 +91,13 @@ grunt.initConfig({
 			options: { livereload: true },
 			files: ['src/*','examples/*'],
 			tasks: ['clean','concat','cssmin','jshint']
-		}		
+		}
 	}
 });
 
 grunt.registerTask('default', [
 	'clean',
-	'concat',	
+	'concat',
 	'cssmin',
 	'jshint',
 	'uglify'

@@ -10,7 +10,7 @@
             }
         },
         {
-            "active": true,        	
+            "active": true,
             "name": "Landscape",
             "layer": {
                 "type": "tileLayer",
@@ -18,7 +18,7 @@
                     "http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
                 ]
             }
-        },        
+        },
         {
             "name": "Transports",
             "layer": {
@@ -67,6 +67,6 @@
                     }
                 ]
             }
-        }        
+        }
     ]
 }

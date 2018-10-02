@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<title>Leaflet Panel Layers</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Leaflet Panel Layers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.css" />
 <link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.skinNice.css" />
@@ -95,7 +95,7 @@
 				background: '../images/icons/parking.png',
 				layer: L.geoJson(Parking, {pointToLayer: featureToMarker })
 			}
-		], 
+		],
 		//options
 		{
 			buildItem: function(item) {
@@ -106,10 +106,10 @@
 					node = L.DomUtil.create('span','');
 
 				node.innerHTML = label;
-				
+
 				if(points)
 					node.style.fontSize = size;
-	
+
 				if(item.background) {
 					node.style.background = "url('"+item.background+"') center left no-repeat";
 					node.style.paddingLeft = '24px';
@@ -178,7 +178,7 @@
 	}).addTo(map);
 
 
-</script> 
+</script>
 
 <script type="text/javascript" src="/labs-common.js"></script>
 
