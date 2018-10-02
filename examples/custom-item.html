@@ -54,7 +54,7 @@
 			icon: L.divIcon({
 				className: 'marker-'+feature.properties.amenity,
 				html: iconByName(feature.properties.amenity),
-				iconUrl: '../images/markers/'+feature.properties.amenity+'.png',
+				iconUrl: 'images/markers/'+feature.properties.amenity+'.png',
 				iconSize: [25, 41], iconAnchor: [12, 41],
 				popupAnchor: [1, -34], shadowSize: [41, 41]
 			})
@@ -77,22 +77,22 @@
 		[
 			{
 				name: "Bar",
-				background: '../images/icons/bar.png',
+				background: 'images/icons/bar.png',
 				layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
 			},
 			{
 				name: "Drinking Water",
-				background: '../images/icons/drinking_water.png',
+				background: 'images/icons/drinking_water.png',
 				layer: L.geoJson(Drinking_water, {pointToLayer: featureToMarker })
 			},
 			{
 				name: "Fuel",
-				background: '../images/icons/fuel.png',
+				background: 'images/icons/fuel.png',
 				layer: L.geoJson(Fuel, {pointToLayer: featureToMarker })
 			},
 			{
 				name: "Parking",
-				background: '../images/icons/parking.png',
+				background: 'images/icons/parking.png',
 				layer: L.geoJson(Parking, {pointToLayer: featureToMarker })
 			}
 		],
