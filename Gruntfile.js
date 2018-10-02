@@ -39,11 +39,8 @@ grunt.initConfig({
 		options: {
 			globals: {
 				console: true,
-				module: true
+				module: true,
 			},
-			"-W099": true,	//ignora tabs e space warning
-			"-W033": true,
-			"-W044": true	//ignore regexp
 		},
 		files: ['src/*.js']
 	},

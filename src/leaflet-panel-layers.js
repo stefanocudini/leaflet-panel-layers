@@ -1,11 +1,10 @@
-
 (function (factory) {
 if (typeof define === 'function' && define.amd) {
 	//AMD
 	define(['leaflet'], factory);
 } else if (typeof module !== 'undefined') {
-	 // Node/CommonJS
-	 module.exports = factory(require('leaflet'));
+	// Node/CommonJS
+	module.exports = factory(require('leaflet'));
 } else {
 	// Browser globals
 	if (typeof window.L === 'undefined')
@@ -191,10 +190,11 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 			self._onInputClick();
 
-			if (e.target.checked)
-				self.fire('panel:selected', e.target._layer)
-			else
-				self.fire('panel:unselected', e.target._layer)
+			if (e.target.checked) {
+				self.fire('panel:selected', e.target._layer);
+			} else {
+				self.fire('panel:unselected', e.target._layer);
+			}
 
 		}, this);
 
