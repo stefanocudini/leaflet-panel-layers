@@ -19,6 +19,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 	options: {
 		compact: false,
+		compactOffset: 0,
 		collapsed: false,
 		autoZIndex: true,
 		collapsibleGroups: false,
@@ -402,7 +403,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		h = h || this._map.getSize().y;
 
 		if (this.options.compact)
-			this._form.style.maxHeight = h + 'px';
+			this._form.style.maxHeight = (h - this.options.compactOffset) + 'px';
 		else
 			this._form.style.height = h + 'px';
 	},
