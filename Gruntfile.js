@@ -13,21 +13,21 @@ grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
 	meta: {
 		banner:
-		'/* \n'+
-		' * Leaflet Panel Layers v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> \n'+
-		' * \n'+
-		' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> \n'+
-		' * <%= pkg.author.email %> \n'+
-		' * <%= pkg.author.url %> \n'+
-		' * \n'+
-		' * Licensed under the <%= pkg.license %> license. \n'+
-		' * \n'+
-		' * Demos: \n'+
-		' * <%= pkg.homepage %> \n'+
-		' * \n'+
-		' * Source: \n'+
-		' * <%= pkg.repository.url %> \n'+
-		' * \n'+
+		'/**\n'+
+		' * Leaflet Panel Layers v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n'+
+		' *\n'+
+		' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n'+
+		' * <%= pkg.author.email %>\n'+
+		' * <%= pkg.author.url %>\n'+
+		' *\n'+
+		' * Licensed under the <%= pkg.license %> license.\n'+
+		' *\n'+
+		' * Demos:\n'+
+		' * <%= pkg.homepage %>\n'+
+		' *\n'+
+		' * Source:\n'+
+		' * <%= pkg.repository.url %>\n'+
+		' *\n'+
 		' */\n'
 	},
 	clean: {
