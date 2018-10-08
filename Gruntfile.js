@@ -13,21 +13,21 @@ grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
 	meta: {
 		banner:
-		'/* \n'+
-		' * Leaflet Panel Layers v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> \n'+
-		' * \n'+
-		' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> \n'+
-		' * <%= pkg.author.email %> \n'+
-		' * <%= pkg.author.url %> \n'+
-		' * \n'+
-		' * Licensed under the <%= pkg.license %> license. \n'+
-		' * \n'+
-		' * Demos: \n'+
-		' * <%= pkg.homepage %> \n'+
-		' * \n'+
-		' * Source: \n'+
-		' * <%= pkg.repository.url %> \n'+
-		' * \n'+
+		'/**\n'+
+		' * Leaflet Panel Layers v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n'+
+		' *\n'+
+		' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n'+
+		' * <%= pkg.author.email %>\n'+
+		' * <%= pkg.author.url %>\n'+
+		' *\n'+
+		' * Licensed under the <%= pkg.license %> license.\n'+
+		' *\n'+
+		' * Demos:\n'+
+		' * <%= pkg.homepage %>\n'+
+		' *\n'+
+		' * Source:\n'+
+		' * <%= pkg.repository.url %>\n'+
+		' *\n'+
 		' */\n'
 	},
 	clean: {
@@ -39,11 +39,8 @@ grunt.initConfig({
 		options: {
 			globals: {
 				console: true,
-				module: true
+				module: true,
 			},
-			"-W099": true,	//ignora tabs e space warning
-			"-W033": true,
-			"-W044": true	//ignore regexp
 		},
 		files: ['src/*.js']
 	},
@@ -54,7 +51,7 @@ grunt.initConfig({
 		},
 		dist: {
 			files: {
-				'dist/leaflet-panel-layers.src.js': ['src/leaflet-panel-layers.js'],			
+				'dist/leaflet-panel-layers.src.js': ['src/leaflet-panel-layers.js'],
 				'dist/leaflet-panel-layers.src.css': ['src/leaflet-panel-layers.css']
 			}
 		}
@@ -91,13 +88,13 @@ grunt.initConfig({
 			options: { livereload: true },
 			files: ['src/*','examples/*'],
 			tasks: ['clean','concat','cssmin','jshint']
-		}		
+		}
 	}
 });
 
 grunt.registerTask('default', [
 	'clean',
-	'concat',	
+	'concat',
 	'cssmin',
 	'jshint',
 	'uglify'

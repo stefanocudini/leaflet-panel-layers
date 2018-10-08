@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<title>Leaflet Panel Layers</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Leaflet Panel Layers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="/maps/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
 <link rel="stylesheet" href="icons.css" />
@@ -61,7 +61,7 @@ var baseLayers = [
 		name: "OpenStreetMap",
 		layer: osmLayer
 	},
-	{	
+	{
 		name: "OpenCycleMap",
 		layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
 	},
@@ -86,19 +86,19 @@ var overLayers = [
 		name: "Fuel",
 		icon: iconByName('fuel'),
 		layer: L.geoJson(Fuel, {pointToLayer: featureToMarker })
-	},	
+	},
 	{
 		name: "Parking",
 		icon: iconByName('parking'),
 		layer: L.geoJson(Parking, {pointToLayer: featureToMarker })
-	}	
+	}
 ];
 
 var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers);
 
 map.addControl(panelLayers);
 
-</script> 
+</script>
 
 <script type="text/javascript" src="/labs-common.js"></script>
 

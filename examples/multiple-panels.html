@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<title>Leaflet Panel Layers</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Leaflet Panel Layers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="/maps/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
 <link rel="stylesheet" href="icons.css" />
@@ -49,7 +49,7 @@ var conf = {
                 			maxZoom: 16
                 		})
                 	},
-                    {   	
+                    {
                         name: "Landscape",
                         layer: {
                             type: "tileLayer",
@@ -74,7 +74,7 @@ var conf = {
                                 }
                             ]
                         }
-                    }, 
+                    },
                     {
                         name: "Land Cover 2009",
                         layer: {
@@ -108,7 +108,7 @@ var conf = {
                         }
                     ]
                 }
-            }, 
+            },
             {
                 name: "Loss",
                 layer: {
@@ -157,12 +157,12 @@ map.on('zoomend', function() {
     var MeterPerPixel = maxMeters/x ;
     // say this is your scale
     // This is the scale denominator
-    console.log('scale denominator: ',MeterPerPixel*scale.options.maxWidth);  
+    console.log('scale denominator: ',MeterPerPixel*scale.options.maxWidth);
 
     console.log('zoom', map.getZoom() )
 });
 
-</script> 
+</script>
 
 <script type="text/javascript" src="/labs-common.js"></script>
 

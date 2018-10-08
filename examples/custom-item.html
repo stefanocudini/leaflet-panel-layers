@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<title>Leaflet Panel Layers</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Leaflet Panel Layers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.css" />
 <link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.skinNice.css" />
@@ -54,7 +54,7 @@
 			icon: L.divIcon({
 				className: 'marker-'+feature.properties.amenity,
 				html: iconByName(feature.properties.amenity),
-				iconUrl: '../images/markers/'+feature.properties.amenity+'.png',
+				iconUrl: 'images/markers/'+feature.properties.amenity+'.png',
 				iconSize: [25, 41], iconAnchor: [12, 41],
 				popupAnchor: [1, -34], shadowSize: [41, 41]
 			})
@@ -77,25 +77,25 @@
 		[
 			{
 				name: "Bar",
-				background: '../images/icons/bar.png',
+				background: 'images/icons/bar.png',
 				layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
 			},
 			{
 				name: "Drinking Water",
-				background: '../images/icons/drinking_water.png',
+				background: 'images/icons/drinking_water.png',
 				layer: L.geoJson(Drinking_water, {pointToLayer: featureToMarker })
 			},
 			{
 				name: "Fuel",
-				background: '../images/icons/fuel.png',
+				background: 'images/icons/fuel.png',
 				layer: L.geoJson(Fuel, {pointToLayer: featureToMarker })
 			},
 			{
 				name: "Parking",
-				background: '../images/icons/parking.png',
+				background: 'images/icons/parking.png',
 				layer: L.geoJson(Parking, {pointToLayer: featureToMarker })
 			}
-		], 
+		],
 		//options
 		{
 			buildItem: function(item) {
@@ -106,10 +106,10 @@
 					node = L.DomUtil.create('span','');
 
 				node.innerHTML = label;
-				
+
 				if(points)
 					node.style.fontSize = size;
-	
+
 				if(item.background) {
 					node.style.background = "url('"+item.background+"') center left no-repeat";
 					node.style.paddingLeft = '24px';
@@ -178,7 +178,7 @@
 	}).addTo(map);
 
 
-</script> 
+</script>
 
 <script type="text/javascript" src="/labs-common.js"></script>
 
