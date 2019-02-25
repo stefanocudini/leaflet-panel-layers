@@ -1,7 +1,7 @@
 /**
- * Leaflet Panel Layers v1.2.4 - 2018-10-08
+ * Leaflet Panel Layers v1.2.5 - 2019-02-25
  *
- * Copyright 2018 Stefano Cudini
+ * Copyright 2019 Stefano Cudini
  * stefano.cudini@gmail.com
  * http://labs.easyblog.it/
  *
@@ -377,7 +377,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		if (this.options.className)
 			L.DomUtil.addClass(container, this.options.className);
 
-		this._form = L.DomUtil.create('form', this.className + '-list');
+		this._section = this._form = L.DomUtil.create('form', this.className + '-list');
 
 		this._updateHeight();
 
