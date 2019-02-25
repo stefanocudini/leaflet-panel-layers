@@ -1,6 +1,8 @@
 Leaflet Panel Layers
 ==============
 
+[![npm version](https://badge.fury.io/js/leaflet-panel-layers.svg)](http://badge.fury.io/js/leaflet-panel-layers)
+
 Leaflet Control Layers extended with support groups and icons
 
 Copyright [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
@@ -13,9 +15,7 @@ Tested in Leaflet 0.7.x, 1.4.x
 
 **Source code:**  
 
-[Github](https://github.com/stefanocudini/leaflet-panel-layers)   
-[Bitbucket](https://bitbucket.org/stefanocudini/leaflet-panel-layers)
-[NPM](https://npmjs.org/package/leaflet-panel-layers)
+[Github](https://github.com/stefanocudini/leaflet-panel-layers)  
 
 **Use Cases:**
 
