@@ -2,12 +2,15 @@
 
 module.exports = function(grunt) {
 
+grunt.util.linefeed = '\n';
+
 grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-contrib-concat');
 grunt.loadNpmTasks('grunt-contrib-clean');
 grunt.loadNpmTasks('grunt-contrib-cssmin');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-banner');
 
 grunt.initConfig({
   pkg: grunt.file.readJSON('package.json'),
@@ -32,56 +35,73 @@ grunt.initConfig({
   },
   clean: {
     dist: {
-      src: ['dist/*']
-    }
+      src: ['dist/*'],
+    },
   },
   jshint: {
     options: {
+      jshintrc: true,
       globals: {
         console: true,
         module: true,
       },
     },
-    files: ['src/*.js']
+    files: ['src/*.js'],
   },
   concat: {
     //TODO cut out SearchMarker
     options: {
-      banner: '<%= meta.banner %>'
+      banner: '<%= meta.banner %>',
     },
     dist: {
       files: {
         'dist/leaflet-panel-layers.src.js': ['src/leaflet-panel-layers.js'],
-        'dist/leaflet-panel-layers.src.css': ['src/leaflet-panel-layers.css']
-      }
-    }
+        'dist/leaflet-panel-layers.src.css': ['src/leaflet-panel-layers.css'],
+      },
+    },
   },
   uglify: {
-    options: {
-      banner: '<%= meta.banner %>'
-    },
     dist: {
       files: {
-        'dist/leaflet-panel-layers.min.js': ['dist/leaflet-panel-layers.src.js']
-      }
-    }
+        'dist/leaflet-panel-layers.min.js': ['dist/leaflet-panel-layers.src.js'],
+      },
+    },
   },
   cssmin: {
     combine: {
       files: {
-        'dist/leaflet-panel-layers.min.css': ['src/leaflet-panel-layers.css']
-      }
-    },
-    options: {
-      banner: '<%= meta.banner %>'
+        'dist/leaflet-panel-layers.min.css': ['src/leaflet-panel-layers.css'],
+      },
     },
     minify: {
       expand: true,
       cwd: 'dist/',
       files: {
-        'dist/leaflet-panel-layers.min.css': ['src/leaflet-panel-layers.css']
-      }
-    }
+        'dist/leaflet-panel-layers.min.css': ['src/leaflet-panel-layers.css'],
+      },
+    },
+  },
+  usebanner: {
+    options: {
+      position: 'top',
+      linebreak: false,
+    },
+    css: {
+      options: {
+        banner: '<%= meta.banner %>',
+      },
+      files: {
+        src: 'dist/leaflet-panel-layers.min.css',
+      },
+    },
+    js: {
+      options: {
+        banner: '<%= meta.banner %>',
+      },
+      files: {
+        src: 'dist/leaflet-panel-layers.min.js',
+      },
+    },
   },
   watch: {
     dist: {
@@ -96,8 +116,10 @@ grunt.registerTask('default', [
   'clean',
   'concat',
   'cssmin',
+  'usebanner:css',
   'jshint',
-  'uglify'
+  'uglify',
+  'usebanner:js',
 ]);
 
 };
