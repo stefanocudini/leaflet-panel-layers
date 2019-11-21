@@ -85,6 +85,9 @@ L.Control.PanelLayers = L.Control.Layers.extend({
       this._updateHeight(e.newSize.y);
     }, this);
 
+    // update group checkboxes
+    this._onInputClick();
+
     return this._container;
   },
 
@@ -275,7 +278,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
       }
 
       if (!this._groups[obj.group.name]) {
-        this._groups[obj.group.name] = this._createGroup(obj.group, obj.collapsed === true);
+        this._groups[obj.group.name] = this._createGroup(obj.group, obj.collapsed === true, obj.overlay);
       }
 
       list.appendChild(this._groups[obj.group.name]);
@@ -290,11 +293,12 @@ L.Control.PanelLayers = L.Control.Layers.extend({
   },
 
 
-  _createGroup: function (groupdata, isCollapsed) {
+  _createGroup: function (groupdata, isCollapsed, isOverlay) {
     var groupdiv   = L.DomUtil.create('div',   this.className + '-group');
     var grouplabel = L.DomUtil.create('label', this.className + '-grouplabel', groupdiv);
     var groupexp;  // +/-
     var grouptit;  // name
+    var groupchb;  // checkbox
 
     // collapsible group
     if (this.options.collapsibleGroups) {
@@ -307,7 +311,10 @@ L.Control.PanelLayers = L.Control.Layers.extend({
       groupexp = L.DomUtil.create('i', this.className + '-icon', grouplabel);
       groupexp.innerHTML = (isCollapsed === true ? ' + ' : ' - ');
       // click on group
-      L.DomEvent.on(grouplabel, 'click', function () {
+      L.DomEvent.on(grouplabel, 'click', function (e) {
+        // do not trigger the checkbox that we might have
+        e.stopPropagation();
+        e.preventDefault();
         // collapse
         if (L.DomUtil.hasClass(groupdiv, 'expanded')) {
           L.DomUtil.removeClass(groupdiv, 'expanded');
@@ -327,23 +334,94 @@ L.Control.PanelLayers = L.Control.Layers.extend({
     grouptit = L.DomUtil.create('span',  this.className + '-title', grouplabel);
     grouptit.innerHTML = groupdata.name;
 
+    // group with checkbox
+    if (isOverlay && this.options.groupCheckboxes) {
+      // create checkbox
+      groupchb = L.DomUtil.create('input', this.className + '-selector', grouplabel);
+      groupchb.type  = 'checkbox';
+      groupchb.value = 'group';
+      groupchb.name  = groupdata.name;
+      groupchb.defaultChecked = false;
+      // click on checkbox
+      L.DomEvent.on(groupchb, 'click', this._onGroupClick, this);
+    }
+
     return groupdiv;
   },
+
+
+  _onGroupClick: function (e) {
+    var input, obj;
+    var group     = e.target;
+    var inputs    = this._form.getElementsByClassName(this.className + '-selector');
+    var inputsLen = inputs.length;
+    var changes   = [];
+
+    // do not trigger the label that could collapse/expand the group
+    e.stopPropagation();
+
+    // all layer checkboxes
+    for (var i = 0; i < inputsLen; i++) {
+      input = inputs[i];
+      if (input.value == 'group') { continue; }
+      obj = this._getLayer(input.value);
+      if (obj.group && obj.group.name === group.name) {
+        // change checkbox values
+        if (input.checked !== group.checked) {
+          changes.push(input);
+          input.checked = group.checked;
+        }
+      }
+    }
+
+    // do the updates to the layers
+    this._onInputClick();
+
+    // fire the event that the layers were (un)selected to leaflet
+    for (var j in changes) {
+      this.fire((group.checked ? 'panel:selected' : 'panel:unselected'), changes[j]._layer);
+    }
+  },
+
 
   _onInputClick: function () {
     var input;
     var obj;
     var key;
+    var g;
     var inputs = this._form.getElementsByClassName(this.className + '-selector');
     var inputsLen = inputs.length;
+    var groups = {};
+
+    // initialize groups
+    for (key in this._groups) {
+      groups[key] = {
+        input   : null,
+        checked : 0,
+        total   : 0,
+      };
+    }
 
     this._handlingClick = true;
 
     // all layer checkboxes
     for (var i = 0; i < inputsLen; i++) {
       input = inputs[i];
+      if (input.value == 'group') {
+        // remember group input
+        groups[input.name].input = input;
+        continue;
+      }
 
       obj = this._getLayer(input.value);
+
+      // if the obj is part of a group, count up
+      if (obj.group) {
+        groups[obj.group.name].total++;
+        if (input.checked) {
+          groups[obj.group.name].checked++;
+        }
+      }
 
       // add the layer to the map
       if (input.checked && !this._map.hasLayer(obj.layer)) {
@@ -358,6 +436,29 @@ L.Control.PanelLayers = L.Control.Layers.extend({
     }
 
     this._handlingClick = false;
+
+    // update all groups that have checkboxes
+    for (key in groups) {
+      g = groups[key];
+      if (! g.input) { continue; }
+
+      // all
+      if (g.checked === g.total) {
+        g.input.indeterminate = false;
+        g.input.checked = true;
+      }
+      // none
+      else if (g.checked === 0) {
+        g.input.indeterminate = false;
+        g.input.checked = false;
+      }
+      // some
+      else {
+        g.input.indeterminate = true;
+        // determine whether the next click selects or deselects all by the amount
+        g.input.checked = (g.checked / g.total) >= 0.5;
+      }
+    }
 
     this._refocusOnMap();
   },
