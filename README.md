@@ -11,11 +11,11 @@ Tested in Leaflet 0.7.x, 1.4.x
 
 **Demo:**
 
-[labs.easyblog.it/maps/leaflet-panel-layers](http://labs.easyblog.it/maps/leaflet-panel-layers/)
+[dev-server.uca.es](http://dev-server.uca.es)
 
 **Source code:**  
 
-[Github](https://github.com/stefanocudini/leaflet-panel-layers)  
+[Github](https://github.com/manuelespinosa/leaflet-panel-layers)  
 
 **Use Cases:**
 
