@@ -34,6 +34,7 @@ Tested in Leaflet 0.7.x, 1.4.x
 | title	          | ''       | title of panel |
 | className	  | ''       | additional class name for panel |
 | position	  | 'topright' | position of control |
+| exclusiveGroup  | ''       | Title of the exclusive group. Only one item will be selectable of each 'exclusiveGroup'|
 
 # Events
 | Event			 | Data			  | Description                               |
