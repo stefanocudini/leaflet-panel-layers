@@ -5,9 +5,9 @@ Leaflet Panel Layers
 
 Leaflet Control Layers extended with support groups and icons
 
-Copyright [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/)
+Copyright [Stefano Cudini](http://labs.easyblog.it/stefano-cudini/) and Manuel Espinosa
 
-Tested in Leaflet 0.7.x, 1.4.x
+Tested in Leaflet 0.7.x, 1.4.x, 1.6.x
 
 **Demo:**
 
@@ -18,8 +18,6 @@ Tested in Leaflet 0.7.x, 1.4.x
 [Github](https://github.com/manuelespinosa/leaflet-panel-layers)  
 
 **Use Cases:**
-
-[Websites-that-use-Leaflet-Panel-Layers](https://github.com/stefanocudini/leaflet-panel-layers/wiki/Websites-that-use-Leaflet-Panel-Layers)
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/examples/images/screenshot/leaflet-panel-layers-layout.jpg)
 
