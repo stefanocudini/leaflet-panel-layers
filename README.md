@@ -19,7 +19,7 @@ Tested in Leaflet 0.7.x, 1.4.x, 1.6.x
 
 **Use Cases:**
 
-![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/examples/images/screenshot/leaflet-panel-layers-layout.jpg)
+![Image](https://raw.githubusercontent.com/manuelespinosa/leaflet-panel-layers/master/examples/images/screenshot/imagen.jpg)
 
 # Options
 | Option	  | Default  | Description                       |
