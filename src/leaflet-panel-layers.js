@@ -284,17 +284,19 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 			groupdiv = L.DomUtil.create('div', this.className + '-group'),
 			grouplabel, grouptit, groupexp;
 
+		grouplabel = L.DomUtil.create('label', this.className + '-grouplabel', groupdiv);
+
 		if (this.options.collapsibleGroups) {
 
 			L.DomUtil.addClass(groupdiv, 'collapsible');
 
-			groupexp = L.DomUtil.create('i', this.className + '-icon', groupdiv);
+			groupexp = L.DomUtil.create('i', this.className + '-icon', grouplabel);
 			if (isCollapsed === true)
 				groupexp.innerHTML = ' + ';
 			else
 				groupexp.innerHTML = ' - ';
 
-			L.DomEvent.on(groupexp, 'click', function () {
+			L.DomEvent.on(grouplabel, 'click', function () {
 				if (L.DomUtil.hasClass(groupdiv, 'expanded')) {
 					L.DomUtil.removeClass(groupdiv, 'expanded');
 					groupexp.innerHTML = ' + ';
@@ -309,7 +311,6 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				L.DomUtil.addClass(groupdiv, 'expanded');
 		}
 
-		grouplabel = L.DomUtil.create('label', this.className + '-grouplabel', groupdiv);
 		grouptit = L.DomUtil.create('span', this.className + '-title', grouplabel);
 		grouptit.innerHTML = groupdata.name;
 
