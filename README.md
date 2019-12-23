@@ -67,6 +67,8 @@ Tested in Leaflet 0.7.x, 1.4.x
 		},
 	}
 ```
+type contains a Leaflet method in this case L.geoJson()
+args is the arguments passed to the method: L.geoJson(river)
 ```javascript
 	{
 		group: "Title Group",
