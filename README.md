@@ -18,8 +18,8 @@ Tested in Leaflet 0.7.x, 1.4.x
 [Github](https://github.com/stefanocudini/leaflet-panel-layers)  
 
 **Use Cases:**
-
-[Websites-that-use-Leaflet-Panel-Layers](https://github.com/stefanocudini/leaflet-panel-layers/wiki/Websites-that-use-Leaflet-Panel-Layers)
+* [EnviroMap by EnvironSensing](http://dev-server.uca.es/)
+* [Leaflet Control Search (Official demos)](http://labs.easyblog.it/maps/leaflet-search/)
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/examples/images/screenshot/leaflet-panel-layers-layout.jpg)
 
