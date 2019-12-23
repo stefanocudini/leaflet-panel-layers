@@ -1,5 +1,5 @@
 /**
- * Leaflet Panel Layers v1.2.5 - 2019-02-25
+ * Leaflet Panel Layers v1.2.6 - 2019-12-23
  *
  * Copyright 2019 Stefano Cudini
  * stefano.cudini@gmail.com
@@ -76,7 +76,8 @@
 .leaflet-panel-layers-group.collapsible:not(.expanded) .leaflet-panel-layers-item {
 	display: none;
 }
-.leaflet-panel-layers-group.collapsible .leaflet-panel-layers-icon:first-child {
+.leaflet-panel-layers-group.collapsible .leaflet-panel-layers-grouplabel {
+	display: block;
 	cursor: pointer;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;

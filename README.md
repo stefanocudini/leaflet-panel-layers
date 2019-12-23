@@ -19,7 +19,11 @@ Tested in Leaflet 0.7.x, 1.4.x, 1.6.x
 
 **Use Cases:**
 
-![Image](https://raw.githubusercontent.com/manuelespinosa/leaflet-panel-layers/master/examples/images/screenshot/imagen.png)
+* [EnviroMap by EnvironSensing](http://dev-server.uca.es/)
+* [Leaflet Control Search (Official demos)](http://labs.easyblog.it/maps/leaflet-search/)
+
+![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/examples/images/screenshot/leaflet-panel-layers-layout.jpg)
+
 
 # Options
 | Option	  | Default  | Description                       |
@@ -58,6 +62,9 @@ Tested in Leaflet 0.7.x, 1.4.x, 1.6.x
 		layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
 	}
 ```
+definition in JSON format permit to store simply the configuration 
+type contains a Leaflet method in this case L.geoJson()
+args is the arguments passed to the method: L.geoJson(river)
 ```javascript
 	{
 		layer: {
@@ -66,6 +73,8 @@ Tested in Leaflet 0.7.x, 1.4.x, 1.6.x
 		},
 	}
 ```
+definition of a group
+
 ```javascript
 	{
 		group: "Title Group",
