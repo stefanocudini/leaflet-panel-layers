@@ -3,7 +3,7 @@
 <head>
 <title>Leaflet Panel Layers</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="/maps/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 <link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
 <link rel="stylesheet" href="icons.css" />
 <link rel="stylesheet" href="style.css" />
@@ -20,6 +20,7 @@
 	width: 150px;
 	float: left;
 	cursor: pointer;
+  outline: 2px solid gray;
 }
 
 </style>
@@ -34,23 +35,37 @@
 <div id="copy"><a href="http://labs.easyblog.it/">Labs</a> &bull; <a rel="author" href="http://labs.easyblog.it/stefano-cudini/">Stefano Cudini</a></div>
 
 <a href="https://github.com/stefanocudini/leaflet-panel-layers"><img id="ribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-
-<script src="/maps/leaflet/dist/leaflet-src.js"></script>
+<!--
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+-->
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet-src.js"></script>
 <script src="../src/leaflet-panel-layers.js"></script>
 <script>
+//(function() {
 
+  function getXYZ(latlng, zoom) {
+    function toRad(n) {
+      return n * Math.PI / 180;
+    }
+      return {
+        z: zoom,
+        x: parseInt(Math.floor( (latlng.lng + 180) / 360 * (1<<zoom) )),
+        y: parseInt(Math.floor( (1 - Math.log(Math.tan(toRad(latlng.lat)) + 1 / Math.cos(toRad(latlng.lat))) / Math.PI) / 2 * (1<<zoom) ))
+    }
+  }
+    
 	var map = L.map('map', {
-			zoom: 15,
+			zoom: 10,
 			attributionControl: false,
-			center: L.latLng([42,12]),
-			maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5),
+			center: L.latLng([42,12])
+//			maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
 		});
 
 	var baselayers = [
 			{
 				active: true,
 				name: "Open Street Map",
-				layer: L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png'),
+				layer: L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png')
 			},
 			{
 				name: "Landscape",
@@ -68,54 +83,30 @@
 
 	L.control.panelLayers(baselayers, null, {
 		buildItem: function(item) {
-
-			function getXYZ(latlng, zoom) {
-				var latRad = latlng.lat * Math.PI / 180,
-					lngRad = latlng.lng * Math.PI / 180;
-			    return {
-			    	z: zoom,
-			    	x: parseInt(Math.floor( (latlng.lng + 180) / 360 * (1<<zoom) )),
-			    	y: parseInt(Math.floor( (1 - Math.log(Math.tan(lngRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * (1<<zoom) ))
-				}
-			}
-
-			var xyz = getXYZ(map.getCenter(), map.getZoom() ),
-				url = item.layer.getTileUrl( xyz );
-
+			var xyz = getXYZ(map.getCenter(), map.getZoom() );
+			if (typeof item.layer._tileZoom === 'undefined') item.layer._tileZoom = map.getZoom();  // a hack for layers that are not active
+			var url = item.layer.getTileUrl( xyz );
 			var node = L.DomUtil.create('div','panel-thumb');
-
 			node.style.background = "url('"+url+"') no-repeat top left";
-			node.innerHTML = item.name;
-
+//			node.innerHTML = item.name;
 			return node;
 		}
 	}).addTo(map);
 
+	//---- Debugging: Look at the console when clicking on the map: ----
 	map.on('click', function(e) {
-
 		var layer = baselayers[0].layer;
-
-		function getXYZ(latlng, zoom) {
-			function toRad(n) {
-				return n * Math.PI / 180;
-			}
-		    return {
-		    	z: zoom,
-		    	x: parseInt(Math.floor( (latlng.lng + 180) / 360 * (1<<zoom) )),
-		    	y: parseInt(Math.floor( (1 - Math.log(Math.tan(toRad(latlng.lat)) + 1 / Math.cos(toRad(latlng.lat))) / Math.PI) / 2 * (1<<zoom) ))
-			}
-		}
 		//var url = getTileURL(e.latlng.lat, e.latlng.lng, map.getZoom());
 		var xyz = getXYZ(e.latlng, map.getZoom());
+		if (typeof layer._tileZoom === 'undefined') layer._tileZoom = map.getZoom();  // a hack for layers that are not active
 		var url = layer.getTileUrl( xyz );
-
 		console.log(url)
 	});
 
-
+//})();
 </script>
-
+<!--
 <script type="text/javascript" src="/labs-common.js"></script>
-
+-->
 </body>
 </html>
