@@ -20,6 +20,7 @@ Tested in Leaflet 0.7.x, 1.4.x
 **Use Cases:**
 * [EnviroMap by EnvironSensing](https://dev-server.uca.es/)
 * [Leaflet Control Search (Official demos)](https://opengeo.tech/maps/leaflet-search/)
+* [Pine Interactive Map](https://pine.blackpinguin.de/)
 
 ![Image](https://raw.githubusercontent.com/stefanocudini/leaflet-panel-layers/master/examples/images/screenshot/leaflet-panel-layers-layout.jpg)
 

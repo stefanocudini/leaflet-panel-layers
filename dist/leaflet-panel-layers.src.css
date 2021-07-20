@@ -1,7 +1,7 @@
 /**
- * Leaflet Panel Layers v1.2.6 - 2019-12-23
+ * Leaflet Panel Layers v1.2.6 - 2020-04-08
  *
- * Copyright 2019 Stefano Cudini
+ * Copyright 2020 Stefano Cudini
  * stefano.cudini@gmail.com
  * https://opengeo.tech/
  *
