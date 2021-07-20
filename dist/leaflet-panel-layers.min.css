@@ -3,12 +3,12 @@
  *
  * Copyright 2019 Stefano Cudini
  * stefano.cudini@gmail.com
- * http://labs.easyblog.it/
+ * https://opengeo.tech/
  *
  * Licensed under the MIT license.
  *
  * Demos:
- * http://labs.easyblog.it/maps/leaflet-panel-layers/
+ * https://opengeo.tech/maps/leaflet-panel-layers/
  *
  * Source:
  * git@github.com:stefanocudini/leaflet-panel-layers.git

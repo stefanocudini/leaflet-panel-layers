@@ -6,12 +6,12 @@
     "type": "git",
     "url": "git@github.com:stefanocudini/leaflet-panel-layers.git"
   },
-  "homepage": "http://labs.easyblog.it/maps/leaflet-panel-layers/",
+  "homepage": "https://opengeo.tech/maps/leaflet-panel-layers/",
   "main": "dist/leaflet-panel-layers.src.js",
   "author": {
     "name": "Stefano Cudini",
     "email": "stefano.cudini@gmail.com",
-    "url": "http://labs.easyblog.it/"
+    "url": "https://opengeo.tech/"
   },
   "license": "MIT",
   "keywords": [
