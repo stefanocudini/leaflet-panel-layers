@@ -1,6 +1,6 @@
 {
   "name": "leaflet-panel-layers",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Leaflet Control Layers extended for group of layers and icons legend",
   "repository": {
     "type": "git",
