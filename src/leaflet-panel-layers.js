@@ -286,24 +286,31 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		grouplabel = L.DomUtil.create('label', this.className + '-grouplabel', groupdiv);
 
+		// collapsible group
 		if (this.options.collapsibleGroups) {
-
+			// classes
 			L.DomUtil.addClass(groupdiv, 'collapsible');
 
+			// +/- icon
 			groupexp = L.DomUtil.create('i', this.className + '-icon', grouplabel);
 			if (isCollapsed === true)
 				groupexp.innerHTML = ' + ';
 			else
 				groupexp.innerHTML = ' - ';
 
+			// click on group
 			L.DomEvent.on(grouplabel, 'click', function () {
+				// collapse
 				if (L.DomUtil.hasClass(groupdiv, 'expanded')) {
 					L.DomUtil.removeClass(groupdiv, 'expanded');
 					groupexp.innerHTML = ' + ';
-				} else {
+				}
+				// expand
+				else {
 					L.DomUtil.addClass(groupdiv, 'expanded');
 					groupexp.innerHTML = ' - ';
 				}
+				// update the component's total height
 				self._updateHeight();
 			});
 
@@ -311,6 +318,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 				L.DomUtil.addClass(groupdiv, 'expanded');
 		}
 
+		// group name
 		grouptit = L.DomUtil.create('span', this.className + '-title', grouplabel);
 		grouptit.innerHTML = groupdata.name;
 
@@ -324,17 +332,20 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 
 		this._handlingClick = true;
 
+		// all layer checkboxes
 		for (i = 0; i < inputsLen; i++) {
 
 			input = inputs[i];
 
 			obj = this._getLayer(input.value);
 
+			// add the layer to the map
 			if (input.checked && !this._map.hasLayer(obj.layer)) {
 				L.DomUtil.addClass(input.parentNode.parentNode, 'active');
 				this._map.addLayer(obj.layer);
-
-			} else if (!input.checked && this._map.hasLayer(obj.layer)) {
+			}
+			// remove the layer from the map
+			else if (!input.checked && this._map.hasLayer(obj.layer)) {
 				L.DomUtil.removeClass(input.parentNode.parentNode, 'active');
 				this._map.removeLayer(obj.layer);
 			}
