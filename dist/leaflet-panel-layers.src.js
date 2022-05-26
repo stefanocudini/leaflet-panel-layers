@@ -1,5 +1,5 @@
-/**
- * Leaflet Panel Layers v1.2.9 - 2022-03-03
+/*! @preserve
+ * Leaflet Panel Layers v1.2.9 - 2022-05-26
  *
  * Copyright 2022 Stefano Cudini
  * stefano.cudini@gmail.com
@@ -12,7 +12,6 @@
  *
  * Source:
  * git@github.com:stefanocudini/leaflet-panel-layers.git
- *
  */
 (function (factory) {
 if (typeof define === 'function' && define.amd) {

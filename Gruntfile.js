@@ -14,7 +14,7 @@ grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
 	meta: {
 		banner:
-		'/**\n'+
+		'/*! @preserve\n'+
 		' * Leaflet Panel Layers v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n'+
 		' *\n'+
 		' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n'+
@@ -28,7 +28,6 @@ grunt.initConfig({
 		' *\n'+
 		' * Source:\n'+
 		' * <%= pkg.repository.url %>\n'+
-		' *\n'+
 		' */\n'
 	},
 	clean: {
