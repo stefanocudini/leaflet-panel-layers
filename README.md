@@ -13,9 +13,9 @@ Tested in Leaflet 0.7.x, 1.4.x
 
 [opengeo.tech/maps/leaflet-panel-layers](https://opengeo.tech/maps/leaflet-panel-layers/)
 
-**Source code:**  
+**Source code:**
 
-[Github](https://github.com/stefanocudini/leaflet-panel-layers)  
+[Github](https://github.com/stefanocudini/leaflet-panel-layers)
 
 **Use Cases:**
 * [EnviroMap by EnvironSensing](https://dev-server.uca.es/)
@@ -60,7 +60,7 @@ Tested in Leaflet 0.7.x, 1.4.x
 		layer: L.geoJson(Bar, {pointToLayer: featureToMarker })
 	}
 ```
-definition in JSON format permit to store simply the configuration 
+definition in JSON format permit to store simply the configuration
 type contains a Leaflet method in this case L.geoJson()
 args is the arguments passed to the method: L.geoJson(river)
 ```javascript
@@ -130,7 +130,7 @@ var panelJsonConfig = {
                     "https://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png"
                 ]
             }
-        },        
+        },
         {
             "name": "Transports",
             "layer": {
@@ -210,7 +210,7 @@ L.control.panelLayers([
 			{
 				name: "Hiking",
 				layer: L.tileLayer("https://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
-			}			
+			}
 		]
 	},
 	{

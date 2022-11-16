@@ -175,10 +175,13 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		checked = this._map.hasLayer(obj.layer);
 
 		if (obj.overlay) {
-			input = L.DomUtil.create('input', this.className + '-selector');
-			input.type = 'checkbox';
-			input.defaultChecked = checked;
-			//TODO name
+			if (typeof obj.exclusiveGroup !== "undefined"){
+				input = this._createRadioElement(obj.exclusiveGroup.replace('', '_'), checked, obj);
+			}else{
+				input = L.DomUtil.create('input', this.className + '-selector');
+				input.type = 'checkbox';
+				input.defaultChecked = checked;
+			}//TODO name
 		} else
 			input = this._createRadioElement('leaflet-base-layers', checked, obj);
 
