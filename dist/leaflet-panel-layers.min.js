@@ -1,14 +1,14 @@
 /**
- * Leaflet Panel Layers v1.2.6 - 2019-12-23
+ * Leaflet Panel Layers v1.2.6 - 2020-04-08
  *
- * Copyright 2019 Stefano Cudini
+ * Copyright 2020 Stefano Cudini
  * stefano.cudini@gmail.com
- * http://labs.easyblog.it/
+ * https://opengeo.tech/
  *
  * Licensed under the MIT license.
  *
  * Demos:
- * http://labs.easyblog.it/maps/leaflet-panel-layers/
+ * https://opengeo.tech/maps/leaflet-panel-layers/
  *
  * Source:
  * git@github.com:stefanocudini/leaflet-panel-layers.git

@@ -1,14 +1,14 @@
 /**
- * Leaflet Panel Layers v1.2.6 - 2019-12-23
+ * Leaflet Panel Layers v1.2.6 - 2020-04-08
  *
- * Copyright 2019 Stefano Cudini
+ * Copyright 2020 Stefano Cudini
  * stefano.cudini@gmail.com
- * http://labs.easyblog.it/
+ * https://opengeo.tech/
  *
  * Licensed under the MIT license.
  *
  * Demos:
- * http://labs.easyblog.it/maps/leaflet-panel-layers/
+ * https://opengeo.tech/maps/leaflet-panel-layers/
  *
  * Source:
  * git@github.com:stefanocudini/leaflet-panel-layers.git
@@ -251,7 +251,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		return item;
 	},
 
-	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
+	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see https://bit.ly/PqYLBe)
 	_createRadioElement: function (name, checked, obj) {
 
 		var radioHtml = '<input type="radio" class="' + this.className + '-selector" name="' + name + '" id="' + obj.id + '"';
