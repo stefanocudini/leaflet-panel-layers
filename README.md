@@ -13,9 +13,9 @@ Tested in Leaflet 0.7.x, 1.4.x
 
 [opengeo.tech/maps/leaflet-panel-layers](https://opengeo.tech/maps/leaflet-panel-layers/)
 
-**Source code:**  
+**Source code:**
 
-[Github](https://github.com/stefanocudini/leaflet-panel-layers)  
+[Github](https://github.com/stefanocudini/leaflet-panel-layers)
 
 **Use Cases:**
 * [EnviroMap by EnvironSensing](https://dev-server.uca.es/)
