@@ -7,7 +7,7 @@ Leaflet Control Layers extended with support groups and icons
 
 Copyright [Stefano Cudini](https://opengeo.tech/stefano-cudini/)
 
-Tested in Leaflet 0.7.x, 1.4.x
+Tested in Leaflet v1.6.x
 
 **Demo:**
 
