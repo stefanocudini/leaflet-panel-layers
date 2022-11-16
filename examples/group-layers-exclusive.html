@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+<title>Leaflet Panel Layers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+<link rel="stylesheet" href="../src/leaflet-panel-layers.css" />
+<link rel="stylesheet" href="icons.css" />
+<link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+<h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
+<h4> Groups Example: multiple groups of layers</h4>
+<br />
+<div id="map"></div>
+
+<div id="copy"><a href="https://opengeo.tech/">Opengeo.tech</a> &bull; <a rel="author" href="https://opengeo.tech/stefano-cudini/">Stefano Cudini</a></div>
+
+<a href="https://github.com/stefanocudini/leaflet-panel-layers"><img id="ribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<script src="//unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src="//unpkg.com/jquery@3.4.1/dist/jquery.js"></script>
+<script src="../src/leaflet-panel-layers.js"></script>
+
+<!-- GEOJSON DATA -->
+<script src="data/bar.js"></script>
+<script src="data/drinking_water.js"></script>
+<script>
+
+var map = L.map('map', {
+		zoom: 12,
+		center: L.latLng([42.4918,12.4992]),
+		attributionControl: false,
+		maxBounds: L.latLngBounds([[42.41281,12.28821],[42.5589,12.63805]]).pad(0.5)
+	}),
+	osmLayer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+map.addLayer(osmLayer);
+
+var baseLayers = [
+	{
+		name: "Open Street Map",
+		layer: osmLayer
+	},
+	{
+		name: "Hiking",
+		layer: L.tileLayer("https://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
+	},
+	{
+		name: "Aerial",
+		layer: L.tileLayer('https://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+			type: 'sat',
+			ext: 'jpg',
+			attribution: 'Tiles Courtesy of <a href="https://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+			subdomains: '1234'
+		})
+	},
+	{
+		group: "Road Layers",
+		collapsed: true,
+		layers: [
+			{
+				name: "Open Cycle Map",
+				layer: L.tileLayer('https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+			},
+			{
+				name: "Transports",
+				layer: L.tileLayer('https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
+			}
+		]
+	}
+];
+
+var overLayers = [
+	{
+		group: "GeoJSON Layers",
+		layers: [
+			{
+				active: true,
+				name: "Drinking Water",
+				icon: '<i class="icon icon-drinking_water"></i>',
+				layer: L.geoJson(Drinking_water)
+			},
+			{
+				active: true,
+				exclusiveGroup: "groupWaters",
+				name: "River (Waters)",
+				layer: (() => {
+					var l = L.geoJson();
+					$.getJSON('data/river.json', j => {
+						l.addData(j);
+					});
+					return l;
+				})()
+			}
+		]
+	},
+	{
+		group: "Natural Layers",
+		layers: [
+			{
+				active: false,
+				name: "Caves",
+				layer: (() => {
+					var l = L.geoJson([],{ pointToLayer: (p,loc)=>{return L.circle(loc,{radius:100,color:'green'})} });
+					$.getJSON('data/caves.json', j => {
+						l.addData(j);
+					});
+					return l;
+				})()
+			},
+			{
+				active: false,
+				exclusiveGroup: "groupWaters",
+				name: "Lakes (Waters)",
+				layer: (() => {
+					var l = L.geoJson();
+					$.getJSON('data/lakes.json', j => {
+						l.addData(j);
+					});
+					return l;
+				})()
+			}
+		]
+	},
+	{
+		group: "WMS Layers",
+		layers: [
+			{
+				active: true,
+				name: "Isolines",
+				layer: {
+					type: "tileLayer.wms",
+					args: ["https://siat.regione.umbria.it/arcgis/services/public/DBT_05_Orografia/MapServer/WMSServer", {
+							layers: '13',
+							format: 'image/png',
+							transparent: true,
+							//minZoom: 13
+						}
+					]
+				}
+			},
+			{
+				active: true,
+				exclusiveGroup: "groupWaters",
+				name: "Streams (Waters)",
+				layer: {
+					type: "tileLayer.wms",
+					args: ["https://siat.regione.umbria.it/arcgis/services/public/DBT_04_Idrografia/MapServer/WMSServer", {
+							layers: '6',
+							format: 'image/png',
+							transparent: true,
+						}
+					]
+				}
+			}
+		]
+	},
+];
+
+var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {
+	//compact: true,
+	//collapsed: true,
+	collapsibleGroups: true
+});
+
+map.addControl(panelLayers);
+
+</script>
+<script type="text/javascript" src="/labs-common.js"></script>
+
+</body>
+</html>
