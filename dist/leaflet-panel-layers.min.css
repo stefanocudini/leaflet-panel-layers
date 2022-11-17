@@ -1,5 +1,5 @@
 /*! @preserve
- * Leaflet Panel Layers v1.2.9 - 2022-11-17
+ * Leaflet Panel Layers v1.3.0 - 2022-11-17
  *
  * Copyright 2022 Stefano Cudini
  * stefano.cudini@gmail.com
