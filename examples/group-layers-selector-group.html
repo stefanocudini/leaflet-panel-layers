@@ -13,7 +13,7 @@
 
 <body>
 <h3><a href="../"><big>◄</big> Leaflet Panel Layers</a></h3>
-<h4> Groups Example: exclusive groups of overlayers in different groups</h4>
+<h4> Groups Example: selector all layers in a group</h4>
 <br />
 <div id="map"></div>
 
@@ -44,23 +44,11 @@ var baseLayers = [
 	{
 		name: "Open Street Map",
 		layer: osmLayer
-	},
-	{
-		name: "Hiking",
-		layer: L.tileLayer("https://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png")
-	},
-	{
-		name: "Aerial",
-		layer: L.tileLayer('https://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
-			type: 'sat',
-			ext: 'jpg',
-			attribution: 'Tiles Courtesy of <a href="https://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
-			subdomains: '1234'
-		})
-	},
+	}
+]
+var overLayers = [
 	{
 		group: "Road Layers",
-		collapsed: true,
 		layers: [
 			{
 				name: "Open Cycle Map",
@@ -69,15 +57,7 @@ var baseLayers = [
 			{
 				name: "Transports",
 				layer: L.tileLayer('https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png')
-			}
-		]
-	}
-];
-
-var overLayers = [
-	{
-		group: "GeoJSONs",
-		layers: [
+			},
 			{
 				active: true,
 				name: "Drinking Water",
@@ -86,49 +66,15 @@ var overLayers = [
 			},
 			{
 				active: true,
-				exclusiveGroup: "groupWaters",
-				name: "River (Waters)",
-				layer: (() => {
+				name: "River",
+				layer: (function() {
 					var l = L.geoJson();
-					$.getJSON('data/river.json', j => {
+					$.getJSON('data/river.json', function(j) {
 						l.addData(j);
 					});
 					return l;
-				})()
-			}
-		]
-	},
-	{
-		group: "Natural Layers",
-		layers: [
-			{
-				active: false,
-				name: "Caves",
-				layer: (() => {
-					var l = L.geoJson([],{ pointToLayer: (p,loc)=>{return L.circle(loc,{radius:100,color:'green'})} });
-					$.getJSON('data/caves.json', j => {
-						l.addData(j);
-					});
-					return l;
-				})()
+				}())
 			},
-			{
-				active: false,
-				exclusiveGroup: "groupWaters",
-				name: "Lakes (Waters)",
-				layer: (() => {
-					var l = L.geoJson();
-					$.getJSON('data/lakes.json', j => {
-						l.addData(j);
-					});
-					return l;
-				})()
-			}
-		]
-	},
-	{
-		group: "WMS Layers",
-		layers: [
 			{
 				active: true,
 				name: "Isolines",
@@ -145,8 +91,7 @@ var overLayers = [
 			},
 			{
 				active: true,
-				exclusiveGroup: "groupWaters",
-				name: "Streams (Waters)",
+				name: "Streams",
 				layer: {
 					type: "tileLayer.wms",
 					args: ["https://siat.regione.umbria.it/arcgis/services/public/DBT_04_Idrografia/MapServer/WMSServer", {
@@ -158,13 +103,11 @@ var overLayers = [
 				}
 			}
 		]
-	},
+	}
 ];
 
 var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {
-	//compact: true,
-	//collapsed: true,
-	collapsibleGroups: true
+	selectorGroup: true
 });
 
 map.addControl(panelLayers);

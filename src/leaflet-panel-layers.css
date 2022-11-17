@@ -104,6 +104,16 @@
 	float: left;
 }
 
+.leaflet-panel-layers-group:hover .leaflet-panel-layers-selectorgroup {
+	visibility: visible;
+}
+.leaflet-panel-layers-selectorgroup {
+	visibility: hidden;
+	position: absolute;
+	top: 1px;
+	right: 7px;
+}
+
 
 /* theming style */
 

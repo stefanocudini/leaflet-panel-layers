@@ -23,7 +23,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		collapsed: false,
 		autoZIndex: true,
 		collapsibleGroups: false,
-		groupCheckboxes: false,
+		selectorGroup: false,			//select all layer of a group
 		buildItem: null,				//function that return row item html node(or html string)
 		title: '',						//title of panel
 		className: '',					//additional class name for panel
@@ -333,12 +333,13 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		grouptit.innerHTML = groupdata.name;
 
 		// group with checkbox
-		if (isOverlay && this.options.groupCheckboxes) {
+		if (isOverlay && this.options.selectorGroup) {
 			// create checkbox
-			groupchb = L.DomUtil.create('input', this.className + '-selector', grouplabel);
+			groupchb = L.DomUtil.create('input', this.className + '-selectorgroup', grouplabel);
 			groupchb.type  = 'checkbox';
 			groupchb.value = 'group';
 			groupchb.name  = groupdata.name;
+			groupchb.title = 'select all';
 			groupchb.defaultChecked = false;
 			// click on checkbox
 			L.DomEvent.on(groupchb, 'click', this._onGroupClick, this);
