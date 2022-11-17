@@ -86,15 +86,44 @@ var overLayers = [
 			},
 			{
 				active: true,
-				name: "River",
-				layer: (function() {
+				exclusiveGroup: "groupWaters",
+				name: "River (Waters)",
+				layer: (() => {
 					var l = L.geoJson();
-					$.getJSON('data/river.json', function(j) {
+					$.getJSON('data/river.json', j => {
 						l.addData(j);
 					});
 					return l;
-				}())
+				})()
+			}
+		]
+	},
+	{
+		group: "Natural Layers",
+		layers: [
+			{
+				active: false,
+				name: "Caves",
+				layer: (() => {
+					var l = L.geoJson([],{ pointToLayer: (p,loc)=>{return L.circle(loc,{radius:100,color:'green'})} });
+					$.getJSON('data/caves.json', j => {
+						l.addData(j);
+					});
+					return l;
+				})()
 			},
+			{
+				active: false,
+				exclusiveGroup: "groupWaters",
+				name: "Lakes (Waters)",
+				layer: (() => {
+					var l = L.geoJson();
+					$.getJSON('data/lakes.json', j => {
+						l.addData(j);
+					});
+					return l;
+				})()
+			}
 		]
 	},
 	{
@@ -116,7 +145,8 @@ var overLayers = [
 			},
 			{
 				active: true,
-				name: "Streams",
+				exclusiveGroup: "groupWaters",
+				name: "Streams (Waters)",
 				layer: {
 					type: "tileLayer.wms",
 					args: ["https://siat.regione.umbria.it/arcgis/services/public/DBT_04_Idrografia/MapServer/WMSServer", {
@@ -128,7 +158,7 @@ var overLayers = [
 				}
 			}
 		]
-	}
+	},
 ];
 
 var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {

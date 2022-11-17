@@ -24,7 +24,7 @@
     "build": "npx grunt"
   },
   "dependencies": {
-    "leaflet": "~1.3.0"
+    "leaflet": "~1.6.0"
   },
   "devDependencies": {
     "grunt": "^1.4.1",
