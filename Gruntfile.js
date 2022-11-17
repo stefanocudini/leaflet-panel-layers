@@ -8,12 +8,13 @@ grunt.loadNpmTasks('grunt-contrib-clean');
 grunt.loadNpmTasks('grunt-contrib-cssmin');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-banner');
 
 grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
 	meta: {
 		banner:
-		'/**\n'+
+		'/*! @preserve\n'+
 		' * Leaflet Panel Layers v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n'+
 		' *\n'+
 		' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n'+
@@ -27,7 +28,6 @@ grunt.initConfig({
 		' *\n'+
 		' * Source:\n'+
 		' * <%= pkg.repository.url %>\n'+
-		' *\n'+
 		' */\n'
 	},
 	clean: {
@@ -57,9 +57,6 @@ grunt.initConfig({
 		}
 	},
 	uglify: {
-		options: {
-			banner: '<%= meta.banner %>'
-		},
 		dist: {
 			files: {
 				'dist/leaflet-panel-layers.min.js': ['dist/leaflet-panel-layers.src.js']
@@ -72,14 +69,33 @@ grunt.initConfig({
 				'dist/leaflet-panel-layers.min.css': ['src/leaflet-panel-layers.css']
 			}
 		},
-		options: {
-			banner: '<%= meta.banner %>'
-		},
 		minify: {
 			expand: true,
 			cwd: 'dist/',
 			files: {
 				'dist/leaflet-panel-layers.min.css': ['src/leaflet-panel-layers.css']
+			}
+		}
+	},
+	usebanner: {
+		options: {
+			position: 'top',
+			linebreak: false
+		},
+		css: {
+			options: {
+				banner: '<%= meta.banner %>'
+			},
+			files: {
+				src: 'dist/leaflet-panel-layers.min.css'
+			}
+		},
+		js: {
+			options: {
+				banner: '<%= meta.banner %>'
+			},
+			files: {
+				src: 'dist/leaflet-panel-layers.min.js'
 			}
 		}
 	},
@@ -96,8 +112,10 @@ grunt.registerTask('default', [
 	'clean',
 	'concat',
 	'cssmin',
+	'usebanner:css',
 	'jshint',
-	'uglify'
+	'uglify',
+	'usebanner:js'
 ]);
 
 };
