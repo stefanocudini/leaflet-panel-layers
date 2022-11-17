@@ -1,5 +1,5 @@
-/**
- * Leaflet Panel Layers v1.2.7 - 2022-11-16
+/*! @preserve
+ * Leaflet Panel Layers v1.2.9 - 2022-11-17
  *
  * Copyright 2022 Stefano Cudini
  * stefano.cudini@gmail.com
@@ -12,7 +12,6 @@
  *
  * Source:
  * git@github.com:stefanocudini/leaflet-panel-layers.git
- *
  */
 /* PANEL LAYERS */
 .leaflet-panel-layers .leaflet-panel-layers-list {
@@ -118,6 +117,16 @@
 }
 .leaflet-control-layers-selector {
 	float: left;
+}
+
+.leaflet-panel-layers-group:hover .leaflet-panel-layers-selectorgroup {
+	visibility: visible;
+}
+.leaflet-panel-layers-selectorgroup {
+	visibility: hidden;
+	position: absolute;
+	top: 1px;
+	right: 7px;
 }
 
 

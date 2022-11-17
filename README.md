@@ -31,6 +31,8 @@ Tested in Leaflet v1.6.x
 | collapsed       | false    | panel collapsed at startup |
 | autoZIndex 	  | true     | set zindex layer by order definition |
 | collapsibleGroups| false   | groups of layers is collapsible by button |
+| groupCheckboxes  | false   | adds a checkbox to the group title to de-/select all layers in the group |
+| selectorGroup    | false   | select all layer of a group |
 | buildItem	  | null     | function that return row item html node(or html string) |
 | title	          | ''       | title of panel |
 | className	  | ''       | additional class name for panel |
