@@ -1,5 +1,5 @@
 /*! @preserve
- * Leaflet Panel Layers v1.3.0 - 2022-11-17
+ * Leaflet Panel Layers v1.3.1 - 2022-11-18
  *
  * Copyright 2022 Stefano Cudini
  * stefano.cudini@gmail.com
@@ -119,15 +119,17 @@
 	float: left;
 }
 
-.leaflet-panel-layers-group:hover .leaflet-panel-layers-selectorgroup {
-	visibility: visible;
-}
-.leaflet-panel-layers-selectorgroup {
+.leaflet-panel-layers-grouplabel .leaflet-panel-layers-selector {
 	visibility: hidden;
 	position: absolute;
 	top: 1px;
 	right: 7px;
 }
+
+.leaflet-panel-layers-group:hover .leaflet-panel-layers-selector {
+	visibility: visible;
+}
+
 
 
 /* theming style */

@@ -1,5 +1,5 @@
 /*! @preserve
- * Leaflet Panel Layers v1.3.0 - 2022-11-17
+ * Leaflet Panel Layers v1.3.1 - 2022-11-18
  *
  * Copyright 2022 Stefano Cudini
  * stefano.cudini@gmail.com
@@ -350,7 +350,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		// group with checkbox
 		if (isOverlay && this.options.selectorGroup) {
 			// create checkbox
-			groupchb = L.DomUtil.create('input', this.className + '-selectorgroup', grouplabel);
+			groupchb = L.DomUtil.create('input', this.className + '-selector', grouplabel);
 			groupchb.type  = 'checkbox';
 			groupchb.value = 'group';
 			groupchb.name  = groupdata.name;
