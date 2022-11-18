@@ -104,15 +104,17 @@
 	float: left;
 }
 
-.leaflet-panel-layers-group:hover .leaflet-panel-layers-selectorgroup {
-	visibility: visible;
-}
-.leaflet-panel-layers-selectorgroup {
+.leaflet-panel-layers-grouplabel .leaflet-panel-layers-selector {
 	visibility: hidden;
 	position: absolute;
 	top: 1px;
 	right: 7px;
 }
+
+.leaflet-panel-layers-group:hover .leaflet-panel-layers-selector {
+	visibility: visible;
+}
+
 
 
 /* theming style */

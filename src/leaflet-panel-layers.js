@@ -335,7 +335,7 @@ L.Control.PanelLayers = L.Control.Layers.extend({
 		// group with checkbox
 		if (isOverlay && this.options.selectorGroup) {
 			// create checkbox
-			groupchb = L.DomUtil.create('input', this.className + '-selectorgroup', grouplabel);
+			groupchb = L.DomUtil.create('input', this.className + '-selector', grouplabel);
 			groupchb.type  = 'checkbox';
 			groupchb.value = 'group';
 			groupchb.name  = groupdata.name;
