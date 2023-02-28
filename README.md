@@ -7,7 +7,7 @@ Leaflet Control Layers extended with support groups and icons
 
 Copyright [Stefano Cudini](https://opengeo.tech/stefano-cudini/)
 
-If this project helped your work help me to keep alive by [Paypal **DONATION &#10084;**](https://www.paypal.me/stefanocudini)
+If this project helped your work help me to keep this alive by [Paypal **DONATION &#10084;**](https://www.paypal.me/stefanocudini)
 		    
 Tested in Leaflet v1.6.x
 
