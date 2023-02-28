@@ -17,7 +17,8 @@ Tested in Leaflet v1.6.x
 
 [Github](https://github.com/stefanocudini/leaflet-panel-layers)
 
-**Use Cases:**
+### Use Cases:
+
 * [Interactive tool by researchers from the Australian Antarctic Division](https://nilas.org/)
 * [EnviroMap by EnvironSensing](https://dev-server.uca.es/)
 * [Leaflet Control Search (Official demos)](https://opengeo.tech/maps/leaflet-search/)
