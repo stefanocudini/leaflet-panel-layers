@@ -7,6 +7,8 @@ Leaflet Control Layers extended with support groups and icons
 
 Copyright [Stefano Cudini](https://opengeo.tech/stefano-cudini/)
 
+If this project helped your work help me to keep this alive by [Paypal **DONATION &#10084;**](https://www.paypal.me/stefanocudini)
+		    
 Tested in Leaflet v1.6.x
 
 **Demo:**
@@ -17,7 +19,9 @@ Tested in Leaflet v1.6.x
 
 [Github](https://github.com/stefanocudini/leaflet-panel-layers)
 
-**Use Cases:**
+### Use Cases:
+
+* [Interactive tool by researchers from the Australian Antarctic Division](https://nilas.org/)
 * [EnviroMap by EnvironSensing](https://dev-server.uca.es/)
 * [Leaflet Control Search (Official demos)](https://opengeo.tech/maps/leaflet-search/)
 * [Pine Interactive Map](https://pine.blackpinguin.de/)
